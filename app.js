@@ -1,13 +1,17 @@
-require('dotenv').config();
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var port = 3000;
+
+require('dotenv').config();
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+
+
 
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI); 
@@ -46,5 +50,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.listen(port, function(){
+  console.log('listening on port ' + port);
+});  
 
 module.exports = app;
