@@ -14,7 +14,7 @@ var users = require('./routes/users');
 
 
 var mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI); 
+mongoose.connect(process.env.MONGODB_URI);
 
 var app = express();
 
@@ -50,9 +50,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-app.listen(port, function(){
-  console.log('listening on port ' + port);
-});  
 
 module.exports = app;
