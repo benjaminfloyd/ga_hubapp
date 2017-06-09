@@ -3,7 +3,15 @@
 Project 3 GA Opps Hub
 Make friends Git Hired!
 
+<<<<<<< HEAD
 Jeffrey Henneberg
+=======
+<<<<<<< HEAD
+Ben Floyd
+=======
+Kate Montha
+>>>>>>> b477cdf5a46d4ee6ee61392273a512151ef85b2c
+>>>>>>> f1ec435645d8fd9dbd654b5848a5fdcae08c3e90
 
 GA Board App:
 Classifieds and networking portal
