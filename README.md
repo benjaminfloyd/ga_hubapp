@@ -3,7 +3,11 @@
 Project 3 GA Opps Hub
 Make friends Git Hired!
 
+<<<<<<< HEAD
 Ben Floyd
+=======
+Kate Montha
+>>>>>>> b477cdf5a46d4ee6ee61392273a512151ef85b2c
 
 GA Board App:
 Classifieds and networking portal
