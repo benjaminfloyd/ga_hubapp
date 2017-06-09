@@ -3,6 +3,8 @@
 Project 3 GA Opps Hub
 Make friends Git Hired!
 
+Ben Floyd
+
 GA Board App:
 Classifieds and networking portal
 
