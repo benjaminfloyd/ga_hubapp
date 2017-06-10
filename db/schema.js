@@ -43,11 +43,32 @@ PostSchema.pre('save', function(next) {
     next();
 })
 
+var UserSchema = new User({
+    first_name: String,
+    last_name: String,
+    email: String,
+    title: String
+})
+
+UserSchema.pre('save', function(next) {
+    now = new Date();
+    this.updatedAt = now;
+
+    if( !this.createdAt ) {
+        this.createdAt = now;
+    }
+    next();
+})
+
 var EventModel = mongoose.model("Event", EventSchema);
 
 var PostModel = mongoose.model("Post",PostSchema);
 
+var UserModel = mongoose.model("User", UserSchema);
+
 module.exports = {
   Event: EventModel,
- Post:PostModel
+  Post:PostModel,
+  User: PostModel
+ 
 };
