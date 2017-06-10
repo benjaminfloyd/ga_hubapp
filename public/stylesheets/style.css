@@ -1,12 +1,44 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
-  color: #00B7FF;
+  padding: 0;
 }
 
 h1 {
   text-align: center;
+}
+
+.navbar {
+  background-color: black !important;
+  border-radius: 0px !important;
+}
+
+.navbar-right {
+  padding: 0 30px 0 0;
+}
+
+img {
+  height: 100%;
+  width: auto;
+}
+
+.navbar-brand {
+  padding: 15px !important;
+  height: 55px !important;
+}
+
+.nav-link {
+  color: white !important;
+  font-size: 16px;
+}
+
+.nav-link:hover {
+  background-color: red;
+  height: 100%;
+  color: white !important;
+  font-size: 16px;
+}
+
+li {
+  display: inline-block;
 }
