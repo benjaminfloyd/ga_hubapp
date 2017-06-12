@@ -11,6 +11,7 @@ h1 {
 .navbar {
   background-color: black !important;
   border-radius: 0px !important;
+  margin: 0 !important;
 }
 
 .navbar-right {
@@ -41,4 +42,9 @@ img {
 
 li {
   display: inline-block;
+}
+
+.jumbotron {
+  text-align: center;
+  margin: 0 !important;
 }
