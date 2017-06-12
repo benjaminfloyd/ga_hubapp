@@ -17,7 +17,7 @@ function uiRouterSetup($stateProvider, $urlRouterProvider) {
             template: '<users></users>'
         })
         .state('posts', {
-            url: '/post',
+            url: '/posts',
             template: '<posts></posts>'
         })
         .state('show_post/:postId', {
