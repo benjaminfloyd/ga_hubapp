@@ -5421,6 +5421,10 @@ function CreateUserController($state, $stateParams, UsersService) {
 
     vm.updateUserInformation = function () {
         UsersService.updateSingleUser(vm.userToUpdate).then(function success(response) {
+<<<<<<< HEAD
+=======
+            // redirect to the individual user page when successfully updated
+>>>>>>> a1cbbd38e6ea209b2f33ff664a050a8f328ec8fe
             $state.go('show_user/:userId', { userId: vm.userToUpdate._id });
         }, function failure(response) {
             console.log('Failed to updated User with ID of ' + userEntryId);
