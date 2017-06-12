@@ -5,7 +5,8 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
     let vm = this;
 
     function initialize() {
-        console.log('Hello postcont');
+        console.log('Post Controller Working');
+
         getAllPostsFromDatabase();
     }
     initialize();

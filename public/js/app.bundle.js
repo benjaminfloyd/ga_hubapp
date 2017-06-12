@@ -5318,7 +5318,8 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
     var vm = this;
 
     function initialize() {
-        console.log('Hello postcont');
+        console.log('Post Controller Working');
+
         getAllPostsFromDatabase();
     }
     initialize();
@@ -46037,13 +46038,13 @@ module.exports = "<div class=\"container\">\n  <form>\n    <div class=\"form-gro
 /* 121 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <form>\n    <div class=\"form-group row\">\n      <label for=\"inputEmail3\" class=\"col-sm-2 col-form-label\">Email</label>\n      <div class=\"col-sm-10\">\n        <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email\">\n      </div>\n    </div>\n    <div class=\"form-group row\">\n      <label for=\"inputPassword3\" class=\"col-sm-2 col-form-label\">Password</label>\n      <div class=\"col-sm-10\">\n        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"Password\">\n      </div>\n    </div>\n    <div class=\"form-group row\">\n      <div class=\"offset-sm-2 col-sm-10\">\n        <button type=\"submit\" class=\"btn btn-primary\">Sign in</button>\n      </div>\n    </div>\n  </form>\n</div>";
+module.exports = "<div class=\"container\">\n  <h1>Posts</h1>\n  <button class=\"btn\" ng-click=\"$ctrl.createPost\">Create Post</button>\n</div>";
 
 /***/ }),
 /* 122 */
 /***/ (function(module, exports) {
 
-module.exports = "<show-post></show-post>\n";
+module.exports = "this is a post";
 
 /***/ }),
 /* 123 */
