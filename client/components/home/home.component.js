@@ -1,5 +1,5 @@
-const template = require('./home.html')
-const controller = require('./home.controller.js')
+const template = require('./home.html');
+const controller = require('./home.controller.js');
 
 const component = {
     template: template,

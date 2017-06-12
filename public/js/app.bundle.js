@@ -5421,10 +5421,6 @@ function CreateUserController($state, $stateParams, UsersService) {
 
     vm.updateUserInformation = function () {
         UsersService.updateSingleUser(vm.userToUpdate).then(function success(response) {
-<<<<<<< HEAD
-=======
-            // redirect to the individual user page when successfully updated
->>>>>>> a1cbbd38e6ea209b2f33ff664a050a8f328ec8fe
             $state.go('show_user/:userId', { userId: vm.userToUpdate._id });
         }, function failure(response) {
             console.log('Failed to updated User with ID of ' + userEntryId);
@@ -9474,6 +9470,34 @@ angular.module('HubApp').component('users', UsersComponent);
 "use strict";
 
 
+EventsService.$inject = ['$http'];
+
+function EventsService($http) {
+    var self = this;
+
+    self.getAllEventsFromDatabase = function () {
+        return $http.get('events/');
+    };
+
+    self.addNewEventToDatabase = function (newEvent) {
+        return $http.post('events/', newEvent);
+    };
+
+    self.deleteIdFromDatabase = function (eventIdToDeleteFromDatabase) {
+        return $http.delete('events/' + eventIdToDeleteFromDatabase);
+    };
+
+    self.getSingleEventById = function (eventIdToShow) {
+        return $http.get('events/' + eventIdToShow);
+    };
+
+    self.updateSingleEvent = function (eventToUpdate) {
+        return $http.patch('events/', eventToUpdate);
+    };
+}
+
+angular.module('HubApp').service('EventsService', EventsService);
+
 /***/ }),
 /* 80 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -9481,12 +9505,68 @@ angular.module('HubApp').component('users', UsersComponent);
 "use strict";
 
 
+PostsService.$inject = ['$http'];
+
+function PostsService($http) {
+    var self = this;
+
+    self.getAllPostsFromDatabase = function () {
+        return $http.get('posts/');
+    };
+
+    self.addNewPostToDatabase = function (newPost) {
+        return $http.post('posts/', newPost);
+    };
+
+    self.deleteIdFromDatabase = function (postIdToDeleteFromDatabase) {
+        return $http.delete('posts/' + postIdToDeleteFromDatabase);
+    };
+
+    self.getSinglePostById = function (postIdToShow) {
+        return $http.get('posts/' + postIdToShow);
+    };
+
+    self.updateSinglePost = function (postToUpdate) {
+        return $http.patch('posts/', postToUpdate);
+    };
+}
+
+angular.module('HubApp').service('PostsService', PostsService);
+
 /***/ }),
 /* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+
+UsersService.$inject = ['$http'];
+
+function UsersService($http) {
+    var self = this;
+
+    self.getAllUsersFromDatabase = function () {
+        return $http.get('users/');
+    };
+
+    self.addNewUserToDatabase = function (newUser) {
+        return $http.post('users/', newUser);
+    };
+
+    self.deleteIdFromDatabase = function (userIdToDeleteFromDatabase) {
+        return $http.delete('users/' + userIdToDeleteFromDatabase);
+    };
+
+    self.getSingleUserById = function (userIdToShow) {
+        return $http.get('users/' + userIdToShow);
+    };
+
+    self.updateSingleUser = function (userToUpdate) {
+        return $http.patch('users/', userToUpdate);
+    };
+}
+
+angular.module('HubApp').service('UsersService', UsersService);
 
 /***/ }),
 /* 82 */
