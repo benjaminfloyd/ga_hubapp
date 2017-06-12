@@ -7,5 +7,5 @@ const HomeComponent = {
 };
 
 angular
-	.module('HubApp')
-	.component('home', HomeComponent);
+	 .module('HubApp')
+	 .component('home', HomeComponent);
