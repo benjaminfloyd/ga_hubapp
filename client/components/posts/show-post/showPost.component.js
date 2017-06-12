@@ -7,5 +7,5 @@ const ShowPostComponent = {
 }
 
 angular
-    .module('GA_HubApp')
+    .module('HubApp')
     .component('showPost', ShowPostComponent);

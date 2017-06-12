@@ -6,4 +6,4 @@ let UsersComponent = {
     controller: usersController
 }
 
-angular.module('GA_HubApp').component('users', UsersComponent);
+angular.module('HubApp').component('users', UsersComponent);
