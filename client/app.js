@@ -8,9 +8,9 @@ uiRouterSetup.$inject = ['$stateProvider', '$urlRouterProvider'];
 function uiRouterSetup($stateProvider, $urlRouterProvider) {
     console.log('test');
     $stateProvider
-         .state('home', {
+        .state('home', {
             url: '/',
-            template: '<h1>Hello</h1>'
+            template: '<home></home>'
         })
         .state('users', {
             url: '/users',
