@@ -41,9 +41,13 @@ db.once('open', function() {
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var users = require('./routes/posts');
+var users = require('./routes/events');
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/posts', posts);
+app.use('/events', events);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
