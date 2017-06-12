@@ -7,5 +7,5 @@ const CreatePostComponent = {
 }
 
 angular
-    .module('GA_HubApp')
+    .module('HubApp')
     .component('createPost', CreatePostComponent);

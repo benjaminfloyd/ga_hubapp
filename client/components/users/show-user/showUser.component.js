@@ -7,5 +7,5 @@ const ShowUserComponent = {
 }
 
 angular
-    .module('GA_HubApp')
+    .module('HubApp')
     .component('showUser', ShowUserComponent);

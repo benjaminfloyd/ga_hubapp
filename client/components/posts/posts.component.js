@@ -6,4 +6,4 @@ let PostsComponent = {
     controller: postsController
 }
 
-angular.module('GA_HubApp').component('posts', PostsComponent);
+angular.module('HubApp').component('posts', PostsComponent);
