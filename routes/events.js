@@ -43,7 +43,6 @@ router.post('/', (request, response) => {
     // then build a new Event model with the info
     // REMEMBER: the new Date will be created by the database
     let newEvent = new Event({
-    
             eventName: eventFromRequest.event_name,
             eventLocation: eventFromRequest.event_location,
             eventDescription: eventFromRequest.event_description,
