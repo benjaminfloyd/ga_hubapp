@@ -5335,8 +5335,10 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
     vm.addPost = function () {
 
         var newPost = {
-            amount: vm.newPostAmount,
-            note: vm.newPostNote
+            company_name: vm.companyName,
+            position_title: vm.postionTitle,
+            job_description: vm.jobDescription,
+            date_available: vm.dateAvailable
         };
 
         PostsService.addNewPostToDatabase(newPost).then(function success(response) {
@@ -46041,7 +46043,7 @@ module.exports = "<div class=\"container\">\n  <form>\n    <div class=\"form-gro
 /* 121 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <h1>Posts</h1>\n  <button class=\"btn\" ng-click=\"$ctrl.createPost\">Create Post</button>\n</div>";
+module.exports = "<div class=\"container\">\n  <h1>Posts</h1>\n  <form ng-submit=\"$ctrl.addExpense()\">\n    <div>Amount (USD)<input type=\"number\" ng-model=\"$ctrl.newExpenseAmount\" required></div>\n    <div>Note: <input type=\"text\" ng-model=\"$ctrl.newExpenseNote\" required></div>\n    <div><input class=\"btn\" type=\"submit\" value=\"Add to Expenses\"></div>\n  </form>\n  <button class=\"btn\" ng-click=\"$ctrl.createPost\">Create Post</button>\n</div>";
 
 /***/ }),
 /* 122 */

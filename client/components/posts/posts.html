@@ -1,4 +1,9 @@
 <div class="container">
   <h1>Posts</h1>
+  <form ng-submit="$ctrl.addExpense()">
+    <div>Amount (USD)<input type="number" ng-model="$ctrl.newExpenseAmount" required></div>
+    <div>Note: <input type="text" ng-model="$ctrl.newExpenseNote" required></div>
+    <div><input class="btn" type="submit" value="Add to Expenses"></div>
+  </form>
   <button class="btn" ng-click="$ctrl.createPost">Create Post</button>
 </div>

@@ -26,21 +26,23 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
     vm.addPost = function () {
 
         const newPost = {
-            amount: vm.newPostAmount,
-            note: vm.newPostNote
+            company_name: vm.companyName,
+            position_title: vm.postionTitle,
+            job_description: vm.jobDescription,
+            date_available: vm.dateAvailable
         };
 
         PostsService.addNewPostToDatabase(newPost)
             .then(
-                function success(response) {
-                    const newPostFromDatabase = response.data;
-                    vm.postEntries.push(newPostFromDatabase);
-                    resetForm();
-                },
-                function failure(response) {
+            function success(response) {
+                const newPostFromDatabase = response.data;
+                vm.postEntries.push(newPostFromDatabase);
+                resetForm();
+            },
+            function failure(response) {
 
-                    console.log('Error saving new Post to database!');
-                }
+                console.log('Error saving new Post to database!');
+            }
             )
     }
 
@@ -48,14 +50,14 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
 
         PostsService.deleteIdFromDatabase(postIdToDeleteFromDatabase)
             .then(
-                function success(response) {
+            function success(response) {
 
-                    vm.postEntries.splice(postIndexToDelete, 1);
-                },
-                function failure(response) {
+                vm.postEntries.splice(postIndexToDelete, 1);
+            },
+            function failure(response) {
 
-                    console.log('Error deleting Post with ID of ' + postIdToDeleteFromDatabase);
-                }
+                console.log('Error deleting Post with ID of ' + postIdToDeleteFromDatabase);
+            }
             )
     }
 
