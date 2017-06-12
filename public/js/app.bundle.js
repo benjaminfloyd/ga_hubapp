@@ -9286,7 +9286,10 @@ angular.module('HubApp', ['ui.router', 'ngMessages']).config(uiRouterSetup);
 
 uiRouterSetup.$inject = ['$stateProvider', '$urlRouterProvider'];
 function uiRouterSetup($stateProvider, $urlRouterProvider) {
-    $stateProvider.state('users', {
+    $stateProvider.state('home', {
+        url: '/',
+        template: '<home></home>'
+    }).state('users', {
         url: '/users',
         template: '<users></users>'
     }).state('posts', {
