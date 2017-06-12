@@ -1,9 +1,9 @@
-const controller = require('./home.controller.js');
-const template = require('./home.html');
+const template = require('./home.html')
+const controller = require('./home.controller.js')
 
 const component = {
-	controller: controller,
-	template: template
+    template: template,
+    controller: controller
 };
 
 angular
