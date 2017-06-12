@@ -11,6 +11,10 @@ function uiRouterSetup($stateProvider, $urlRouterProvider) {
             url: '/users',
             template: '<users></users>'
         })
+        .state('posts', {
+            url: '/posts',
+            template: '<posts></posts>'
+        })
         .state('show_post/:postId', {
             url: '/show_post/:postId',
             params: [ 'postId' ],
@@ -21,7 +25,7 @@ function uiRouterSetup($stateProvider, $urlRouterProvider) {
             params: [ 'postId' ],
             template: '<edit-post></edit-post>'
         })
-        .state('events', {
+          .state('events', {
             url: '/events',
             template: '<events></events>'
         })

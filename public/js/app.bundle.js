@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 114);
+/******/ 	return __webpack_require__(__webpack_require__.s = 123);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1062,8 +1062,8 @@ __export(__webpack_require__(95));
 __export(__webpack_require__(96));
 __export(__webpack_require__(97));
 __export(__webpack_require__(101));
-__export(__webpack_require__(31));
-__export(__webpack_require__(36));
+__export(__webpack_require__(40));
+__export(__webpack_require__(45));
 __export(__webpack_require__(98));
 __export(__webpack_require__(91));
 //# sourceMappingURL=index.js.map
@@ -2669,7 +2669,7 @@ var common_1 = __webpack_require__(0);
 var hof_1 = __webpack_require__(2);
 var trace_1 = __webpack_require__(6);
 var coreservices_1 = __webpack_require__(3);
-var interface_1 = __webpack_require__(35);
+var interface_1 = __webpack_require__(44);
 var resolvable_1 = __webpack_require__(11);
 var pathFactory_1 = __webpack_require__(17);
 var strings_1 = __webpack_require__(5);
@@ -2882,7 +2882,7 @@ var hof_1 = __webpack_require__(2);
 var interface_1 = __webpack_require__(9); // has or is using
 var transitionHook_1 = __webpack_require__(13);
 var hookRegistry_1 = __webpack_require__(26);
-var hookBuilder_1 = __webpack_require__(42);
+var hookBuilder_1 = __webpack_require__(51);
 var pathFactory_1 = __webpack_require__(17);
 var targetState_1 = __webpack_require__(7);
 var param_1 = __webpack_require__(8);
@@ -4642,8 +4642,8 @@ var resolve_1 = __webpack_require__(87);
 var views_1 = __webpack_require__(90);
 var updateGlobals_1 = __webpack_require__(88);
 var url_1 = __webpack_require__(89);
-var lazyLoad_1 = __webpack_require__(32);
-var transitionEventType_1 = __webpack_require__(43);
+var lazyLoad_1 = __webpack_require__(41);
+var transitionEventType_1 = __webpack_require__(52);
 var transitionHook_1 = __webpack_require__(13);
 var predicates_1 = __webpack_require__(1);
 var common_1 = __webpack_require__(0);
@@ -4888,10 +4888,10 @@ var angular_1 = __webpack_require__(10);
 var core_1 = __webpack_require__(4);
 var views_1 = __webpack_require__(29);
 var templateFactory_1 = __webpack_require__(111);
-var stateProvider_1 = __webpack_require__(56);
+var stateProvider_1 = __webpack_require__(65);
 var onEnterExitRetain_1 = __webpack_require__(110);
 var locationServices_1 = __webpack_require__(108);
-var urlRouterProvider_1 = __webpack_require__(57);
+var urlRouterProvider_1 = __webpack_require__(66);
 angular_1.ng.module("ui.router.angular1", []);
 var mod_init = angular_1.ng.module('ui.router.init', []);
 var mod_util = angular_1.ng.module('ui.router.util', ['ng', 'ui.router.init']);
@@ -5116,12 +5116,498 @@ module.exports = angular;
 
 "use strict";
 
+
+CreateEventController.$inject = ['$state', '$stateParams', 'EventsService'];
+
+function CreateEventController($state, $stateParams, EventsService) {
+
+    var vm = this;
+
+    function initialize() {
+        var eventEntryId = $stateParams.eventId;
+
+        EventsService.getSingleEventById(eventEntryId).then(function success(response) {
+            vm.eventToUpdate = response.data;
+        }, function failure(response) {
+            console.log('Could not retrieve Event with ID of ' + eventEntryId);
+        });
+    }
+    initialize();
+
+    vm.updateEventInformation = function () {
+        EventsService.updateSingleEvent(vm.eventToUpdate).then(function success(response) {
+            // redirect to the individual event page when successfully updated
+            $state.go('show_event/:eventId', { eventId: vm.eventToUpdate._id });
+        }, function failure(response) {
+            console.log('Failed to updated Event with ID of ' + eventEntryId);
+        });
+    };
+}
+
+module.exports = CreateEventController;
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+EventsController.$inject = ['$http', '$state', '$stateParams', 'EventsService', '$scope'];
+
+function EventsController($http, $state, $stateParams, EventsService, $scope) {
+
+    var vm = this;
+
+    /**
+     * We will run this function the first time we load our component.
+     *
+     * We can use an 'initialize' function to pre-load some data
+     * from the database.
+     */
+    function initialize() {
+        getAllEventsFromDatabase();
+    }
+    initialize();
+
+    // this function grabs all of the events from the database
+    // via an AJAX call
+    function getAllEventsFromDatabase() {
+        EventsService.getAllEventsFromDatabase().then(function success(response) {
+            // if the call is successful, return the list of events
+            vm.EventEntries = response.data;
+        }, function failure(response) {
+            console.log('Error retrieving Event Entries from database!');
+        });
+    }
+
+    // This function handles our form submission.
+    vm.addEvent = function () {
+
+        // the new Event object will be created by binding to the form inputs
+        var newEvent = {
+            amount: vm.newEventAmount,
+            note: vm.newEventNote
+        };
+
+        // Make an ajax call to save the new Event to the database:
+        EventsService.addNewEventToDatabase(newEvent).then(function success(response) {
+            // only push to the eventEntries array if the ajax call is successful
+            var newEventFromDatabase = response.data;
+            vm.eventEntries.push(newEventFromDatabase);
+            // then reset the form so we can submit more events
+            resetForm();
+        }, function failure(response) {
+            // if the http call is not successful, log the error
+            // DO NOT clear the form
+            // DO NOT push the new object to the array
+            console.log('Error saving new Event to database!');
+        });
+    };
+
+    vm.deleteEvent = function (eventIndexToDelete, eventIdToDeleteFromDatabase) {
+
+        EventsService.deleteIdFromDatabase(eventIdToDeleteFromDatabase).then(function success(response) {
+            // only delete the Event from the Angular array if
+            // it was successfully deleted from the database
+            vm.eventEntries.splice(eventIndexToDelete, 1);
+        }, function failure(response) {
+            // DO NOT delete the Event from the Angular array if the
+            // event is not successfully deleted from the database
+            console.log('Error deleting Event with ID of ' + eventIdToDeleteFromDatabase);
+        });
+    };
+
+    vm.showEvent = function (eventId) {
+        $state.go('show_event/:eventId', { eventId: eventId });
+    };
+
+    // this function can be used to clear the events form
+    function resetForm() {
+        vm.newEventAmount = '';
+        vm.newEventNote = '';
+    }
+
+    vm.totalEvents = function () {
+        if (vm.eventEntries) {
+            var totalEvents = vm.eventEntries.reduce(function (totalEvents, eventEntry) {
+                return totalEvents + eventEntry.amount;
+            }, 0);
+
+            return totalEvents;
+        }
+    };
+}
+
+module.exports = EventsController;
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+ShowEventController.$inject = ['$state', '$stateParams', 'EventsService'];
+
+function ShowEventController($state, $stateParams, EventsService) {
+
+    var vm = this;
+
+    function initialize() {
+        var eventIdToShow = $stateParams.eventId;
+
+        EventsService.getSingleEventById(eventIdToShow).then(function success(response) {
+            vm.eventEntry = response.data;
+        }, function failure(response) {
+            console.log('Failed to retrieve information for Event with ID of ' + eventIdToShow);
+        });
+    }
+    initialize();
+
+    vm.editEventEntry = function (eventEntryId) {
+        $state.go('edit_event/:eventId', { eventId: eventEntryId });
+    };
+}
+
+module.exports = ShowEventController;
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+CreatePostController.$inject = ['$state', '$stateParams', 'PostsService'];
+
+function CreatePostController($state, $stateParams, PostsService) {
+
+    var vm = this;
+
+    function initialize() {
+        var postEntryId = $stateParams.postId;
+
+        PostsService.getSinglePostById(postEntryId).then(function success(response) {
+            vm.postToUpdate = response.data;
+        }, function failure(response) {
+            console.log('Could not retrieve Post with ID of ' + postEntryId);
+        });
+    }
+    initialize();
+
+    vm.updatePostInformation = function () {
+        PostsService.updateSinglePost(vm.postToUpdate).then(function success(response) {
+            // redirect to the individual post page when successfully updated
+            $state.go('show_post/:postId', { postId: vm.postToUpdate._id });
+        }, function failure(response) {
+            console.log('Failed to updated Post with ID of ' + postEntryId);
+        });
+    };
+}
+
+module.exports = CreatePostController;
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+PostsController.$inject = ['$http', '$state', '$stateParams', 'PostsService', '$scope'];
+
+function PostsController($http, $state, $stateParams, PostsService, $scope) {
+
+    var vm = this;
+
+    /**
+     * We will run this function the first time we load our component.
+     *
+     * We can use an 'initialize' function to pre-load some data
+     * from the database.
+     */
+    function initialize() {
+        getAllPostsFromDatabase();
+    }
+    initialize();
+
+    // this function grabs all of the posts from the database
+    // via an AJAX call
+    function getAllPostsFromDatabase() {
+        PostsService.getAllPostsFromDatabase().then(function success(response) {
+            // if the call is successful, return the list of posts
+            vm.postEntries = response.data;
+        }, function failure(response) {
+            console.log('Error retrieving Post Entries from database!');
+        });
+    }
+
+    // This function handles our form submission.
+    vm.addPost = function () {
+
+        // the new Post object will be created by binding to the form inputs
+        var newPost = {
+            amount: vm.newPostAmount,
+            note: vm.newPostNote
+        };
+
+        // Make an ajax call to save the new Post to the database:
+        PostsService.addNewPostToDatabase(newPost).then(function success(response) {
+            // only push to the postEntries array if the ajax call is successful
+            var newPostFromDatabase = response.data;
+            vm.postEntries.push(newPostFromDatabase);
+            // then reset the form so we can submit more post
+            resetForm();
+        }, function failure(response) {
+            // if the http call is not successful, log the error
+            // DO NOT clear the form
+            // DO NOT push the new object to the array
+            console.log('Error saving new Post to database!');
+        });
+    };
+
+    vm.deletePost = function (postIndexToDelete, postIdToDeleteFromDatabase) {
+
+        PostsService.deleteIdFromDatabase(postIdToDeleteFromDatabase).then(function success(response) {
+            // only delete the Post from the Angular array if
+            // it was successfully deleted from the database
+            vm.postEntries.splice(postIndexToDelete, 1);
+        }, function failure(response) {
+            // DO NOT delete the Post from the Angular array if the
+            // post is not successfully deleted from the database
+            console.log('Error deleting Post with ID of ' + postIdToDeleteFromDatabase);
+        });
+    };
+
+    vm.showExpense = function (postId) {
+        $state.go('show_post/:postId', { postId: postId });
+    };
+
+    // this function can be used to clear the posts form
+    function resetForm() {
+        vm.newPostAmount = '';
+        vm.newPostNote = '';
+    }
+
+    vm.totalPosts = function () {
+        if (vm.postEntries) {
+            var totalPosts = vm.postEntries.reduce(function (totalPosts, postEntry) {
+                return totalPosts + postEntry.amount;
+            }, 0);
+
+            return totalPosts;
+        }
+    };
+}
+
+module.exports = PostsController;
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+ShowPostController.$inject = ['$state', '$stateParams', 'PostsService'];
+
+function ShowPostController($state, $stateParams, PostsService) {
+
+    var vm = this;
+
+    function initialize() {
+        var postIdToShow = $stateParams.postId;
+
+        PostsService.getSinglePostById(postIdToShow).then(function success(response) {
+            vm.postEntry = response.data;
+        }, function failure(response) {
+            console.log('Failed to retrieve information for Post with ID of ' + expenseIdToShow);
+        });
+    }
+    initialize();
+
+    vm.editPostEntry = function (postEntryId) {
+        $state.go('edit_post/:postId', { postId: postEntryId });
+    };
+}
+
+module.exports = ShowPostController;
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+EditUserController.$inject = ['$state', '$stateParams', 'UsersService'];
+
+function EditUserController($state, $stateParams, UsersService) {
+
+    var vm = this;
+
+    function initialize() {
+        var userEntryId = $stateParams.userId;
+
+        UsersService.getSingleUserById(userEntryId).then(function success(response) {
+            vm.userToUpdate = response.data;
+        }, function failure(response) {
+            console.log('Could not retrieve User with ID of ' + userEntryId);
+        });
+    }
+    initialize();
+
+    vm.updateUserInformation = function () {
+        UsersService.updateSingleUser(vm.userToUpdate).then(function success(response) {
+            // redirect to the individual user page when successfully updated
+            $state.go('show_user/:userId', { userId: vm.userToUpdate._id });
+        }, function failure(response) {
+            console.log('Failed to updated User with ID of ' + userEntryId);
+        });
+    };
+}
+
+module.exports = EditUserController;
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+ShowUserController.$inject = ['$state', '$stateParams', 'UsersService'];
+
+function ShowUserController($state, $stateParams, UsersService) {
+
+    var vm = this;
+
+    function initialize() {
+        var userIdToShow = $stateParams.userId;
+
+        UsersService.getSingleUserById(userIdToShow).then(function success(response) {
+            vm.userEntry = response.data;
+        }, function failure(response) {
+            console.log('Failed to retrieve information for User with ID of ' + userIdToShow);
+        });
+    }
+    initialize();
+
+    vm.editUserEntry = function (userEntryId) {
+        $state.go('edit_user/:userId', { userId: userEntryId });
+    };
+}
+
+module.exports = ShowUserController;
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+UsersController.$inject = ['$http', '$state', '$stateParams', 'UsersService', '$scope'];
+
+function UsersController($http, $state, $stateParams, UsersService, $scope) {
+
+    var vm = this;
+
+    /**
+     * We will run this function the first time we load our component.
+     *
+     * We can use an 'initialize' function to pre-load some data
+     * from the database.
+     */
+    function initialize() {
+        getAllUsersFromDatabase();
+    }
+    initialize();
+
+    // this function grabs all of the users from the database
+    // via an AJAX call
+    function getAllUsersFromDatabase() {
+        UsersService.getAllUsersFromDatabase().then(function success(response) {
+            // if the call is successful, return the list of users
+            vm.userEntries = response.data;
+        }, function failure(response) {
+            console.log('Error retrieving User Entries from database!');
+        });
+    }
+
+    // This function handles our form submission.
+    vm.addUser = function () {
+
+        // the new User object will be created by binding to the form inputs
+        var newUser = {
+            amount: vm.newUserAmount,
+            note: vm.newUserNote
+        };
+
+        // Make an ajax call to save the new User to the database:
+        UsersService.addNewUserToDatabase(newUser).then(function success(response) {
+            // only push to the userEntries array if the ajax call is successful
+            var newUserFromDatabase = response.data;
+            vm.userEntries.push(newUserFromDatabase);
+            // then reset the form so we can submit more users
+            resetForm();
+        }, function failure(response) {
+            // if the http call is not successful, log the error
+            // DO NOT clear the form
+            // DO NOT push the new object to the array
+            console.log('Error saving new User to database!');
+        });
+    };
+
+    vm.deleteUser = function (userIndexToDelete, userIdToDeleteFromDatabase) {
+
+        UsersService.deleteIdFromDatabase(userIdToDeleteFromDatabase).then(function success(response) {
+            // only delete the User from the Angular array if
+            // it was successfully deleted from the database
+            vm.userEntries.splice(userIndexToDelete, 1);
+        }, function failure(response) {
+            // DO NOT delete the User from the Angular array if the
+            // user is not successfully deleted from the database
+            console.log('Error deleting User with ID of ' + userIdToDeleteFromDatabase);
+        });
+    };
+
+    vm.showUser = function (userId) {
+        $state.go('show_user/:userId', { userId: userId });
+    };
+
+    // this function can be used to clear the credits form
+    function resetForm() {
+        vm.newUserAmount = '';
+        vm.newUserNote = '';
+    }
+
+    vm.totalUsers = function () {
+        if (vm.userEntries) {
+            var totalUsers = vm.userEntries.reduce(function (totalUsers, userEntry) {
+                return totalUsers + userEntry.amount;
+            }, 0);
+
+            return totalUsers;
+        }
+    };
+}
+
+module.exports = UsersController;
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @coreapi
  * @module core
  */ /** */
-var stateParams_1 = __webpack_require__(34);
+var stateParams_1 = __webpack_require__(43);
 var queue_1 = __webpack_require__(22);
 /**
  * Global router state
@@ -5155,7 +5641,7 @@ exports.UIRouterGlobals = UIRouterGlobals;
 //# sourceMappingURL=globals.js.map
 
 /***/ }),
-/* 32 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5258,7 +5744,7 @@ exports.lazyLoadState = lazyLoadState;
 //# sourceMappingURL=lazyLoad.js.map
 
 /***/ }),
-/* 33 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5420,7 +5906,7 @@ initDefaultTypes();
 //# sourceMappingURL=paramTypes.js.map
 
 /***/ }),
-/* 34 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5470,7 +5956,7 @@ exports.StateParams = StateParams;
 //# sourceMappingURL=stateParams.js.map
 
 /***/ }),
-/* 35 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5491,7 +5977,7 @@ exports.resolvePolicies = {
 //# sourceMappingURL=interface.js.map
 
 /***/ }),
-/* 36 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5501,16 +5987,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @coreapi
  * @module core
  */ /** */
-var urlMatcherFactory_1 = __webpack_require__(44);
-var urlRouter_1 = __webpack_require__(45);
+var urlMatcherFactory_1 = __webpack_require__(53);
+var urlRouter_1 = __webpack_require__(54);
 var transitionService_1 = __webpack_require__(27);
-var view_1 = __webpack_require__(55);
-var stateRegistry_1 = __webpack_require__(40);
-var stateService_1 = __webpack_require__(41);
-var globals_1 = __webpack_require__(31);
+var view_1 = __webpack_require__(64);
+var stateRegistry_1 = __webpack_require__(49);
+var stateService_1 = __webpack_require__(50);
+var globals_1 = __webpack_require__(40);
 var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
-var urlService_1 = __webpack_require__(47);
+var urlService_1 = __webpack_require__(56);
 var trace_1 = __webpack_require__(6);
 /** @hidden */
 var _routerInstance = 0;
@@ -5681,7 +6167,7 @@ exports.UIRouter = UIRouter;
 //# sourceMappingURL=router.js.map
 
 /***/ }),
-/* 37 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5962,7 +6448,7 @@ exports.StateBuilder = StateBuilder;
 //# sourceMappingURL=stateBuilder.js.map
 
 /***/ }),
-/* 38 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6031,7 +6517,7 @@ exports.StateMatcher = StateMatcher;
 //# sourceMappingURL=stateMatcher.js.map
 
 /***/ }),
-/* 39 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6129,7 +6615,7 @@ exports.StateQueueManager = StateQueueManager;
 //# sourceMappingURL=stateQueueManager.js.map
 
 /***/ }),
-/* 40 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6139,9 +6625,9 @@ exports.StateQueueManager = StateQueueManager;
  * @module state
  */ /** for typedoc */
 Object.defineProperty(exports, "__esModule", { value: true });
-var stateMatcher_1 = __webpack_require__(38);
-var stateBuilder_1 = __webpack_require__(37);
-var stateQueueManager_1 = __webpack_require__(39);
+var stateMatcher_1 = __webpack_require__(47);
+var stateBuilder_1 = __webpack_require__(46);
+var stateQueueManager_1 = __webpack_require__(48);
 var common_1 = __webpack_require__(0);
 var hof_1 = __webpack_require__(2);
 var StateRegistry = (function () {
@@ -6291,7 +6777,7 @@ exports.StateRegistry = StateRegistry;
 //# sourceMappingURL=stateRegistry.js.map
 
 /***/ }),
-/* 41 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6314,7 +6800,7 @@ var targetState_1 = __webpack_require__(7);
 var param_1 = __webpack_require__(8);
 var glob_1 = __webpack_require__(15);
 var resolveContext_1 = __webpack_require__(18);
-var lazyLoad_1 = __webpack_require__(32);
+var lazyLoad_1 = __webpack_require__(41);
 var hof_1 = __webpack_require__(2);
 /**
  * Provides state related service functions
@@ -6870,7 +7356,7 @@ exports.StateService = StateService;
 //# sourceMappingURL=stateService.js.map
 
 /***/ }),
-/* 42 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6995,7 +7481,7 @@ function tupleSort(reverseDepthSort) {
 //# sourceMappingURL=hookBuilder.js.map
 
 /***/ }),
-/* 43 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7029,7 +7515,7 @@ exports.TransitionEventType = TransitionEventType;
 //# sourceMappingURL=transitionEventType.js.map
 
 /***/ }),
-/* 44 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7043,7 +7529,7 @@ var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
 var urlMatcher_1 = __webpack_require__(20);
 var param_1 = __webpack_require__(8);
-var paramTypes_1 = __webpack_require__(33);
+var paramTypes_1 = __webpack_require__(42);
 /**
  * Factory for [[UrlMatcher]] instances.
  *
@@ -7162,7 +7648,7 @@ exports.UrlMatcherFactory = UrlMatcherFactory;
 //# sourceMappingURL=urlMatcherFactory.js.map
 
 /***/ }),
-/* 45 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7177,7 +7663,7 @@ var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
 var urlMatcher_1 = __webpack_require__(20);
 var hof_1 = __webpack_require__(2);
-var urlRule_1 = __webpack_require__(46);
+var urlRule_1 = __webpack_require__(55);
 var targetState_1 = __webpack_require__(7);
 /** @hidden */
 function appendBasePath(url, isHtml5, absolute, baseHref) {
@@ -7441,7 +7927,7 @@ function getHandlerFn(handler) {
 //# sourceMappingURL=urlRouter.js.map
 
 /***/ }),
-/* 46 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7656,7 +8142,7 @@ exports.BaseUrlRule = BaseUrlRule;
 //# sourceMappingURL=urlRule.js.map
 
 /***/ }),
-/* 47 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7742,7 +8228,7 @@ exports.UrlService = UrlService;
 //# sourceMappingURL=urlService.js.map
 
 /***/ }),
-/* 48 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7795,7 +8281,7 @@ exports.BrowserLocationConfig = BrowserLocationConfig;
 //# sourceMappingURL=browserLocationConfig.js.map
 
 /***/ }),
-/* 49 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7842,7 +8328,7 @@ exports.HashLocationService = HashLocationService;
 //# sourceMappingURL=hashLocationService.js.map
 
 /***/ }),
-/* 50 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7948,7 +8434,7 @@ exports.$injector = {
 //# sourceMappingURL=injector.js.map
 
 /***/ }),
-/* 51 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7979,7 +8465,7 @@ exports.MemoryLocationConfig = MemoryLocationConfig;
 //# sourceMappingURL=memoryLocationConfig.js.map
 
 /***/ }),
-/* 52 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8019,7 +8505,7 @@ exports.MemoryLocationService = MemoryLocationService;
 //# sourceMappingURL=memoryLocationService.js.map
 
 /***/ }),
-/* 53 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8077,7 +8563,7 @@ exports.PushStateLocationService = PushStateLocationService;
 //# sourceMappingURL=pushStateLocationService.js.map
 
 /***/ }),
-/* 54 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8138,7 +8624,7 @@ exports.$q = {
 //# sourceMappingURL=q.js.map
 
 /***/ }),
-/* 55 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8427,7 +8913,7 @@ exports.ViewService = ViewService;
 //# sourceMappingURL=view.js.map
 
 /***/ }),
-/* 56 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8573,7 +9059,7 @@ exports.StateProvider = StateProvider;
 //# sourceMappingURL=stateProvider.js.map
 
 /***/ }),
-/* 57 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8785,7 +9271,7 @@ exports.UrlRouterProvider = UrlRouterProvider;
 //# sourceMappingURL=urlRouterProvider.js.map
 
 /***/ }),
-/* 58 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8802,73 +9288,32 @@ function uiRouterSetup($stateProvider, $urlRouterProvider) {
     $stateProvider.state('users', {
         url: '/users',
         template: '<users></users>'
+    }).state('posts', {
+        url: '/posts',
+        template: '<posts></posts>'
+    }).state('show_post/:postId', {
+        url: '/show_post/:postId',
+        params: ['postId'],
+        template: '<show-post></show-post>'
+    }).state('edit_post/:postId', {
+        url: '/edit_post/:postId',
+        params: ['postId'],
+        template: '<edit-post></edit-post>'
+    }).state('events', {
+        url: '/events',
+        template: '<events></events>'
+    }).state('show_event/:eventId', {
+        url: '/show_event/:eventId',
+        params: ['eventId'],
+        template: '<show-event></show-event>'
+    }).state('edit_event/:eventId', {
+        url: '/edit_event/:eventId',
+        params: ['eventId'],
+        template: '<edit-event></edit-event>'
     });
 
     $urlRouterProvider.otherwise('/');
 }
-
-/***/ }),
-/* 59 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/***/ }),
-/* 60 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/***/ }),
-/* 61 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/***/ }),
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/***/ }),
-/* 65 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/***/ }),
-/* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/***/ }),
-/* 67 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 
 /***/ }),
 /* 68 */
@@ -8877,12 +9322,32 @@ function uiRouterSetup($stateProvider, $urlRouterProvider) {
 "use strict";
 
 
+var createEventTemplate = __webpack_require__(114);
+var createEventController = __webpack_require__(31);
+
+var CreateEventComponent = {
+    template: createEventTemplate,
+    controller: createEventController
+};
+
+angular.module('HubApp').component('createEvent', CreateEventComponent);
+
 /***/ }),
 /* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+
+var eventsTemplate = __webpack_require__(115);
+var eventsController = __webpack_require__(32);
+
+var EventsComponent = {
+    template: eventsTemplate,
+    controller: eventsController
+};
+
+angular.module('HubApp').component('events', EventsComponent);
 
 /***/ }),
 /* 70 */
@@ -8891,12 +9356,32 @@ function uiRouterSetup($stateProvider, $urlRouterProvider) {
 "use strict";
 
 
+var showEventTemplate = __webpack_require__(116);
+var showEventController = __webpack_require__(33);
+
+var ShowEventComponent = {
+    template: showEventTemplate,
+    controller: showEventController
+};
+
+angular.module('HubApp').component('showEvent', ShowEventComponent);
+
 /***/ }),
 /* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+
+var createPostTemplate = __webpack_require__(117);
+var createPostController = __webpack_require__(34);
+
+var CreatePostComponent = {
+    template: createPostTemplate,
+    controller: createPostController
+};
+
+angular.module('HubApp').component('createPost', CreatePostComponent);
 
 /***/ }),
 /* 72 */
@@ -8905,12 +9390,32 @@ function uiRouterSetup($stateProvider, $urlRouterProvider) {
 "use strict";
 
 
+var postsTemplate = __webpack_require__(118);
+var postsController = __webpack_require__(35);
+
+var PostsComponent = {
+    template: postsTemplate,
+    controller: postsController
+};
+
+angular.module('HubApp').component('posts', PostsComponent);
+
 /***/ }),
 /* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+
+var showPostTemplate = __webpack_require__(119);
+var showPostController = __webpack_require__(36);
+
+var ShowPostComponent = {
+    template: showPostTemplate,
+    controller: showPostController
+};
+
+angular.module('HubApp').component('showPost', ShowPostComponent);
 
 /***/ }),
 /* 74 */
@@ -8933,6 +9438,16 @@ function uiRouterSetup($stateProvider, $urlRouterProvider) {
 "use strict";
 
 
+var editUserTemplate = __webpack_require__(120);
+var editUserController = __webpack_require__(37);
+
+var EditUserComponent = {
+    template: editUserTemplate,
+    controller: editUserController
+};
+
+angular.module('HubApp').component('editUser', EditUserComponent);
+
 /***/ }),
 /* 77 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -8940,12 +9455,32 @@ function uiRouterSetup($stateProvider, $urlRouterProvider) {
 "use strict";
 
 
+var showUserTemplate = __webpack_require__(121);
+var showUserController = __webpack_require__(38);
+
+var ShowUserComponent = {
+    template: showUserTemplate,
+    controller: showUserController
+};
+
+angular.module('HubApp').component('showUser', ShowUserComponent);
+
 /***/ }),
 /* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+
+var usersTemplate = __webpack_require__(122);
+var usersController = __webpack_require__(39);
+
+var UsersComponent = {
+    template: usersTemplate,
+    controller: usersController
+};
+
+angular.module('HubApp').component('users', UsersComponent);
 
 /***/ }),
 /* 79 */
@@ -8977,7 +9512,7 @@ function uiRouterSetup($stateProvider, $urlRouterProvider) {
 Object.defineProperty(exports, "__esModule", { value: true });
 /** @module hooks */ /** */
 var transition_1 = __webpack_require__(19);
-var router_1 = __webpack_require__(36);
+var router_1 = __webpack_require__(45);
 function addCoreResolvables(trans) {
     trans.addResolvable({ token: router_1.UIRouter, deps: [], resolveFn: function () { return trans.router; }, data: trans.router }, "");
     trans.addResolvable({ token: transition_1.Transition, deps: [], resolveFn: function () { return trans; }, data: trans }, "");
@@ -9372,8 +9907,8 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(8));
-__export(__webpack_require__(33));
-__export(__webpack_require__(34));
+__export(__webpack_require__(42));
+__export(__webpack_require__(43));
 __export(__webpack_require__(23));
 //# sourceMappingURL=index.js.map
 
@@ -9403,7 +9938,7 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 /** @module resolve */ /** for typedoc */
-__export(__webpack_require__(35));
+__export(__webpack_require__(44));
 __export(__webpack_require__(11));
 __export(__webpack_require__(18));
 //# sourceMappingURL=index.js.map
@@ -9418,12 +9953,12 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(37));
+__export(__webpack_require__(46));
 __export(__webpack_require__(25));
-__export(__webpack_require__(38));
-__export(__webpack_require__(39));
-__export(__webpack_require__(40));
-__export(__webpack_require__(41));
+__export(__webpack_require__(47));
+__export(__webpack_require__(48));
+__export(__webpack_require__(49));
+__export(__webpack_require__(50));
 __export(__webpack_require__(7));
 //# sourceMappingURL=index.js.map
 
@@ -9452,12 +9987,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module transition
  */ /** for typedoc */
 __export(__webpack_require__(9));
-__export(__webpack_require__(42));
+__export(__webpack_require__(51));
 __export(__webpack_require__(26));
 __export(__webpack_require__(12));
 __export(__webpack_require__(19));
 __export(__webpack_require__(13));
-__export(__webpack_require__(43));
+__export(__webpack_require__(52));
 __export(__webpack_require__(27));
 //# sourceMappingURL=index.js.map
 
@@ -9472,10 +10007,10 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(20));
-__export(__webpack_require__(44));
-__export(__webpack_require__(45));
-__export(__webpack_require__(46));
-__export(__webpack_require__(47));
+__export(__webpack_require__(53));
+__export(__webpack_require__(54));
+__export(__webpack_require__(55));
+__export(__webpack_require__(56));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -9506,14 +10041,14 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(54));
-__export(__webpack_require__(50));
+__export(__webpack_require__(63));
+__export(__webpack_require__(59));
 __export(__webpack_require__(21));
-__export(__webpack_require__(49));
-__export(__webpack_require__(52));
-__export(__webpack_require__(53));
-__export(__webpack_require__(51));
-__export(__webpack_require__(48));
+__export(__webpack_require__(58));
+__export(__webpack_require__(61));
+__export(__webpack_require__(62));
+__export(__webpack_require__(60));
+__export(__webpack_require__(57));
 __export(__webpack_require__(14));
 __export(__webpack_require__(100));
 //# sourceMappingURL=index.js.map
@@ -9530,14 +10065,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module vanilla
  */
 /** */
-var browserLocationConfig_1 = __webpack_require__(48);
-var hashLocationService_1 = __webpack_require__(49);
+var browserLocationConfig_1 = __webpack_require__(57);
+var hashLocationService_1 = __webpack_require__(58);
 var utils_1 = __webpack_require__(14);
-var pushStateLocationService_1 = __webpack_require__(53);
-var memoryLocationService_1 = __webpack_require__(52);
-var memoryLocationConfig_1 = __webpack_require__(51);
-var injector_1 = __webpack_require__(50);
-var q_1 = __webpack_require__(54);
+var pushStateLocationService_1 = __webpack_require__(62);
+var memoryLocationService_1 = __webpack_require__(61);
+var memoryLocationConfig_1 = __webpack_require__(60);
+var injector_1 = __webpack_require__(59);
+var q_1 = __webpack_require__(63);
 var coreservices_1 = __webpack_require__(3);
 function servicesPlugin(router) {
     coreservices_1.services.$injector = injector_1.$injector;
@@ -9563,7 +10098,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(55));
+__export(__webpack_require__(64));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -11212,8 +11747,8 @@ exports.core = core;
 __export(__webpack_require__(4));
 __export(__webpack_require__(28));
 __export(__webpack_require__(29));
-__export(__webpack_require__(56));
-__export(__webpack_require__(57));
+__export(__webpack_require__(65));
+__export(__webpack_require__(66));
 __webpack_require__(107);
 __webpack_require__(104);
 __webpack_require__(109);
@@ -45368,29 +45903,83 @@ $provide.value("$locale", {
 
 /***/ }),
 /* 114 */
+/***/ (function(module, exports) {
+
+module.exports = "";
+
+/***/ }),
+/* 115 */
+/***/ (function(module, exports) {
+
+module.exports = "";
+
+/***/ }),
+/* 116 */
+/***/ (function(module, exports) {
+
+module.exports = "";
+
+/***/ }),
+/* 117 */
+/***/ (function(module, exports) {
+
+module.exports = "";
+
+/***/ }),
+/* 118 */
+/***/ (function(module, exports) {
+
+module.exports = "test";
+
+/***/ }),
+/* 119 */
+/***/ (function(module, exports) {
+
+module.exports = "<show-post></show-post>\n";
+
+/***/ }),
+/* 120 */
+/***/ (function(module, exports) {
+
+module.exports = "";
+
+/***/ }),
+/* 121 */
+/***/ (function(module, exports) {
+
+module.exports = "";
+
+/***/ }),
+/* 122 */
+/***/ (function(module, exports) {
+
+module.exports = "";
+
+/***/ }),
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(58);
-__webpack_require__(59);
-__webpack_require__(60);
-__webpack_require__(61);
-__webpack_require__(62);
-__webpack_require__(63);
-__webpack_require__(64);
-__webpack_require__(65);
-__webpack_require__(66);
 __webpack_require__(67);
 __webpack_require__(68);
+__webpack_require__(31);
 __webpack_require__(69);
+__webpack_require__(32);
 __webpack_require__(70);
+__webpack_require__(33);
 __webpack_require__(71);
+__webpack_require__(34);
 __webpack_require__(72);
+__webpack_require__(35);
 __webpack_require__(73);
+__webpack_require__(36);
 __webpack_require__(74);
 __webpack_require__(75);
 __webpack_require__(76);
+__webpack_require__(37);
 __webpack_require__(77);
+__webpack_require__(38);
 __webpack_require__(78);
+__webpack_require__(39);
 __webpack_require__(79);
 __webpack_require__(80);
 module.exports = __webpack_require__(81);
