@@ -6,4 +6,4 @@ let EventsComponent = {
     controller: eventsController
 }
 
-angular.module('GA_HubApp').component('events', EventsComponent);
+angular.module('HubApp').component('events', EventsComponent);

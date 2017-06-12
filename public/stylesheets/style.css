@@ -4,13 +4,15 @@ body {
   padding: 0;
 }
 
-h1 {
+.jumbotron-header {
   text-align: center;
+  font-size: 100px !important;
 }
 
 .navbar {
   background-color: black !important;
   border-radius: 0px !important;
+  margin: 0 !important;
 }
 
 .navbar-right {
@@ -41,4 +43,17 @@ img {
 
 li {
   display: inline-block;
+}
+
+.jumbotron {
+  text-align: center;
+  margin: 0 !important;
+  background-image: url('../images/jumbotron.jpg');
+  height: 712px;
+  background-size: cover;
+  color: white !important;
+}
+
+.absolute-center {
+  padding: 200px;
 }

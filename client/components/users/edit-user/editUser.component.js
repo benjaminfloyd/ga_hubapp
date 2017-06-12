@@ -7,5 +7,5 @@ const EditUserComponent = {
 }
 
 angular
-    .module('GA_HubApp')
+    .module('HubApp')
     .component('editUser', EditUserComponent);

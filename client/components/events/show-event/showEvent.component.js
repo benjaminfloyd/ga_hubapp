@@ -7,5 +7,5 @@ const ShowEventComponent = {
 }
 
 angular
-    .module('GA_HubApp')
+    .module('HubApp')
     .component('showEvent', ShowEventComponent);
