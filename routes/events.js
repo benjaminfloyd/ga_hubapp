@@ -42,10 +42,15 @@ router.post('/', (request, response) => {
 
     // then build a new Event model with the info
     // REMEMBER: the new Date will be created by the database
-    // let newEvent = new Event({
-    //     amount: creditFromRequest.amount,
-    //     note: creditFromRequest.note
-    // });
+    let newEvent = new Event({
+    
+            eventName: eventFromRequest.event_name,
+            eventLocation: eventFromRequest.event_location,
+            eventDescription: eventFromRequest.event_description,
+            eventDate: eventFromRequest.event_date,
+            updatedAt: eventFromRequest.updatedAt,
+            createdAt: eventFromRequest.createdAt
+    });
 
     // save the new Event model to the database
     newEvent.save(function (error, newEvent) {
