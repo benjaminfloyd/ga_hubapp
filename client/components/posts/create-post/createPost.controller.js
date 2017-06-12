@@ -1,36 +1,36 @@
-EditExpenseController.$inject = ['$state', '$stateParams', 'ExpensesService'];
+CreatePostController.$inject = ['$state', '$stateParams', 'PostsService'];
 
-function EditExpenseController($state, $stateParams, ExpensesService) {
+function CreatePostController($state, $stateParams, PostsService) {
 
     var vm = this;
 
     function initialize() {
-        const expenseEntryId = $stateParams.expenseId;
+        const postEntryId = $stateParams.postId;
 
-        ExpensesService.getSingleExpenseById(expenseEntryId).then(
+        PostsService.getSinglePostById(postEntryId).then(
             function success(response) {
-                vm.expenseToUpdate = response.data;
+                vm.postToUpdate = response.data;
             },
             function failure(response) {
-                console.log('Could not retrieve Expense with ID of ' + expenseEntryId);
+                console.log('Could not retrieve Post with ID of ' + postEntryId);
             }
         )
     }
     initialize();
 
-    vm.updateExpenseInformation = function () {
-        ExpensesService.updateSingleExpense(
-            vm.expenseToUpdate
+    vm.updatePostInformation = function () {
+        PostsService.updateSinglePost(
+            vm.postToUpdate
         ).then(
             function success(response) {
-                // redirect to the individual expense page when successfully updated
-                $state.go('show_expense/:expenseId', { expenseId: vm.expenseToUpdate._id });
+                // redirect to the individual post page when successfully updated
+                $state.go('show_post/:postId', { postId: vm.postToUpdate._id });
             },
             function failure(response) {
-                console.log('Failed to updated Expense with ID of ' + expenseEntryId);
+                console.log('Failed to updated Post with ID of ' + postEntryId);
             }
         )
     }
 }
 
-module.exports = EditExpenseController;
+module.exports = CreatePostController;

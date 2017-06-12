@@ -1,27 +1,27 @@
-ShowCreditController.$inject = ['$state', '$stateParams', 'CreditsService']
+ShowUserController.$inject = ['$state', '$stateParams', 'UsersService']
 
-function ShowCreditController($state, $stateParams, CreditsService) {
+function ShowUserController($state, $stateParams, UsersService) {
 
     var vm = this;
 
     function initialize() {
-        const creditIdToShow = $stateParams.creditId;
+        const userIdToShow = $stateParams.userId;
 
-        CreditsService.getSingleCreditById(creditIdToShow)
+        UsersService.getSingleUserById(userIdToShow)
             .then(
                 function success(response) {
-                    vm.creditEntry = response.data;
+                    vm.userEntry = response.data;
                 },
                 function failure(response) {
-                    console.log('Failed to retrieve information for Credit with ID of ' + creditIdToShow)
+                    console.log('Failed to retrieve information for User with ID of ' + userIdToShow)
                 }
             )
     }
     initialize();
 
-    vm.editCreditEntry = function (creditEntryId) {
-        $state.go('edit_credit/:creditId', { creditId: creditEntryId });
+    vm.editUserEntry = function (userEntryId) {
+        $state.go('edit_user/:userId', { userId: userEntryId });
     }
 }
 
-module.exports = ShowCreditController;
+module.exports = ShowUserController;

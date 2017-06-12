@@ -1,6 +1,6 @@
-CreditsController.$inject = ['$http', '$state', '$stateParams', 'CreditsService', '$scope'];
+UsersController.$inject = ['$http', '$state', '$stateParams', 'UsersService', '$scope'];
 
-function CreditsController($http, $state, $stateParams, CreditsService, $scope) {
+function UsersController($http, $state, $stateParams, UsersService, $scope) {
 
     let vm = this;
 
@@ -11,89 +11,89 @@ function CreditsController($http, $state, $stateParams, CreditsService, $scope) 
      * from the database.
      */
     function initialize() {
-        getAllCreditsFromDatabase();
+        getAllUsersFromDatabase();
     }
     initialize();
 
-    // this function grabs all of the credits from the database
+    // this function grabs all of the users from the database
     // via an AJAX call
-    function getAllCreditsFromDatabase() {
-        CreditsService.getAllCreditsFromDatabase()
+    function getAllUsersFromDatabase() {
+        UsersService.getAllUsersFromDatabase()
             .then(
             function success(response) {
-                // if the call is successful, return the list of credits
-                vm.creditEntries = response.data;
+                // if the call is successful, return the list of users
+                vm.userEntries = response.data;
             },
             function failure(response) {
-                console.log('Error retrieving Credit Entries from database!');
+                console.log('Error retrieving User Entries from database!');
             }
             );
     }
 
     // This function handles our form submission.
-    vm.addCredit = function () {
+    vm.addUser = function () {
 
-        // the new Credit object will be created by binding to the form inputs
-        const newCredit = {
-            amount: vm.newCreditAmount,
-            note: vm.newCreditNote
+        // the new User object will be created by binding to the form inputs
+        const newUser = {
+            amount: vm.newUserAmount,
+            note: vm.newUserNote
         };
 
-        // Make an ajax call to save the new Credit to the database:
-        CreditsService.addNewCreditToDatabase(newCredit)
+        // Make an ajax call to save the new User to the database:
+        UsersService.addNewUserToDatabase(newUser)
             .then(
                 function success(response) {
-                    // only push to the creditEntries array if the ajax call is successful
-                    const newCreditFromDatabase = response.data;
-                    vm.creditEntries.push(newCreditFromDatabase);
-                    // then reset the form so we can submit more credits
+                    // only push to the userEntries array if the ajax call is successful
+                    const newUserFromDatabase = response.data;
+                    vm.userEntries.push(newUserFromDatabase);
+                    // then reset the form so we can submit more users
                     resetForm();
                 },
                 function failure(response) {
                     // if the http call is not successful, log the error
                     // DO NOT clear the form
                     // DO NOT push the new object to the array
-                    console.log('Error saving new Credit to database!');
+                    console.log('Error saving new User to database!');
                 }
             )
     }
 
-    vm.deleteCredit = function (creditIndexToDelete, creditIdToDeleteFromDatabase) {
+    vm.deleteUser = function (userIndexToDelete, userIdToDeleteFromDatabase) {
 
-        CreditsService.deleteIdFromDatabase(creditIdToDeleteFromDatabase)
+        UsersService.deleteIdFromDatabase(userIdToDeleteFromDatabase)
             .then(
                 function success(response) {
-                    // only delete the Credit from the Angular array if
+                    // only delete the User from the Angular array if
                     // it was successfully deleted from the database
-                    vm.creditEntries.splice(creditIndexToDelete, 1);
+                    vm.userEntries.splice(userIndexToDelete, 1);
                 },
                 function failure(response) {
-                    // DO NOT delete the Credit from the Angular array if the
-                    // credit is not successfully deleted from the database
-                    console.log('Error deleting Credit with ID of ' + creditIdToDeleteFromDatabase);
+                    // DO NOT delete the User from the Angular array if the
+                    // user is not successfully deleted from the database
+                    console.log('Error deleting User with ID of ' + userIdToDeleteFromDatabase);
                 }
             )
     }
 
-    vm.showCredit = function (creditId) {
-        $state.go('show_credit/:creditId', { creditId: creditId });
+    vm.showUser = function (userId) {
+        $state.go('show_user/:userId', { userId: userId });
     }
 
     // this function can be used to clear the credits form
     function resetForm() {
-        vm.newCreditAmount = '';
-        vm.newCreditNote = '';
+        vm.newUserAmount = '';
+        vm.newUserNote = '';
     }
 
-    vm.totalCredits = function () {
-        if (vm.creditEntries) {
-            let totalCredits = vm.creditEntries.reduce(function (totalCredits, creditEntry) {
-                return totalCredits + creditEntry.amount;
+    vm.totalUsers = function () {
+        if (vm.userEntries) {
+            let totalUsers = vm.userEntries.reduce(function (totalUsers, userEntry) {
+                return totalUsers + userEntry.amount;
             }, 0)
 
-            return totalCredits;
+            return totalUsers;
         }
     }
 }
 
-module.exports = CreditsController;
+module.exports = UsersController;

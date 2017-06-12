@@ -1,11 +1,11 @@
-const editExpenseTemplate = require('./edit-expense.html')
-const editExpenseController = require('./editExpense.controller')
+const createPostTemplate = require('./create-post.html')
+const createPostController = require('./createPost.controller')
 
-const EditExpenseComponent = {
-    template: editExpenseTemplate,
-    controller: editExpenseController
+const CreatePostComponent = {
+    template: createPostTemplate,
+    controller: createPostController
 }
 
 angular
-    .module('BudgetApp')
-    .component('editExpense', EditExpenseComponent);
+    .module('GA_HubApp')
+    .component('createPost', CreatePostComponent);

@@ -1,11 +1,11 @@
-const editCreditTemplate = require('./edit-credit.html')
-const editCreditController = require('./editCredit.controller')
+const editUserTemplate = require('./edit-user.html')
+const editUserController = require('./editUser.controller')
 
-const EditCreditComponent = {
-    template: editCreditTemplate,
-    controller: editCreditController
+const EditUserComponent = {
+    template: editUserTemplate,
+    controller: editUserController
 }
 
 angular
-    .module('BudgetApp')
-    .component('editCredit', EditCreditComponent);
+    .module('GA_HubApp')
+    .component('editUser', EditUserComponent);

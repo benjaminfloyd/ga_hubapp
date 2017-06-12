@@ -1,9 +1,9 @@
-let creditsTemplate = require(__dirname + '/credits.html');
-let creditsController = require(__dirname + '/credits.controller.js');
+let eventsTemplate = require(__dirname + '/events.html');
+let eventsController = require(__dirname + '/events.controller.js');
 
-let CreditsComponent = {
-    template: creditsTemplate,
-    controller: creditsController
+let EventsComponent = {
+    template: eventsTemplate,
+    controller: eventsController
 }
 
-angular.module('BudgetApp').component('credits', CreditsComponent);
+angular.module('GA_HubApp').component('events', EventsComponent);

@@ -1,36 +1,36 @@
-EditCreditController.$inject = ['$state', '$stateParams', 'CreditsService'];
+EditUserController.$inject = ['$state', '$stateParams', 'UsersService'];
 
-function EditCreditController($state, $stateParams, CreditsService) {
+function EditUserController($state, $stateParams, UsersService) {
 
     var vm = this;
 
     function initialize() {
-        const creditEntryId = $stateParams.creditId;
+        const userEntryId = $stateParams.userId;
 
-        CreditsService.getSingleCreditById(creditEntryId).then(
+        UsersService.getSingleUserById(userEntryId).then(
             function success(response) {
-                vm.creditToUpdate = response.data;
+                vm.userToUpdate = response.data;
             },
             function failure(response) {
-                console.log('Could not retrieve Credit with ID of ' + creditEntryId);
+                console.log('Could not retrieve User with ID of ' + userEntryId);
             }
         )
     }
     initialize();
 
-    vm.updateCreditInformation = function () {
-        CreditsService.updateSingleCredit(
-            vm.creditToUpdate
+    vm.updateUserInformation = function () {
+        UsersService.updateSingleUser(
+            vm.userToUpdate
         ).then(
             function success(response) {
-                // redirect to the individual credit page when successfully updated
-                $state.go('show_credit/:creditId', { creditId: vm.creditToUpdate._id });
+                // redirect to the individual user page when successfully updated
+                $state.go('show_user/:userId', { userId: vm.userToUpdate._id });
             },
             function failure(response) {
-                console.log('Failed to updated Credit with ID of ' + creditEntryId);
+                console.log('Failed to updated User with ID of ' + userEntryId);
             }
         )
     }
 }
 
-module.exports = EditCreditController;
+module.exports = EditUserController;

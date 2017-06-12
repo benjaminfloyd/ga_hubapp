@@ -1,11 +1,11 @@
-var showCreditTemplate = require('./show-credit.html')
-var showCreditController = require('./showCredit.controller')
+var showEventTemplate = require('./show-event.html')
+var showEventController = require('./showEvent.controller')
 
-const ShowCreditComponent = {
-    template: showCreditTemplate,
-    controller: showCreditController
+const ShowEventComponent = {
+    template: showEventTemplate,
+    controller: showEventController
 }
 
 angular
-    .module('BudgetApp')
-    .component('showCredit', ShowCreditComponent);
+    .module('GA_HubApp')
+    .component('showEvent', ShowEventComponent);

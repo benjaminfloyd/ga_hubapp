@@ -1,36 +1,36 @@
-EditCreditController.$inject = ['$state', '$stateParams', 'CreditsService'];
+CreateEventController.$inject = ['$state', '$stateParams', 'EventsService'];
 
-function EditCreditController($state, $stateParams, CreditsService) {
+function CreateEventController($state, $stateParams, EventsService) {
 
     var vm = this;
 
     function initialize() {
-        const creditEntryId = $stateParams.creditId;
+        const eventEntryId = $stateParams.eventId;
 
-        CreditsService.getSingleCreditById(creditEntryId).then(
+        EventsService.getSingleEventById(eventEntryId).then(
             function success(response) {
-                vm.creditToUpdate = response.data;
+                vm.eventToUpdate = response.data;
             },
             function failure(response) {
-                console.log('Could not retrieve Credit with ID of ' + creditEntryId);
+                console.log('Could not retrieve Event with ID of ' + eventEntryId);
             }
         )
     }
     initialize();
 
-    vm.updateCreditInformation = function () {
-        CreditsService.updateSingleCredit(
-            vm.creditToUpdate
+    vm.updateEventInformation = function () {
+        EventsService.updateSingleEvent(
+            vm.eventToUpdate
         ).then(
             function success(response) {
-                // redirect to the individual credit page when successfully updated
-                $state.go('show_credit/:creditId', { creditId: vm.creditToUpdate._id });
+                // redirect to the individual event page when successfully updated
+                $state.go('show_event/:eventId', { eventId: vm.eventToUpdate._id });
             },
             function failure(response) {
-                console.log('Failed to updated Credit with ID of ' + creditEntryId);
+                console.log('Failed to updated Event with ID of ' + eventEntryId);
             }
         )
     }
 }
 
-module.exports = EditCreditController;
+module.exports = CreateEventController;

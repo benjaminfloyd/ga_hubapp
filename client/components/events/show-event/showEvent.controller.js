@@ -1,27 +1,27 @@
-ShowCreditController.$inject = ['$state', '$stateParams', 'CreditsService']
+ShowEventController.$inject = ['$state', '$stateParams', 'EventsService']
 
-function ShowCreditController($state, $stateParams, CreditsService) {
+function ShowEventController($state, $stateParams, EventsService) {
 
     var vm = this;
 
     function initialize() {
-        const creditIdToShow = $stateParams.creditId;
+        const eventIdToShow = $stateParams.eventId;
 
-        CreditsService.getSingleCreditById(creditIdToShow)
+        EventsService.getSingleEventById(eventIdToShow)
             .then(
                 function success(response) {
-                    vm.creditEntry = response.data;
+                    vm.eventEntry = response.data;
                 },
                 function failure(response) {
-                    console.log('Failed to retrieve information for Credit with ID of ' + creditIdToShow)
+                    console.log('Failed to retrieve information for Event with ID of ' + eventIdToShow)
                 }
             )
     }
     initialize();
 
-    vm.editCreditEntry = function (creditEntryId) {
-        $state.go('edit_credit/:creditId', { creditId: creditEntryId });
+    vm.editEventEntry = function (eventEntryId) {
+        $state.go('edit_event/:eventId', { eventId: eventEntryId });
     }
 }
 
-module.exports = ShowCreditController;
+module.exports = ShowEventController;
