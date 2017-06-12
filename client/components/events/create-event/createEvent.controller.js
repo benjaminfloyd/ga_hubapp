@@ -23,7 +23,6 @@ function CreateEventController($state, $stateParams, EventsService) {
             vm.eventToUpdate
         ).then(
             function success(response) {
-                // redirect to the individual event page when successfully updated
                 $state.go('show_event/:eventId', { eventId: vm.eventToUpdate._id });
             },
             function failure(response) {
