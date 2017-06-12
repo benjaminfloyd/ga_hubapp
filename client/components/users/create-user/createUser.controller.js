@@ -1,7 +1,7 @@
 CreateUserController.$inject = ['$state', '$stateParams', 'UsersService'];
 
 function CreateUserController($state, $stateParams, UsersService) {
-
+    console.log('create user controller')
     var vm = this;
 
     function initialize() {

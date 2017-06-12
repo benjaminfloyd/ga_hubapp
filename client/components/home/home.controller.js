@@ -1,6 +1,6 @@
 console.log("Home Page")
 
-HomeController.$inject = [];
+HomeController.$inject = [$http, $state];
 
 function HomeController() {
 	const vm = this;
