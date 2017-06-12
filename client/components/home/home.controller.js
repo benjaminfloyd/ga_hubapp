@@ -1,8 +1,8 @@
-console.log("Home Page")
+console.log("Home controller working")
 
 HomeController.$inject = [$http, $state];
 
-function HomeController() {
+function HomeController($http, $state) {
 	const vm = this;
 }
 

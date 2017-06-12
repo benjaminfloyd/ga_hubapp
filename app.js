@@ -41,7 +41,7 @@ db.once('open', function() {
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var users = require('./routes/posts');
+var posts = require('./routes/posts');
 var events = require('./routes/events');
 
 app.use('/', index);

@@ -1,5 +1,5 @@
 var Schema = require("../db/schema");
 var mongoose = require('mongoose');
 
-var Event = Schema.Post;
-module.exports = Post;
+var Events = Schema.Event;
+module.exports = Events;
