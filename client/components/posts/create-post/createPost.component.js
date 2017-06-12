@@ -1,5 +1,5 @@
-const createPostTemplate = require('./create-post.html')
-const createPostController = require('./createPost.controller')
+const createPostTemplate = require('./create-post.html');
+const createPostController = require('./createPost.controller');
 
 const CreatePostComponent = {
     template: createPostTemplate,

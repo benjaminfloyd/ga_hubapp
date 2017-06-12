@@ -9349,20 +9349,10 @@ angular.module('HubApp').component('showEvent', ShowEventComponent);
 
 /***/ }),
 /* 72 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 "use strict";
-
-
-var homeController = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"/home.controller.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-var homeTemplate = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"/home.html\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-var HomeComponent = {
-	controller: homeController,
-	template: homeTemplate
-};
-
-angular.module('HubApp').component('home', HomeComponent);
+throw new Error("Module build failed: SyntaxError: Unexpected token (1:0)\n\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 1 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\n \u001b[90m   | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 2 | \u001b[39m\u001b[36mconst\u001b[39m template \u001b[33m=\u001b[39m require(\u001b[32m'./home.html'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 3 | \u001b[39m\u001b[36mconst\u001b[39m controller \u001b[33m=\u001b[39m require(\u001b[32m'./home.controller.js'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 4 | \u001b[39m\u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\u001b[0m\n");
 
 /***/ }),
 /* 73 */
@@ -9507,6 +9497,34 @@ angular.module('HubApp').component('users', UsersComponent);
 "use strict";
 
 
+EventsService.$inject = ['$http'];
+
+function EventsService($http) {
+    var self = this;
+
+    self.getAllEventsFromDatabase = function () {
+        return $http.get('events/');
+    };
+
+    self.addNewEventToDatabase = function (newEvent) {
+        return $http.post('events/', newEvent);
+    };
+
+    self.deleteIdFromDatabase = function (eventIdToDeleteFromDatabase) {
+        return $http.delete('events/' + eventIdToDeleteFromDatabase);
+    };
+
+    self.getSingleEventById = function (eventIdToShow) {
+        return $http.get('events/' + eventIdToShow);
+    };
+
+    self.updateSingleEvent = function (eventToUpdate) {
+        return $http.patch('events/', eventToUpdate);
+    };
+}
+
+angular.module('HubApp').service('EventsService', EventsService);
+
 /***/ }),
 /* 82 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -9514,12 +9532,68 @@ angular.module('HubApp').component('users', UsersComponent);
 "use strict";
 
 
+PostsService.$inject = ['$http'];
+
+function PostsService($http) {
+    var self = this;
+
+    self.getAllPostsFromDatabase = function () {
+        return $http.get('posts/');
+    };
+
+    self.addNewPostToDatabase = function (newPost) {
+        return $http.post('posts/', newPost);
+    };
+
+    self.deleteIdFromDatabase = function (postIdToDeleteFromDatabase) {
+        return $http.delete('posts/' + postIdToDeleteFromDatabase);
+    };
+
+    self.getSinglePostById = function (postIdToShow) {
+        return $http.get('posts/' + postIdToShow);
+    };
+
+    self.updateSinglePost = function (postToUpdate) {
+        return $http.patch('posts/', postToUpdate);
+    };
+}
+
+angular.module('HubApp').service('PostsService', PostsService);
+
 /***/ }),
 /* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+
+UsersService.$inject = ['$http'];
+
+function UsersService($http) {
+    var self = this;
+
+    self.getAllUsersFromDatabase = function () {
+        return $http.get('users/');
+    };
+
+    self.addNewUserToDatabase = function (newUser) {
+        return $http.post('users/', newUser);
+    };
+
+    self.deleteIdFromDatabase = function (userIdToDeleteFromDatabase) {
+        return $http.delete('users/' + userIdToDeleteFromDatabase);
+    };
+
+    self.getSingleUserById = function (userIdToShow) {
+        return $http.get('users/' + userIdToShow);
+    };
+
+    self.updateSingleUser = function (userToUpdate) {
+        return $http.patch('users/', userToUpdate);
+    };
+}
+
+angular.module('HubApp').service('UsersService', UsersService);
 
 /***/ }),
 /* 84 */

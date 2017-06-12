@@ -1,5 +1,5 @@
-var showPostTemplate = require('./show-post.html')
-var showPostController = require('./showPost.controller')
+var showPostTemplate = require('./show-post.html');
+var showPostController = require('./showPost.controller');
 
 const ShowPostComponent = {
     template: showPostTemplate,
