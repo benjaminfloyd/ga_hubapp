@@ -5261,7 +5261,7 @@ module.exports = ShowEventController;
 
 console.log("Home controller working");
 
-HomeController.$inject = [$http, $state];
+HomeController.$inject = ['$http', '$state'];
 
 function HomeController($http, $state) {
 	var vm = this;
