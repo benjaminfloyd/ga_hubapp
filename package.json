@@ -9,6 +9,10 @@
   },
   "dependencies": {
     "angular": "^1.6.4",
+<<<<<<< HEAD
+=======
+    "angular-messages": "^1.6.4",
+>>>>>>> 06e20ca57594004ff7653ff34c670411112ef39f
     "angular-ui-router": "^1.0.3",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.0.0",
