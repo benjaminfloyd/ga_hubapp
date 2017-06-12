@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var Credit = require('../models/event');
+var Event = require('../models/event');
 
 router.get('/', (request, response) => {
 

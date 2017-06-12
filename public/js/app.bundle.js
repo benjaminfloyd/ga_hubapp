@@ -5328,6 +5328,7 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
      * from the database.
      */
     function initialize() {
+        console.log('Hello postcont');
         getAllPostsFromDatabase();
     }
     initialize();
