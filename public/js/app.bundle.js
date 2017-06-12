@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 123);
+/******/ 	return __webpack_require__(__webpack_require__.s = 126);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1055,17 +1055,17 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(16));
-__export(__webpack_require__(92));
-__export(__webpack_require__(93));
 __export(__webpack_require__(94));
 __export(__webpack_require__(95));
 __export(__webpack_require__(96));
 __export(__webpack_require__(97));
-__export(__webpack_require__(101));
-__export(__webpack_require__(40));
-__export(__webpack_require__(45));
 __export(__webpack_require__(98));
-__export(__webpack_require__(91));
+__export(__webpack_require__(99));
+__export(__webpack_require__(103));
+__export(__webpack_require__(41));
+__export(__webpack_require__(46));
+__export(__webpack_require__(100));
+__export(__webpack_require__(93));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -2669,7 +2669,7 @@ var common_1 = __webpack_require__(0);
 var hof_1 = __webpack_require__(2);
 var trace_1 = __webpack_require__(6);
 var coreservices_1 = __webpack_require__(3);
-var interface_1 = __webpack_require__(44);
+var interface_1 = __webpack_require__(45);
 var resolvable_1 = __webpack_require__(11);
 var pathFactory_1 = __webpack_require__(17);
 var strings_1 = __webpack_require__(5);
@@ -2882,7 +2882,7 @@ var hof_1 = __webpack_require__(2);
 var interface_1 = __webpack_require__(9); // has or is using
 var transitionHook_1 = __webpack_require__(13);
 var hookRegistry_1 = __webpack_require__(26);
-var hookBuilder_1 = __webpack_require__(51);
+var hookBuilder_1 = __webpack_require__(52);
 var pathFactory_1 = __webpack_require__(17);
 var targetState_1 = __webpack_require__(7);
 var param_1 = __webpack_require__(8);
@@ -4635,21 +4635,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var interface_1 = __webpack_require__(9);
 var transition_1 = __webpack_require__(19);
 var hookRegistry_1 = __webpack_require__(26);
-var coreResolvables_1 = __webpack_require__(82);
-var redirectTo_1 = __webpack_require__(86);
-var onEnterExitRetain_1 = __webpack_require__(85);
-var resolve_1 = __webpack_require__(87);
-var views_1 = __webpack_require__(90);
-var updateGlobals_1 = __webpack_require__(88);
-var url_1 = __webpack_require__(89);
-var lazyLoad_1 = __webpack_require__(41);
-var transitionEventType_1 = __webpack_require__(52);
+var coreResolvables_1 = __webpack_require__(84);
+var redirectTo_1 = __webpack_require__(88);
+var onEnterExitRetain_1 = __webpack_require__(87);
+var resolve_1 = __webpack_require__(89);
+var views_1 = __webpack_require__(92);
+var updateGlobals_1 = __webpack_require__(90);
+var url_1 = __webpack_require__(91);
+var lazyLoad_1 = __webpack_require__(42);
+var transitionEventType_1 = __webpack_require__(53);
 var transitionHook_1 = __webpack_require__(13);
 var predicates_1 = __webpack_require__(1);
 var common_1 = __webpack_require__(0);
 var hof_1 = __webpack_require__(2);
-var ignoredTransition_1 = __webpack_require__(83);
-var invalidTransition_1 = __webpack_require__(84);
+var ignoredTransition_1 = __webpack_require__(85);
+var invalidTransition_1 = __webpack_require__(86);
 /**
  * The default [[Transition]] options.
  *
@@ -4887,11 +4887,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var angular_1 = __webpack_require__(10);
 var core_1 = __webpack_require__(4);
 var views_1 = __webpack_require__(29);
-var templateFactory_1 = __webpack_require__(111);
-var stateProvider_1 = __webpack_require__(65);
-var onEnterExitRetain_1 = __webpack_require__(110);
-var locationServices_1 = __webpack_require__(108);
-var urlRouterProvider_1 = __webpack_require__(66);
+var templateFactory_1 = __webpack_require__(113);
+var stateProvider_1 = __webpack_require__(66);
+var onEnterExitRetain_1 = __webpack_require__(112);
+var locationServices_1 = __webpack_require__(110);
+var urlRouterProvider_1 = __webpack_require__(67);
 angular_1.ng.module("ui.router.angular1", []);
 var mod_init = angular_1.ng.module('ui.router.init', []);
 var mod_util = angular_1.ng.module('ui.router.util', ['ng', 'ui.router.init']);
@@ -5106,7 +5106,7 @@ exports.Ng1ViewConfig = Ng1ViewConfig;
 /* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(113);
+__webpack_require__(115);
 module.exports = angular;
 
 
@@ -5402,6 +5402,41 @@ module.exports = ShowPostController;
 "use strict";
 
 
+CreateUserController.$inject = ['$state', '$stateParams', 'UsersService'];
+
+function CreateUserController($state, $stateParams, UsersService) {
+    console.log('create user controller');
+    var vm = this;
+
+    function initialize() {
+        var userEntryId = $stateParams.userId;
+
+        UsersService.getSingleUserById(userEntryId).then(function success(response) {
+            vm.userToUpdate = response.data;
+        }, function failure(response) {
+            console.log('Could not retrieve User with ID of ' + userEntryId);
+        });
+    }
+    initialize();
+
+    vm.updateUserInformation = function () {
+        UsersService.updateSingleUser(vm.userToUpdate).then(function success(response) {
+            $state.go('show_user/:userId', { userId: vm.userToUpdate._id });
+        }, function failure(response) {
+            console.log('Failed to updated User with ID of ' + userEntryId);
+        });
+    };
+}
+
+module.exports = CreateUserController;
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 EditUserController.$inject = ['$state', '$stateParams', 'UsersService'];
 
 function EditUserController($state, $stateParams, UsersService) {
@@ -5431,7 +5466,7 @@ function EditUserController($state, $stateParams, UsersService) {
 module.exports = EditUserController;
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5462,7 +5497,7 @@ function ShowUserController($state, $stateParams, UsersService) {
 module.exports = ShowUserController;
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5537,7 +5572,7 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
 module.exports = UsersController;
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5547,7 +5582,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @coreapi
  * @module core
  */ /** */
-var stateParams_1 = __webpack_require__(43);
+var stateParams_1 = __webpack_require__(44);
 var queue_1 = __webpack_require__(22);
 /**
  * Global router state
@@ -5581,7 +5616,7 @@ exports.UIRouterGlobals = UIRouterGlobals;
 //# sourceMappingURL=globals.js.map
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5684,7 +5719,7 @@ exports.lazyLoadState = lazyLoadState;
 //# sourceMappingURL=lazyLoad.js.map
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5846,7 +5881,7 @@ initDefaultTypes();
 //# sourceMappingURL=paramTypes.js.map
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5896,7 +5931,7 @@ exports.StateParams = StateParams;
 //# sourceMappingURL=stateParams.js.map
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5917,7 +5952,7 @@ exports.resolvePolicies = {
 //# sourceMappingURL=interface.js.map
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5927,16 +5962,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @coreapi
  * @module core
  */ /** */
-var urlMatcherFactory_1 = __webpack_require__(53);
-var urlRouter_1 = __webpack_require__(54);
+var urlMatcherFactory_1 = __webpack_require__(54);
+var urlRouter_1 = __webpack_require__(55);
 var transitionService_1 = __webpack_require__(27);
-var view_1 = __webpack_require__(64);
-var stateRegistry_1 = __webpack_require__(49);
-var stateService_1 = __webpack_require__(50);
-var globals_1 = __webpack_require__(40);
+var view_1 = __webpack_require__(65);
+var stateRegistry_1 = __webpack_require__(50);
+var stateService_1 = __webpack_require__(51);
+var globals_1 = __webpack_require__(41);
 var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
-var urlService_1 = __webpack_require__(56);
+var urlService_1 = __webpack_require__(57);
 var trace_1 = __webpack_require__(6);
 /** @hidden */
 var _routerInstance = 0;
@@ -6107,7 +6142,7 @@ exports.UIRouter = UIRouter;
 //# sourceMappingURL=router.js.map
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6388,7 +6423,7 @@ exports.StateBuilder = StateBuilder;
 //# sourceMappingURL=stateBuilder.js.map
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6457,7 +6492,7 @@ exports.StateMatcher = StateMatcher;
 //# sourceMappingURL=stateMatcher.js.map
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6555,7 +6590,7 @@ exports.StateQueueManager = StateQueueManager;
 //# sourceMappingURL=stateQueueManager.js.map
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6565,9 +6600,9 @@ exports.StateQueueManager = StateQueueManager;
  * @module state
  */ /** for typedoc */
 Object.defineProperty(exports, "__esModule", { value: true });
-var stateMatcher_1 = __webpack_require__(47);
-var stateBuilder_1 = __webpack_require__(46);
-var stateQueueManager_1 = __webpack_require__(48);
+var stateMatcher_1 = __webpack_require__(48);
+var stateBuilder_1 = __webpack_require__(47);
+var stateQueueManager_1 = __webpack_require__(49);
 var common_1 = __webpack_require__(0);
 var hof_1 = __webpack_require__(2);
 var StateRegistry = (function () {
@@ -6717,7 +6752,7 @@ exports.StateRegistry = StateRegistry;
 //# sourceMappingURL=stateRegistry.js.map
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6740,7 +6775,7 @@ var targetState_1 = __webpack_require__(7);
 var param_1 = __webpack_require__(8);
 var glob_1 = __webpack_require__(15);
 var resolveContext_1 = __webpack_require__(18);
-var lazyLoad_1 = __webpack_require__(41);
+var lazyLoad_1 = __webpack_require__(42);
 var hof_1 = __webpack_require__(2);
 /**
  * Provides state related service functions
@@ -7296,7 +7331,7 @@ exports.StateService = StateService;
 //# sourceMappingURL=stateService.js.map
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7421,7 +7456,7 @@ function tupleSort(reverseDepthSort) {
 //# sourceMappingURL=hookBuilder.js.map
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7455,7 +7490,7 @@ exports.TransitionEventType = TransitionEventType;
 //# sourceMappingURL=transitionEventType.js.map
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7469,7 +7504,7 @@ var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
 var urlMatcher_1 = __webpack_require__(20);
 var param_1 = __webpack_require__(8);
-var paramTypes_1 = __webpack_require__(42);
+var paramTypes_1 = __webpack_require__(43);
 /**
  * Factory for [[UrlMatcher]] instances.
  *
@@ -7588,7 +7623,7 @@ exports.UrlMatcherFactory = UrlMatcherFactory;
 //# sourceMappingURL=urlMatcherFactory.js.map
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7603,7 +7638,7 @@ var common_1 = __webpack_require__(0);
 var predicates_1 = __webpack_require__(1);
 var urlMatcher_1 = __webpack_require__(20);
 var hof_1 = __webpack_require__(2);
-var urlRule_1 = __webpack_require__(55);
+var urlRule_1 = __webpack_require__(56);
 var targetState_1 = __webpack_require__(7);
 /** @hidden */
 function appendBasePath(url, isHtml5, absolute, baseHref) {
@@ -7867,7 +7902,7 @@ function getHandlerFn(handler) {
 //# sourceMappingURL=urlRouter.js.map
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8082,7 +8117,7 @@ exports.BaseUrlRule = BaseUrlRule;
 //# sourceMappingURL=urlRule.js.map
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8168,7 +8203,7 @@ exports.UrlService = UrlService;
 //# sourceMappingURL=urlService.js.map
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8221,7 +8256,7 @@ exports.BrowserLocationConfig = BrowserLocationConfig;
 //# sourceMappingURL=browserLocationConfig.js.map
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8268,7 +8303,7 @@ exports.HashLocationService = HashLocationService;
 //# sourceMappingURL=hashLocationService.js.map
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8374,7 +8409,7 @@ exports.$injector = {
 //# sourceMappingURL=injector.js.map
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8405,7 +8440,7 @@ exports.MemoryLocationConfig = MemoryLocationConfig;
 //# sourceMappingURL=memoryLocationConfig.js.map
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8445,7 +8480,7 @@ exports.MemoryLocationService = MemoryLocationService;
 //# sourceMappingURL=memoryLocationService.js.map
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8503,7 +8538,7 @@ exports.PushStateLocationService = PushStateLocationService;
 //# sourceMappingURL=pushStateLocationService.js.map
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8564,7 +8599,7 @@ exports.$q = {
 //# sourceMappingURL=q.js.map
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8853,7 +8888,7 @@ exports.ViewService = ViewService;
 //# sourceMappingURL=view.js.map
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8999,7 +9034,7 @@ exports.StateProvider = StateProvider;
 //# sourceMappingURL=stateProvider.js.map
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9211,14 +9246,14 @@ exports.UrlRouterProvider = UrlRouterProvider;
 //# sourceMappingURL=urlRouterProvider.js.map
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(106);
-__webpack_require__(103);
+__webpack_require__(108);
+__webpack_require__(105);
 var angular = __webpack_require__(30);
 
 angular.module('HubApp', ['ui.router', 'ngMessages']).config(uiRouterSetup);
@@ -9262,13 +9297,13 @@ function uiRouterSetup($stateProvider, $urlRouterProvider) {
 }
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createEventTemplate = __webpack_require__(114);
+var createEventTemplate = __webpack_require__(116);
 var createEventController = __webpack_require__(31);
 
 var CreateEventComponent = {
@@ -9279,13 +9314,13 @@ var CreateEventComponent = {
 angular.module('HubApp').component('createEvent', CreateEventComponent);
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var eventsTemplate = __webpack_require__(115);
+var eventsTemplate = __webpack_require__(117);
 var eventsController = __webpack_require__(32);
 
 var EventsComponent = {
@@ -9296,13 +9331,13 @@ var EventsComponent = {
 angular.module('HubApp').component('events', EventsComponent);
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var showEventTemplate = __webpack_require__(116);
+var showEventTemplate = __webpack_require__(118);
 var showEventController = __webpack_require__(33);
 
 var ShowEventComponent = {
@@ -9313,13 +9348,47 @@ var ShowEventComponent = {
 angular.module('HubApp').component('showEvent', ShowEventComponent);
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createPostTemplate = __webpack_require__(117);
+var homeController = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"/home.controller.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+var homeTemplate = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"/home.html\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var HomeComponent = {
+	controller: homeController,
+	template: homeTemplate
+};
+
+angular.module('HubApp').component('home', HomeComponent);
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+console.log("Home Page");
+
+HomeController.$inject = [$http, $state];
+
+function HomeController() {
+	var vm = this;
+}
+
+module.exports = HomeController;
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var createPostTemplate = __webpack_require__(119);
 var createPostController = __webpack_require__(34);
 
 var CreatePostComponent = {
@@ -9330,13 +9399,13 @@ var CreatePostComponent = {
 angular.module('HubApp').component('createPost', CreatePostComponent);
 
 /***/ }),
-/* 72 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var postsTemplate = __webpack_require__(118);
+var postsTemplate = __webpack_require__(120);
 var postsController = __webpack_require__(35);
 
 var PostsComponent = {
@@ -9347,13 +9416,13 @@ var PostsComponent = {
 angular.module('HubApp').component('posts', PostsComponent);
 
 /***/ }),
-/* 73 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var showPostTemplate = __webpack_require__(119);
+var showPostTemplate = __webpack_require__(121);
 var showPostController = __webpack_require__(36);
 
 var ShowPostComponent = {
@@ -9364,14 +9433,14 @@ var ShowPostComponent = {
 angular.module('HubApp').component('showPost', ShowPostComponent);
 
 /***/ }),
-/* 74 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createUserTemplate = __webpack_require__(124);
-var createUserController = __webpack_require__(75);
+var createUserTemplate = __webpack_require__(122);
+var createUserController = __webpack_require__(37);
 
 var CreateUserComponent = {
     template: createUserTemplate,
@@ -9381,49 +9450,14 @@ var CreateUserComponent = {
 angular.module('HubApp').component('createUser', CreateUserComponent);
 
 /***/ }),
-/* 75 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-CreateUserController.$inject = ['$state', '$stateParams', 'UsersService'];
-
-function CreateUserController($state, $stateParams, UsersService) {
-    console.log('create user controller');
-    var vm = this;
-
-    function initialize() {
-        var userEntryId = $stateParams.userId;
-
-        UsersService.getSingleUserById(userEntryId).then(function success(response) {
-            vm.userToUpdate = response.data;
-        }, function failure(response) {
-            console.log('Could not retrieve User with ID of ' + userEntryId);
-        });
-    }
-    initialize();
-
-    vm.updateUserInformation = function () {
-        UsersService.updateSingleUser(vm.userToUpdate).then(function success(response) {
-            $state.go('show_user/:userId', { userId: vm.userToUpdate._id });
-        }, function failure(response) {
-            console.log('Failed to updated User with ID of ' + userEntryId);
-        });
-    };
-}
-
-module.exports = CreateUserController;
-
-/***/ }),
-/* 76 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var editUserTemplate = __webpack_require__(120);
-var editUserController = __webpack_require__(37);
+var editUserTemplate = __webpack_require__(123);
+var editUserController = __webpack_require__(38);
 
 var EditUserComponent = {
     template: editUserTemplate,
@@ -9433,14 +9467,14 @@ var EditUserComponent = {
 angular.module('HubApp').component('editUser', EditUserComponent);
 
 /***/ }),
-/* 77 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var showUserTemplate = __webpack_require__(121);
-var showUserController = __webpack_require__(38);
+var showUserTemplate = __webpack_require__(124);
+var showUserController = __webpack_require__(39);
 
 var ShowUserComponent = {
     template: showUserTemplate,
@@ -9450,14 +9484,14 @@ var ShowUserComponent = {
 angular.module('HubApp').component('showUser', ShowUserComponent);
 
 /***/ }),
-/* 78 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var usersTemplate = __webpack_require__(122);
-var usersController = __webpack_require__(39);
+var usersTemplate = __webpack_require__(125);
+var usersController = __webpack_require__(40);
 
 var UsersComponent = {
     template: usersTemplate,
@@ -9465,20 +9499,6 @@ var UsersComponent = {
 };
 
 angular.module('HubApp').component('users', UsersComponent);
-
-/***/ }),
-/* 79 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/***/ }),
-/* 80 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 
 /***/ }),
 /* 81 */
@@ -9493,10 +9513,24 @@ angular.module('HubApp').component('users', UsersComponent);
 
 "use strict";
 
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 Object.defineProperty(exports, "__esModule", { value: true });
 /** @module hooks */ /** */
 var transition_1 = __webpack_require__(19);
-var router_1 = __webpack_require__(45);
+var router_1 = __webpack_require__(46);
 function addCoreResolvables(trans) {
     trans.addResolvable({ token: router_1.UIRouter, deps: [], resolveFn: function () { return trans.router; }, data: trans.router }, "");
     trans.addResolvable({ token: transition_1.Transition, deps: [], resolveFn: function () { return trans; }, data: trans }, "");
@@ -9512,7 +9546,7 @@ exports.registerAddCoreResolvables = function (transitionService) {
 //# sourceMappingURL=coreResolvables.js.map
 
 /***/ }),
-/* 83 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9549,7 +9583,7 @@ exports.registerIgnoredTransitionHook = function (transitionService) {
 //# sourceMappingURL=ignoredTransition.js.map
 
 /***/ }),
-/* 84 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9574,7 +9608,7 @@ exports.registerInvalidTransitionHook = function (transitionService) {
 //# sourceMappingURL=invalidTransition.js.map
 
 /***/ }),
-/* 85 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9637,7 +9671,7 @@ exports.registerOnEnterHook = function (transitionService) {
 //# sourceMappingURL=onEnterExitRetain.js.map
 
 /***/ }),
-/* 86 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9680,7 +9714,7 @@ exports.registerRedirectToHook = function (transitionService) {
 //# sourceMappingURL=redirectTo.js.map
 
 /***/ }),
-/* 87 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9729,7 +9763,7 @@ exports.registerLazyResolveState = function (transitionService) {
 //# sourceMappingURL=resolve.js.map
 
 /***/ }),
-/* 88 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9770,7 +9804,7 @@ exports.registerUpdateGlobalState = function (transitionService) {
 //# sourceMappingURL=updateGlobals.js.map
 
 /***/ }),
-/* 89 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9801,7 +9835,7 @@ exports.registerUpdateUrl = function (transitionService) {
 //# sourceMappingURL=url.js.map
 
 /***/ }),
-/* 90 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9854,7 +9888,7 @@ exports.registerActivateViews = function (transitionService) {
 //# sourceMappingURL=views.js.map
 
 /***/ }),
-/* 91 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9881,7 +9915,7 @@ exports.UIRouterPluginBase = UIRouterPluginBase;
 //# sourceMappingURL=interface.js.map
 
 /***/ }),
-/* 92 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9891,13 +9925,13 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(8));
-__export(__webpack_require__(42));
 __export(__webpack_require__(43));
+__export(__webpack_require__(44));
 __export(__webpack_require__(23));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 93 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9912,7 +9946,7 @@ __export(__webpack_require__(17));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 94 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9922,13 +9956,13 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 /** @module resolve */ /** for typedoc */
-__export(__webpack_require__(44));
+__export(__webpack_require__(45));
 __export(__webpack_require__(11));
 __export(__webpack_require__(18));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 95 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9937,17 +9971,17 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(46));
-__export(__webpack_require__(25));
 __export(__webpack_require__(47));
+__export(__webpack_require__(25));
 __export(__webpack_require__(48));
 __export(__webpack_require__(49));
 __export(__webpack_require__(50));
+__export(__webpack_require__(51));
 __export(__webpack_require__(7));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 96 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9971,49 +10005,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module transition
  */ /** for typedoc */
 __export(__webpack_require__(9));
-__export(__webpack_require__(51));
+__export(__webpack_require__(52));
 __export(__webpack_require__(26));
 __export(__webpack_require__(12));
 __export(__webpack_require__(19));
 __export(__webpack_require__(13));
-__export(__webpack_require__(52));
+__export(__webpack_require__(53));
 __export(__webpack_require__(27));
 //# sourceMappingURL=index.js.map
-
-/***/ }),
-/* 97 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(20));
-__export(__webpack_require__(53));
-__export(__webpack_require__(54));
-__export(__webpack_require__(55));
-__export(__webpack_require__(56));
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-/* 98 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * @internalapi
- * @module vanilla
- */
-/** */
-__export(__webpack_require__(99));
-//# sourceMappingURL=vanilla.js.map
 
 /***/ }),
 /* 99 */
@@ -10025,20 +10024,55 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(63));
-__export(__webpack_require__(59));
-__export(__webpack_require__(21));
-__export(__webpack_require__(58));
-__export(__webpack_require__(61));
-__export(__webpack_require__(62));
-__export(__webpack_require__(60));
+__export(__webpack_require__(20));
+__export(__webpack_require__(54));
+__export(__webpack_require__(55));
+__export(__webpack_require__(56));
 __export(__webpack_require__(57));
-__export(__webpack_require__(14));
-__export(__webpack_require__(100));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
 /* 100 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * @internalapi
+ * @module vanilla
+ */
+/** */
+__export(__webpack_require__(101));
+//# sourceMappingURL=vanilla.js.map
+
+/***/ }),
+/* 101 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+__export(__webpack_require__(64));
+__export(__webpack_require__(60));
+__export(__webpack_require__(21));
+__export(__webpack_require__(59));
+__export(__webpack_require__(62));
+__export(__webpack_require__(63));
+__export(__webpack_require__(61));
+__export(__webpack_require__(58));
+__export(__webpack_require__(14));
+__export(__webpack_require__(102));
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10049,14 +10083,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * @module vanilla
  */
 /** */
-var browserLocationConfig_1 = __webpack_require__(57);
-var hashLocationService_1 = __webpack_require__(58);
+var browserLocationConfig_1 = __webpack_require__(58);
+var hashLocationService_1 = __webpack_require__(59);
 var utils_1 = __webpack_require__(14);
-var pushStateLocationService_1 = __webpack_require__(62);
-var memoryLocationService_1 = __webpack_require__(61);
-var memoryLocationConfig_1 = __webpack_require__(60);
-var injector_1 = __webpack_require__(59);
-var q_1 = __webpack_require__(63);
+var pushStateLocationService_1 = __webpack_require__(63);
+var memoryLocationService_1 = __webpack_require__(62);
+var memoryLocationConfig_1 = __webpack_require__(61);
+var injector_1 = __webpack_require__(60);
+var q_1 = __webpack_require__(64);
 var coreservices_1 = __webpack_require__(3);
 function servicesPlugin(router) {
     coreservices_1.services.$injector = injector_1.$injector;
@@ -10073,7 +10107,7 @@ exports.memoryLocationPlugin = utils_1.locationPluginFactory("vanilla.memoryLoca
 //# sourceMappingURL=plugins.js.map
 
 /***/ }),
-/* 101 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10082,11 +10116,11 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(64));
+__export(__webpack_require__(65));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 102 */
+/* 104 */
 /***/ (function(module, exports) {
 
 /**
@@ -10832,15 +10866,15 @@ function ngMessageDirectiveFactory() {
 
 
 /***/ }),
-/* 103 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(102);
+__webpack_require__(104);
 module.exports = 'ngMessages';
 
 
 /***/ }),
-/* 104 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11417,7 +11451,7 @@ angular_1.ng.module('ui.router.state')
 //# sourceMappingURL=stateDirectives.js.map
 
 /***/ }),
-/* 105 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11713,7 +11747,7 @@ angular_1.ng.module('ui.router.state').directive('uiView', $ViewDirectiveFill);
 //# sourceMappingURL=viewDirective.js.map
 
 /***/ }),
-/* 106 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11731,18 +11765,18 @@ exports.core = core;
 __export(__webpack_require__(4));
 __export(__webpack_require__(28));
 __export(__webpack_require__(29));
-__export(__webpack_require__(65));
 __export(__webpack_require__(66));
-__webpack_require__(107);
-__webpack_require__(104);
+__export(__webpack_require__(67));
 __webpack_require__(109);
-__webpack_require__(105);
-__webpack_require__(112);
+__webpack_require__(106);
+__webpack_require__(111);
+__webpack_require__(107);
+__webpack_require__(114);
 exports.default = "ui.router";
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 107 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12116,7 +12150,7 @@ var $urlMatcherFactoryProvider;
 //# sourceMappingURL=injectables.js.map
 
 /***/ }),
-/* 108 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12197,7 +12231,7 @@ exports.Ng1LocationServices = Ng1LocationServices;
 //# sourceMappingURL=locationServices.js.map
 
 /***/ }),
-/* 109 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12249,7 +12283,7 @@ angular_1.ng.module('ui.router.state')
 //# sourceMappingURL=stateFilters.js.map
 
 /***/ }),
-/* 110 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12280,7 +12314,7 @@ exports.getStateHookBuilder = function (hookName) {
 //# sourceMappingURL=onEnterExitRetain.js.map
 
 /***/ }),
-/* 111 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12480,7 +12514,7 @@ var scopeBindings = function (bindingsObj) { return Object.keys(bindingsObj || {
 //# sourceMappingURL=templateFactory.js.map
 
 /***/ }),
-/* 112 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12509,7 +12543,7 @@ angular_1.ng.module('ui.router.state').provider('$uiViewScroll', $ViewScrollProv
 //# sourceMappingURL=viewScroll.js.map
 
 /***/ }),
-/* 113 */
+/* 115 */
 /***/ (function(module, exports) {
 
 /**
@@ -45886,18 +45920,6 @@ $provide.value("$locale", {
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ }),
-/* 114 */
-/***/ (function(module, exports) {
-
-module.exports = "";
-
-/***/ }),
-/* 115 */
-/***/ (function(module, exports) {
-
-module.exports = "events";
-
-/***/ }),
 /* 116 */
 /***/ (function(module, exports) {
 
@@ -45907,73 +45929,87 @@ module.exports = "";
 /* 117 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <form>\n    <div class=\"form-group row\">\n      <label for=\"inputEmail3\" class=\"col-sm-2 col-form-label\">Email</label>\n      <div class=\"col-sm-10\">\n        <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email\">\n      </div>\n    </div>\n    <div class=\"form-group row\">\n      <label for=\"inputPassword3\" class=\"col-sm-2 col-form-label\">Password</label>\n      <div class=\"col-sm-10\">\n        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"Password\">\n      </div>\n    </div>\n    <fieldset class=\"form-group row\">\n      <legend class=\"col-form-legend col-sm-2\">Radios</legend>\n      <div class=\"col-sm-10\">\n        <div class=\"form-check\">\n          <label class=\"form-check-label\">\n            <input class=\"form-check-input\" type=\"radio\" name=\"gridRadios\" id=\"gridRadios1\" value=\"option1\" checked>\n            Option one is this and that&mdash;be sure to include why it's great\n          </label>\n        </div>\n        <div class=\"form-check\">\n          <label class=\"form-check-label\">\n            <input class=\"form-check-input\" type=\"radio\" name=\"gridRadios\" id=\"gridRadios2\" value=\"option2\">\n            Option two can be something else and selecting it will deselect option one\n          </label>\n        </div>\n        <div class=\"form-check disabled\">\n          <label class=\"form-check-label\">\n            <input class=\"form-check-input\" type=\"radio\" name=\"gridRadios\" id=\"gridRadios3\" value=\"option3\" disabled>\n            Option three is disabled\n          </label>\n        </div>\n      </div>\n    </fieldset>\n    <div class=\"form-group row\">\n      <label class=\"col-sm-2\">Checkbox</label>\n      <div class=\"col-sm-10\">\n        <div class=\"form-check\">\n          <label class=\"form-check-label\">\n            <input class=\"form-check-input\" type=\"checkbox\"> Check me out\n          </label>\n        </div>\n      </div>\n    </div>\n    <div class=\"form-group row\">\n      <div class=\"offset-sm-2 col-sm-10\">\n        <button type=\"submit\" class=\"btn btn-primary\">Sign in</button>\n      </div>\n    </div>\n  </form>\n</div>";
+module.exports = "events";
 
 /***/ }),
 /* 118 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <form>\n    <div class=\"form-group row\">\n      <label for=\"inputEmail3\" class=\"col-sm-2 col-form-label\">Email</label>\n      <div class=\"col-sm-10\">\n        <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email\">\n      </div>\n    </div>\n    <div class=\"form-group row\">\n      <label for=\"inputPassword3\" class=\"col-sm-2 col-form-label\">Password</label>\n      <div class=\"col-sm-10\">\n        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"Password\">\n      </div>\n    </div>\n    <div class=\"form-group row\">\n      <div class=\"offset-sm-2 col-sm-10\">\n        <button type=\"submit\" class=\"btn btn-primary\">Sign in</button>\n      </div>\n    </div>\n  </form>\n</div>";
+module.exports = "";
 
 /***/ }),
 /* 119 */
 /***/ (function(module, exports) {
 
-module.exports = "<show-post></show-post>\n";
+module.exports = "<div class=\"container\">\n  <form>\n    <div class=\"form-group row\">\n      <label for=\"inputEmail3\" class=\"col-sm-2 col-form-label\">Email</label>\n      <div class=\"col-sm-10\">\n        <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email\">\n      </div>\n    </div>\n    <div class=\"form-group row\">\n      <label for=\"inputPassword3\" class=\"col-sm-2 col-form-label\">Password</label>\n      <div class=\"col-sm-10\">\n        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"Password\">\n      </div>\n    </div>\n    <fieldset class=\"form-group row\">\n      <legend class=\"col-form-legend col-sm-2\">Radios</legend>\n      <div class=\"col-sm-10\">\n        <div class=\"form-check\">\n          <label class=\"form-check-label\">\n            <input class=\"form-check-input\" type=\"radio\" name=\"gridRadios\" id=\"gridRadios1\" value=\"option1\" checked>\n            Option one is this and that&mdash;be sure to include why it's great\n          </label>\n        </div>\n        <div class=\"form-check\">\n          <label class=\"form-check-label\">\n            <input class=\"form-check-input\" type=\"radio\" name=\"gridRadios\" id=\"gridRadios2\" value=\"option2\">\n            Option two can be something else and selecting it will deselect option one\n          </label>\n        </div>\n        <div class=\"form-check disabled\">\n          <label class=\"form-check-label\">\n            <input class=\"form-check-input\" type=\"radio\" name=\"gridRadios\" id=\"gridRadios3\" value=\"option3\" disabled>\n            Option three is disabled\n          </label>\n        </div>\n      </div>\n    </fieldset>\n    <div class=\"form-group row\">\n      <label class=\"col-sm-2\">Checkbox</label>\n      <div class=\"col-sm-10\">\n        <div class=\"form-check\">\n          <label class=\"form-check-label\">\n            <input class=\"form-check-input\" type=\"checkbox\"> Check me out\n          </label>\n        </div>\n      </div>\n    </div>\n    <div class=\"form-group row\">\n      <div class=\"offset-sm-2 col-sm-10\">\n        <button type=\"submit\" class=\"btn btn-primary\">Sign in</button>\n      </div>\n    </div>\n  </form>\n</div>";
 
 /***/ }),
 /* 120 */
 /***/ (function(module, exports) {
 
-module.exports = "";
+module.exports = "<div class=\"container\">\n  <form>\n    <div class=\"form-group row\">\n      <label for=\"inputEmail3\" class=\"col-sm-2 col-form-label\">Email</label>\n      <div class=\"col-sm-10\">\n        <input type=\"email\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email\">\n      </div>\n    </div>\n    <div class=\"form-group row\">\n      <label for=\"inputPassword3\" class=\"col-sm-2 col-form-label\">Password</label>\n      <div class=\"col-sm-10\">\n        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"Password\">\n      </div>\n    </div>\n    <div class=\"form-group row\">\n      <div class=\"offset-sm-2 col-sm-10\">\n        <button type=\"submit\" class=\"btn btn-primary\">Sign in</button>\n      </div>\n    </div>\n  </form>\n</div>";
 
 /***/ }),
 /* 121 */
 /***/ (function(module, exports) {
 
-module.exports = "";
+module.exports = "<show-post></show-post>\n";
 
 /***/ }),
 /* 122 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"jumbotron\">\n    <div class=\"absolute-center\">\n        <h1 class=\"jumbotron-header\">Welcome to GA Hub</h1>\n        <p>Make friends, Git Hired</p>\n        <p><a class=\"btn btn-primary btn-lg\" href=\"#\" role=\"button\">Learn more</a></p>\n\n    </div>\n</div>\n";
+module.exports = "<div class=\"container\">\n    \t<div class=\"row\">\n\t\t\t<div class=\"col-md-6 col-md-offset-3\">\n\t\t\t\t<div class=\"panel panel-login\">\n\t\t\t\t\t<div class=\"panel-heading\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-xs-6\">\n\t\t\t\t\t\t\t\t<a href=\"#\" class=\"active\" id=\"login-form-link\">Login</a>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-xs-6\">\n\t\t\t\t\t\t\t\t<a href=\"#\" id=\"register-form-link\">Register</a>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<hr>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"panel-body\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-lg-12\">\n\t\t\t\t\t\t\t\t<form id=\"login-form\" action=\"https://phpoll.com/login/process\" method=\"post\" role=\"form\" style=\"display: block;\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"text\" name=\"username\" id=\"username\" tabindex=\"1\" class=\"form-control\" placeholder=\"Username\" value=\"\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"password\" name=\"password\" id=\"password\" tabindex=\"2\" class=\"form-control\" placeholder=\"Password\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group text-center\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" tabindex=\"3\" class=\"\" name=\"remember\" id=\"remember\">\n\t\t\t\t\t\t\t\t\t\t<label for=\"remember\"> Remember Me</label>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-sm-6 col-sm-offset-3\">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"submit\" name=\"login-submit\" id=\"login-submit\" tabindex=\"4\" class=\"form-control btn btn-login\" value=\"Log In\">\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-lg-12\">\n\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"text-center\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a href=\"https://phpoll.com/recover\" tabindex=\"5\" class=\"forgot-password\">Forgot Password?</a>\n\t\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</form>\n\t\t\t\t\t\t\t\t<form id=\"register-form\" action=\"https://phpoll.com/register/process\" method=\"post\" role=\"form\" style=\"display: none;\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"text\" name=\"username\" id=\"username\" tabindex=\"1\" class=\"form-control\" placeholder=\"Username\" value=\"\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"email\" name=\"email\" id=\"email\" tabindex=\"1\" class=\"form-control\" placeholder=\"Email Address\" value=\"\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"password\" name=\"password\" id=\"password\" tabindex=\"2\" class=\"form-control\" placeholder=\"Password\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"password\" name=\"confirm-password\" id=\"confirm-password\" tabindex=\"2\" class=\"form-control\" placeholder=\"Confirm Password\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-sm-6 col-sm-offset-3\">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"submit\" name=\"register-submit\" id=\"register-submit\" tabindex=\"4\" class=\"form-control btn btn-register\" value=\"Register Now\">\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</form>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\ncreate user\n";
 
 /***/ }),
 /* 123 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-__webpack_require__(67);
-__webpack_require__(68);
-__webpack_require__(31);
-__webpack_require__(69);
-__webpack_require__(32);
-__webpack_require__(70);
-__webpack_require__(33);
-__webpack_require__(71);
-__webpack_require__(34);
-__webpack_require__(72);
-__webpack_require__(35);
-__webpack_require__(73);
-__webpack_require__(36);
-__webpack_require__(74);
-__webpack_require__(75);
-__webpack_require__(76);
-__webpack_require__(37);
-__webpack_require__(77);
-__webpack_require__(38);
-__webpack_require__(78);
-__webpack_require__(39);
-__webpack_require__(79);
-__webpack_require__(80);
-module.exports = __webpack_require__(81);
-
+module.exports = "";
 
 /***/ }),
 /* 124 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n    \t<div class=\"row\">\n\t\t\t<div class=\"col-md-6 col-md-offset-3\">\n\t\t\t\t<div class=\"panel panel-login\">\n\t\t\t\t\t<div class=\"panel-heading\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-xs-6\">\n\t\t\t\t\t\t\t\t<a href=\"#\" class=\"active\" id=\"login-form-link\">Login</a>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-xs-6\">\n\t\t\t\t\t\t\t\t<a href=\"#\" id=\"register-form-link\">Register</a>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<hr>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"panel-body\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-lg-12\">\n\t\t\t\t\t\t\t\t<form id=\"login-form\" action=\"https://phpoll.com/login/process\" method=\"post\" role=\"form\" style=\"display: block;\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"text\" name=\"username\" id=\"username\" tabindex=\"1\" class=\"form-control\" placeholder=\"Username\" value=\"\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"password\" name=\"password\" id=\"password\" tabindex=\"2\" class=\"form-control\" placeholder=\"Password\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group text-center\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" tabindex=\"3\" class=\"\" name=\"remember\" id=\"remember\">\n\t\t\t\t\t\t\t\t\t\t<label for=\"remember\"> Remember Me</label>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-sm-6 col-sm-offset-3\">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"submit\" name=\"login-submit\" id=\"login-submit\" tabindex=\"4\" class=\"form-control btn btn-login\" value=\"Log In\">\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-lg-12\">\n\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"text-center\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a href=\"https://phpoll.com/recover\" tabindex=\"5\" class=\"forgot-password\">Forgot Password?</a>\n\t\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</form>\n\t\t\t\t\t\t\t\t<form id=\"register-form\" action=\"https://phpoll.com/register/process\" method=\"post\" role=\"form\" style=\"display: none;\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"text\" name=\"username\" id=\"username\" tabindex=\"1\" class=\"form-control\" placeholder=\"Username\" value=\"\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"email\" name=\"email\" id=\"email\" tabindex=\"1\" class=\"form-control\" placeholder=\"Email Address\" value=\"\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"password\" name=\"password\" id=\"password\" tabindex=\"2\" class=\"form-control\" placeholder=\"Password\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"password\" name=\"confirm-password\" id=\"confirm-password\" tabindex=\"2\" class=\"form-control\" placeholder=\"Confirm Password\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-sm-6 col-sm-offset-3\">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"submit\" name=\"register-submit\" id=\"register-submit\" tabindex=\"4\" class=\"form-control btn btn-register\" value=\"Register Now\">\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</form>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\ncreate user\n";
+module.exports = "";
+
+/***/ }),
+/* 125 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"jumbotron\">\n    <div class=\"absolute-center\">\n        <h1 class=\"jumbotron-header\">Welcome to GA Hub</h1>\n        <p>Make friends, Git Hired</p>\n        <p><a class=\"btn btn-primary btn-lg\" href=\"#\" role=\"button\">Learn more</a></p>\n\n    </div>\n</div>\n";
+
+/***/ }),
+/* 126 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(68);
+__webpack_require__(69);
+__webpack_require__(31);
+__webpack_require__(70);
+__webpack_require__(32);
+__webpack_require__(71);
+__webpack_require__(33);
+__webpack_require__(72);
+__webpack_require__(73);
+__webpack_require__(74);
+__webpack_require__(34);
+__webpack_require__(75);
+__webpack_require__(35);
+__webpack_require__(76);
+__webpack_require__(36);
+__webpack_require__(77);
+__webpack_require__(37);
+__webpack_require__(78);
+__webpack_require__(38);
+__webpack_require__(79);
+__webpack_require__(39);
+__webpack_require__(80);
+__webpack_require__(40);
+__webpack_require__(81);
+__webpack_require__(82);
+module.exports = __webpack_require__(83);
+
 
 /***/ })
 /******/ ]);
