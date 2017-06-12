@@ -9349,10 +9349,20 @@ angular.module('HubApp').component('showEvent', ShowEventComponent);
 
 /***/ }),
 /* 72 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-throw new Error("Module build failed: SyntaxError: Unexpected token (1:0)\n\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 1 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\n \u001b[90m   | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 2 | \u001b[39m\u001b[36mconst\u001b[39m template \u001b[33m=\u001b[39m require(\u001b[32m'./home.html'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 3 | \u001b[39m\u001b[36mconst\u001b[39m controller \u001b[33m=\u001b[39m require(\u001b[32m'./home.controller.js'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 4 | \u001b[39m\u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\u001b[0m\n");
+
+
+var homeController = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"/home.controller.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+var homeTemplate = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"/home.html\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var HomeComponent = {
+	controller: homeController,
+	template: homeTemplate
+};
+
+angular.module('HubApp').component('home', HomeComponent);
 
 /***/ }),
 /* 73 */
