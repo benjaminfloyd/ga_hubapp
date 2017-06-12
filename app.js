@@ -50,10 +50,8 @@ app.use('/posts', posts);
 app.use('/events', events);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+app.get('*',function(req, res, next) {
+  res.redirect('/');
 });
 
 // error handler
