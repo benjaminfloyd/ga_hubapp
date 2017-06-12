@@ -5423,7 +5423,7 @@ module.exports = ShowPostController;
 CreateUserController.$inject = ['$state', '$stateParams', 'UsersService'];
 
 function CreateUserController($state, $stateParams, UsersService) {
-    console.log('create user controller');
+    console.log('create user controller working');
     var vm = this;
 
     function initialize() {
@@ -9285,11 +9285,14 @@ function uiRouterSetup($stateProvider, $urlRouterProvider) {
         url: '/users',
         template: '<users></users>'
     }).state('createUsers', {
-        url: '/newusers',
+        url: '/register',
         template: '<create-user></create-user>'
     }).state('posts', {
         url: '/posts',
         template: '<posts></posts>'
+    }).state('createPost', {
+        url: '/newpost',
+        template: '<create-post></create-post>'
     }).state('show_post/:postId', {
         url: '/show_post/:postId',
         params: ['postId'],
