@@ -23,7 +23,6 @@ function EditUserController($state, $stateParams, UsersService) {
             vm.userToUpdate
         ).then(
             function success(response) {
-                // redirect to the individual user page when successfully updated
                 $state.go('show_user/:userId', { userId: vm.userToUpdate._id });
             },
             function failure(response) {

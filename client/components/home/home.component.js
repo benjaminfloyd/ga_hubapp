@@ -1,11 +1,11 @@
-const controller = require('./home.controller.js');
-const template = require('./home.html');
+const homeController = require('/home.controller.js');
+const homeTemplate = require('/home.html');
 
-const component = {
-	controller: controller,
-	template: template
+const HomeComponent = {
+	controller: homeController,
+	template: homeTemplate
 };
 
 angular
 	.module('HubApp')
-	.component('home', component);
+	.component('home', HomeComponent);

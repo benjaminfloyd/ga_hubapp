@@ -23,7 +23,6 @@ function CreatePostController($state, $stateParams, PostsService) {
             vm.postToUpdate
         ).then(
             function success(response) {
-                // redirect to the individual post page when successfully updated
                 $state.go('show_post/:postId', { postId: vm.postToUpdate._id });
             },
             function failure(response) {

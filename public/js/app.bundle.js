@@ -5136,7 +5136,6 @@ function CreateEventController($state, $stateParams, EventsService) {
 
     vm.updateEventInformation = function () {
         EventsService.updateSingleEvent(vm.eventToUpdate).then(function success(response) {
-            // redirect to the individual event page when successfully updated
             $state.go('show_event/:eventId', { eventId: vm.eventToUpdate._id });
         }, function failure(response) {
             console.log('Failed to updated Event with ID of ' + eventEntryId);
@@ -5159,48 +5158,32 @@ function EventsController($http, $state, $stateParams, EventsService, $scope) {
 
     var vm = this;
 
-    /**
-     * We will run this function the first time we load our component.
-     *
-     * We can use an 'initialize' function to pre-load some data
-     * from the database.
-     */
     function initialize() {
         getAllEventsFromDatabase();
     }
     initialize();
 
-    // this function grabs all of the events from the database
-    // via an AJAX call
     function getAllEventsFromDatabase() {
         EventsService.getAllEventsFromDatabase().then(function success(response) {
-            // if the call is successful, return the list of events
             vm.EventEntries = response.data;
         }, function failure(response) {
             console.log('Error retrieving Event Entries from database!');
         });
     }
 
-    // This function handles our form submission.
     vm.addEvent = function () {
 
-        // the new Event object will be created by binding to the form inputs
         var newEvent = {
             amount: vm.newEventAmount,
             note: vm.newEventNote
         };
 
-        // Make an ajax call to save the new Event to the database:
         EventsService.addNewEventToDatabase(newEvent).then(function success(response) {
-            // only push to the eventEntries array if the ajax call is successful
             var newEventFromDatabase = response.data;
             vm.eventEntries.push(newEventFromDatabase);
-            // then reset the form so we can submit more events
             resetForm();
         }, function failure(response) {
-            // if the http call is not successful, log the error
-            // DO NOT clear the form
-            // DO NOT push the new object to the array
+
             console.log('Error saving new Event to database!');
         });
     };
@@ -5208,12 +5191,10 @@ function EventsController($http, $state, $stateParams, EventsService, $scope) {
     vm.deleteEvent = function (eventIndexToDelete, eventIdToDeleteFromDatabase) {
 
         EventsService.deleteIdFromDatabase(eventIdToDeleteFromDatabase).then(function success(response) {
-            // only delete the Event from the Angular array if
-            // it was successfully deleted from the database
+
             vm.eventEntries.splice(eventIndexToDelete, 1);
         }, function failure(response) {
-            // DO NOT delete the Event from the Angular array if the
-            // event is not successfully deleted from the database
+
             console.log('Error deleting Event with ID of ' + eventIdToDeleteFromDatabase);
         });
     };
@@ -5222,7 +5203,6 @@ function EventsController($http, $state, $stateParams, EventsService, $scope) {
         $state.go('show_event/:eventId', { eventId: eventId });
     };
 
-    // this function can be used to clear the events form
     function resetForm() {
         vm.newEventAmount = '';
         vm.newEventNote = '';
@@ -5298,7 +5278,6 @@ function CreatePostController($state, $stateParams, PostsService) {
 
     vm.updatePostInformation = function () {
         PostsService.updateSinglePost(vm.postToUpdate).then(function success(response) {
-            // redirect to the individual post page when successfully updated
             $state.go('show_post/:postId', { postId: vm.postToUpdate._id });
         }, function failure(response) {
             console.log('Failed to updated Post with ID of ' + postEntryId);
@@ -5321,49 +5300,33 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
 
     var vm = this;
 
-    /**
-     * We will run this function the first time we load our component.
-     *
-     * We can use an 'initialize' function to pre-load some data
-     * from the database.
-     */
     function initialize() {
         console.log('Hello postcont');
         getAllPostsFromDatabase();
     }
     initialize();
 
-    // this function grabs all of the posts from the database
-    // via an AJAX call
     function getAllPostsFromDatabase() {
         PostsService.getAllPostsFromDatabase().then(function success(response) {
-            // if the call is successful, return the list of posts
             vm.postEntries = response.data;
         }, function failure(response) {
             console.log('Error retrieving Post Entries from database!');
         });
     }
 
-    // This function handles our form submission.
     vm.addPost = function () {
 
-        // the new Post object will be created by binding to the form inputs
         var newPost = {
             amount: vm.newPostAmount,
             note: vm.newPostNote
         };
 
-        // Make an ajax call to save the new Post to the database:
         PostsService.addNewPostToDatabase(newPost).then(function success(response) {
-            // only push to the postEntries array if the ajax call is successful
             var newPostFromDatabase = response.data;
             vm.postEntries.push(newPostFromDatabase);
-            // then reset the form so we can submit more post
             resetForm();
         }, function failure(response) {
-            // if the http call is not successful, log the error
-            // DO NOT clear the form
-            // DO NOT push the new object to the array
+
             console.log('Error saving new Post to database!');
         });
     };
@@ -5371,12 +5334,10 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
     vm.deletePost = function (postIndexToDelete, postIdToDeleteFromDatabase) {
 
         PostsService.deleteIdFromDatabase(postIdToDeleteFromDatabase).then(function success(response) {
-            // only delete the Post from the Angular array if
-            // it was successfully deleted from the database
+
             vm.postEntries.splice(postIndexToDelete, 1);
         }, function failure(response) {
-            // DO NOT delete the Post from the Angular array if the
-            // post is not successfully deleted from the database
+
             console.log('Error deleting Post with ID of ' + postIdToDeleteFromDatabase);
         });
     };
@@ -5385,7 +5346,6 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
         $state.go('show_post/:postId', { postId: postId });
     };
 
-    // this function can be used to clear the posts form
     function resetForm() {
         vm.newPostAmount = '';
         vm.newPostNote = '';
@@ -5461,7 +5421,6 @@ function EditUserController($state, $stateParams, UsersService) {
 
     vm.updateUserInformation = function () {
         UsersService.updateSingleUser(vm.userToUpdate).then(function success(response) {
-            // redirect to the individual user page when successfully updated
             $state.go('show_user/:userId', { userId: vm.userToUpdate._id });
         }, function failure(response) {
             console.log('Failed to updated User with ID of ' + userEntryId);
@@ -5515,48 +5474,31 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
 
     var vm = this;
 
-    /**
-     * We will run this function the first time we load our component.
-     *
-     * We can use an 'initialize' function to pre-load some data
-     * from the database.
-     */
     function initialize() {
         getAllUsersFromDatabase();
     }
     initialize();
 
-    // this function grabs all of the users from the database
-    // via an AJAX call
     function getAllUsersFromDatabase() {
         UsersService.getAllUsersFromDatabase().then(function success(response) {
-            // if the call is successful, return the list of users
             vm.userEntries = response.data;
         }, function failure(response) {
             console.log('Error retrieving User Entries from database!');
         });
     }
 
-    // This function handles our form submission.
     vm.addUser = function () {
 
-        // the new User object will be created by binding to the form inputs
         var newUser = {
             amount: vm.newUserAmount,
             note: vm.newUserNote
         };
 
-        // Make an ajax call to save the new User to the database:
         UsersService.addNewUserToDatabase(newUser).then(function success(response) {
-            // only push to the userEntries array if the ajax call is successful
             var newUserFromDatabase = response.data;
             vm.userEntries.push(newUserFromDatabase);
-            // then reset the form so we can submit more users
             resetForm();
         }, function failure(response) {
-            // if the http call is not successful, log the error
-            // DO NOT clear the form
-            // DO NOT push the new object to the array
             console.log('Error saving new User to database!');
         });
     };
@@ -5564,12 +5506,10 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
     vm.deleteUser = function (userIndexToDelete, userIdToDeleteFromDatabase) {
 
         UsersService.deleteIdFromDatabase(userIdToDeleteFromDatabase).then(function success(response) {
-            // only delete the User from the Angular array if
-            // it was successfully deleted from the database
+
             vm.userEntries.splice(userIndexToDelete, 1);
         }, function failure(response) {
-            // DO NOT delete the User from the Angular array if the
-            // user is not successfully deleted from the database
+
             console.log('Error deleting User with ID of ' + userIdToDeleteFromDatabase);
         });
     };
@@ -5578,7 +5518,6 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
         $state.go('show_user/:userId', { userId: userId });
     };
 
-    // this function can be used to clear the credits form
     function resetForm() {
         vm.newUserAmount = '';
         vm.newUserNote = '';
@@ -9467,7 +9406,6 @@ function CreateUserController($state, $stateParams, UsersService) {
 
     vm.updateUserInformation = function () {
         UsersService.updateSingleUser(vm.userToUpdate).then(function success(response) {
-            // redirect to the individual user page when successfully updated
             $state.go('show_user/:userId', { userId: vm.userToUpdate._id });
         }, function failure(response) {
             console.log('Failed to updated User with ID of ' + userEntryId);
@@ -45999,7 +45937,7 @@ module.exports = "";
 /* 122 */
 /***/ (function(module, exports) {
 
-module.exports = "";
+module.exports = "<div class=\"jumbotron\">\n    <div class=\"absolute-center\">\n        <h1 class=\"jumbotron-header\">Welcome to GA Hub</h1>\n        <p>Make friends, Git Hired</p>\n        <p><a class=\"btn btn-primary btn-lg\" href=\"#\" role=\"button\">Learn more</a></p>\n\n    </div>\n</div>\n";
 
 /***/ }),
 /* 123 */
@@ -46035,7 +45973,7 @@ module.exports = __webpack_require__(81);
 /* 124 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n    \t<div class=\"row\">\n\t\t\t<div class=\"col-md-6 col-md-offset-3\">\n\t\t\t\t<div class=\"panel panel-login\">\n\t\t\t\t\t<div class=\"panel-heading\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-xs-6\">\n\t\t\t\t\t\t\t\t<a href=\"#\" class=\"active\" id=\"login-form-link\">Login</a>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-xs-6\">\n\t\t\t\t\t\t\t\t<a href=\"#\" id=\"register-form-link\">Register</a>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<hr>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"panel-body\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-lg-12\">\n\t\t\t\t\t\t\t\t<form id=\"login-form\" action=\"https://phpoll.com/login/process\" method=\"post\" role=\"form\" style=\"display: block;\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"text\" name=\"username\" id=\"username\" tabindex=\"1\" class=\"form-control\" placeholder=\"Username\" value=\"\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"password\" name=\"password\" id=\"password\" tabindex=\"2\" class=\"form-control\" placeholder=\"Password\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group text-center\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" tabindex=\"3\" class=\"\" name=\"remember\" id=\"remember\">\n\t\t\t\t\t\t\t\t\t\t<label for=\"remember\"> Remember Me</label>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-sm-6 col-sm-offset-3\">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"submit\" name=\"login-submit\" id=\"login-submit\" tabindex=\"4\" class=\"form-control btn btn-login\" value=\"Log In\">\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-lg-12\">\n\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"text-center\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a href=\"https://phpoll.com/recover\" tabindex=\"5\" class=\"forgot-password\">Forgot Password?</a>\n\t\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</form>\n\t\t\t\t\t\t\t\t<form id=\"register-form\" action=\"https://phpoll.com/register/process\" method=\"post\" role=\"form\" style=\"display: none;\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"text\" name=\"username\" id=\"username\" tabindex=\"1\" class=\"form-control\" placeholder=\"Username\" value=\"\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"email\" name=\"email\" id=\"email\" tabindex=\"1\" class=\"form-control\" placeholder=\"Email Address\" value=\"\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"password\" name=\"password\" id=\"password\" tabindex=\"2\" class=\"form-control\" placeholder=\"Password\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"password\" name=\"confirm-password\" id=\"confirm-password\" tabindex=\"2\" class=\"form-control\" placeholder=\"Confirm Password\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-sm-6 col-sm-offset-3\">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"submit\" name=\"register-submit\" id=\"register-submit\" tabindex=\"4\" class=\"form-control btn btn-register\" value=\"Register Now\">\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</form>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>";
+module.exports = "<div class=\"container\">\n    \t<div class=\"row\">\n\t\t\t<div class=\"col-md-6 col-md-offset-3\">\n\t\t\t\t<div class=\"panel panel-login\">\n\t\t\t\t\t<div class=\"panel-heading\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-xs-6\">\n\t\t\t\t\t\t\t\t<a href=\"#\" class=\"active\" id=\"login-form-link\">Login</a>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t<div class=\"col-xs-6\">\n\t\t\t\t\t\t\t\t<a href=\"#\" id=\"register-form-link\">Register</a>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<hr>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"panel-body\">\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<div class=\"col-lg-12\">\n\t\t\t\t\t\t\t\t<form id=\"login-form\" action=\"https://phpoll.com/login/process\" method=\"post\" role=\"form\" style=\"display: block;\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"text\" name=\"username\" id=\"username\" tabindex=\"1\" class=\"form-control\" placeholder=\"Username\" value=\"\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"password\" name=\"password\" id=\"password\" tabindex=\"2\" class=\"form-control\" placeholder=\"Password\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group text-center\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"checkbox\" tabindex=\"3\" class=\"\" name=\"remember\" id=\"remember\">\n\t\t\t\t\t\t\t\t\t\t<label for=\"remember\"> Remember Me</label>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-sm-6 col-sm-offset-3\">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"submit\" name=\"login-submit\" id=\"login-submit\" tabindex=\"4\" class=\"form-control btn btn-login\" value=\"Log In\">\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-lg-12\">\n\t\t\t\t\t\t\t\t\t\t\t\t<div class=\"text-center\">\n\t\t\t\t\t\t\t\t\t\t\t\t\t<a href=\"https://phpoll.com/recover\" tabindex=\"5\" class=\"forgot-password\">Forgot Password?</a>\n\t\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</form>\n\t\t\t\t\t\t\t\t<form id=\"register-form\" action=\"https://phpoll.com/register/process\" method=\"post\" role=\"form\" style=\"display: none;\">\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"text\" name=\"username\" id=\"username\" tabindex=\"1\" class=\"form-control\" placeholder=\"Username\" value=\"\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"email\" name=\"email\" id=\"email\" tabindex=\"1\" class=\"form-control\" placeholder=\"Email Address\" value=\"\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"password\" name=\"password\" id=\"password\" tabindex=\"2\" class=\"form-control\" placeholder=\"Password\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<input type=\"password\" name=\"confirm-password\" id=\"confirm-password\" tabindex=\"2\" class=\"form-control\" placeholder=\"Confirm Password\">\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t<div class=\"form-group\">\n\t\t\t\t\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t\t\t\t\t<div class=\"col-sm-6 col-sm-offset-3\">\n\t\t\t\t\t\t\t\t\t\t\t\t<input type=\"submit\" name=\"register-submit\" id=\"register-submit\" tabindex=\"4\" class=\"form-control btn btn-register\" value=\"Register Now\">\n\t\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t\t\t</form>\n\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\ncreate user\n";
 
 /***/ })
 /******/ ]);
