@@ -11,6 +11,30 @@ function uiRouterSetup($stateProvider, $urlRouterProvider) {
             url: '/users',
             template: '<users></users>'
         })
+        .state('show_post/:postId', {
+            url: '/show_post/:postId',
+            params: [ 'postId' ],
+            template: '<show-post></show-post>'
+        })
+        .state('edit_post/:postId', {
+            url: '/edit_post/:postId',
+            params: [ 'postId' ],
+            template: '<edit-post></edit-post>'
+        })
+        .state('events', {
+            url: '/events',
+            template: '<events></events>'
+        })
+        .state('show_event/:eventId', {
+            url: '/show_event/:eventId',
+            params: [ 'eventId' ],
+            template: '<show-event></show-event>'
+        })
+        .state('edit_event/:eventId', {
+            url: '/edit_event/:eventId',
+            params: [ 'eventId' ],
+            template: '<edit-event></edit-event>'
+        });
 
     $urlRouterProvider.otherwise('/');
 }
