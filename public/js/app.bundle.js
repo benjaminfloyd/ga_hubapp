@@ -46231,7 +46231,7 @@ module.exports = "";
 /* 131 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n    <h1>User</h1>\n    <div class=\"card\">\n        <div class=\"content\">\n            <p>\n                <h3>First Name: {{$ctrl.userEntry.first_name}}</h3>\n                <h3>Last Name: {{$ctrl.userEntry.last_name}}</h3>\n                <h3>Email: {{$ctrl.userEntry.email}}</h3>\n                <h3>Title: {{$ctrl.userEntry.title}}</h3>\n            </p>\n            <button class=\"btn\" ng-click=\"$ctrl.editUserEntry($ctrl.userEntry._id)\">Edit</button>\n        </div>\n    </div>\n</div>";
+module.exports = "<div class=\"container\">\n      <div class=\"card\">\n            <div class=\"content\">\n                  <p>\n                        <h3>First Name: </h3>{{$ctrl.userEntry.first_name}}\n                        <h3>Last Name: </h3>{{$ctrl.userEntry.last_name}}\n                        <h3>Email: </h3>{{$ctrl.userEntry.email}}\n                        <h3>Title: </h3>{{$ctrl.userEntry.title}}\n                  </p>\n                  <p><button class=\"btn\" ng-click=\"$ctrl.editEventEntry($ctrl.eventEntry._id)\">Edit</button></p>\n            </div>\n      </div>\n</div>";
 
 /***/ }),
 /* 132 */
