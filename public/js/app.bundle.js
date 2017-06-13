@@ -46182,13 +46182,13 @@ module.exports = "<div class=\"container\">\n  <div class=\"content\">\n    <h1>
 /* 123 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n      <div class=\"card\">\n            <div class=\"card-content\">\n                  <h3>Event Name: </h3>{{$ctrl.eventEntry.event_name}}\n                  <h3>Location: </h3>{{$ctrl.eventEntry.event_location}}\n                  <h3>Description </h3>{{$ctrl.eventEntry.event_description}}\n                  <h3>Date: </h3>{{$ctrl.eventEntry.event_date | date: shortDate}}\n                  <h3>Tickets: </h3>{{$ctrl.eventEntry.event_cost | currency}}\n                  <h3>Event ID: </h3>{{$ctrl.eventEntry._id}}\n            </div>\n            <p><button class=\"btn\" ng-click=\"$ctrl.editEvent(event._id)\">Edit</button></p>\n      </div>\n</div>";
+module.exports = "<div class=\"container\">\n      <div class=\"card\">\n            <div class=\"content\">\n                  <p>\n                        <h3>Event Name: </h3>{{$ctrl.eventEntry.event_name}}\n                        <h3>Location: </h3>{{$ctrl.eventEntry.event_location}}\n                        <h3>Description </h3>{{$ctrl.eventEntry.event_description}}\n                        <h3>Date: </h3>{{$ctrl.eventEntry.event_date | date: shortDate}}\n                        <h3>Tickets: </h3>{{$ctrl.eventEntry.event_cost | currency}}\n                        <h3>Event ID: </h3>{{$ctrl.eventEntry._id}}\n                  </p>\n                  <p><button class=\"btn\" ng-click=\"$ctrl.editEvent(event._id)\">Edit</button></p>\n            </div>\n      </div>\n</div>";
 
 /***/ }),
 /* 124 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"jumbotron\">\n    <div class=\"absolute-center\">\n        <h1 class=\"jumbotron-header\">Welcome to GA Hub</h1>\n        <p>Make friends, Git Hired</p>\n    </div>\n</div>";
+module.exports = "    <div class=\"container\">\n        <!-- Example row of columns -->\n        <div class=\"row\">\n            <div class=\"col-md-4\">\n                <h2>Postings</h2>\n                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris\n                    condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.\n                    Donec sed odio dui. </p>\n                <p><a class=\"btn btn-default\" href=\"#\" role=\"button\">View Postings &raquo;</a></p>\n            </div>\n            <div class=\"col-md-4\">\n                <h2>Events</h2>\n                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris\n                    condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.\n                    Donec sed odio dui. </p>\n                <p><a class=\"btn btn-default\" href=\"#\" role=\"button\">View Events &raquo;</a></p>\n            </div>\n            <div class=\"col-md-4\">\n                <h2>Profiles</h2>\n                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta\n                    felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum\n                    massa justo sit amet risus.</p>\n                <p><a class=\"btn btn-default\" href=\"#\" role=\"button\">View Profiles &raquo;</a></p>\n            </div>\n        </div>";
 
 /***/ }),
 /* 125 */
@@ -46200,7 +46200,7 @@ module.exports = "  <h1>Posts</h1>\n  <form ng-submit=\"$ctrl.addPost()\">\n    
 /* 126 */
 /***/ (function(module, exports) {
 
-module.exports = "";
+module.exports = "<div class=\"container\">\n    <div class=\"card\">\n        <div class=\"card-content\">\n            <form ng-submit=\"$ctrl.updatePostInformation($ctrl.postToUpdate._id)\">\n                <div>Company Name: <input type=\"text\" ng-model=\"$ctrl.postToUpdate.company_name\"></div>\n                <div>Position: <input type=\"text\" ng-model=\"$ctrl.postToUpdate.position_title\"></div>\n                <div>Job Description: <input type=\"text\" ng-model=\"$ctrl.postToUpdate.job_description\"></div>\n                <div>Date Available: <input type=\"text\" ng-model=\"$ctrl.postToUpdate.date_available\"></div>\n                <br>\n                <div><input class=\"btn\" type=\"submit\" value=\"Update post Entry\"></div>\n            </form>\n        </div>\n    </div>\n</div>\n";
 
 /***/ }),
 /* 127 */
@@ -46212,7 +46212,7 @@ module.exports = "<div class=\"container\">\n  <div class=\"content\">\n    <h1>
 /* 128 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n    <div class=\"card\">\n        <div class=\"card-content\">\n            <p>\n                <h3>Company Name: </h3>{{$ctrl.postEntry.company_name}}\n                <h3>Position: </h3>{{$ctrl.postEntry.position_title}}\n                <h3>Job Description: </h3>{{$ctrl.postEntry.job_description}}\n                <h3>Date Available: </h3>{{$ctrl.postEntry.date_available | date: shortDate}}\n            </p>\n        </div>\n        <p><button class=\"btn\" ng-click=\"$ctrl.editPostEntry($ctrl.postEntry._id)\">Edit</button></p>\n    </div>\n</div>";
+module.exports = "<div class=\"container\">\n    <div class=\"card\">\n        <div class=\"content\">\n            <p>\n                <h3>Company Name: </h3>{{$ctrl.postEntry.company_name}}\n                <h3>Position: </h3>{{$ctrl.postEntry.position_title}}\n                <h3>Job Description: </h3>{{$ctrl.postEntry.job_description}}\n                <h3>Date Available: </h3>{{$ctrl.postEntry.date_available | date: shortDate}}\n            </p>\n            <p><button class=\"btn\" ng-click=\"$ctrl.editPostEntry($ctrl.postEntry._id)\">Edit</button></p>\n        </div>\n    </div>\n</div>";
 
 /***/ }),
 /* 129 */
@@ -46230,7 +46230,7 @@ module.exports = "";
 /* 131 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n    <h1>User</h1>\n    <div class=\"card\">\n        <div class=\"card-content\">\n            <h3>First Name: {{$ctrl.userEntry.first_name}}</h3>\n            <h3>Last Name: {{$ctrl.userEntry.last_name}}</h3>\n            <h3>Email: {{$ctrl.userEntry.email}}</h3>\n            <h3>Title: {{$ctrl.userEntry.title}}</h3>\n\n            <button class=\"btn\" ng-click=\"$ctrl.editUserEntry($ctrl.userEntry._id)\">Edit</button>\n        </div>\n    </div>\n</div>\n\n\n\n\n";
+module.exports = "<div class=\"container\">\n    <h1>User</h1>\n    <div class=\"card\">\n        <div class=\"content\">\n            <p>\n                <h3>First Name: {{$ctrl.userEntry.first_name}}</h3>\n                <h3>Last Name: {{$ctrl.userEntry.last_name}}</h3>\n                <h3>Email: {{$ctrl.userEntry.email}}</h3>\n                <h3>Title: {{$ctrl.userEntry.title}}</h3>\n            </p>\n            <button class=\"btn\" ng-click=\"$ctrl.editUserEntry($ctrl.userEntry._id)\">Edit</button>\n        </div>\n    </div>\n</div>";
 
 /***/ }),
 /* 132 */
