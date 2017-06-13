@@ -1,0 +1,14 @@
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <form ng-submit="$ctrl.updatePostInformation($ctrl.postToUpdate._id)">
+                <div>Company Name: <input type="text" ng-model="$ctrl.postToUpdate.company_name"></div>
+                <div>Position: <input type="text" ng-model="$ctrl.postToUpdate.position_title"></div>
+                <div>Job Description: <input type="text" ng-model="$ctrl.postToUpdate.job_description"></div>
+                <div>Date Available: <input type="text" ng-model="$ctrl.postToUpdate.date_available"></div>
+                <br>
+                <div><input class="btn" type="submit" value="Update post Entry"></div>
+            </form>
+        </div>
+    </div>
+</div>
