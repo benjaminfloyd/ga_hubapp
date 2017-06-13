@@ -18,12 +18,12 @@ function EditEventController($state, $stateParams, EventsService) {
     }
     initialize();
 
-    vm.updateUserInformation = function () {
+    vm.updateEventInformation = function () {
         EventsService.updateSingleEvent(
-            vm.userToUpdate
+            vm.eventToUpdate
         ).then(
             function success(response) {
-                $state.go('show_event/:eventId', { eventId: vm.userToUpdate._id });
+                $state.go('show_event/:eventId', { eventId: vm.eventToUpdate._id });
             },
             function failure(response) {
                 console.log('Failed to updated Event with ID of ' + eventEntryId);
