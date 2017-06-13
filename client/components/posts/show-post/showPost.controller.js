@@ -14,7 +14,7 @@ function ShowPostController($state, $stateParams, PostsService) {
                     console.log(response.data);
                 },
                 function failure(response) {
-                    console.log('Failed to retrieve information for Post with ID of ' + expenseIdToShow)
+                    console.log('Failed to retrieve information for Post with ID of ' + postIdToShow)
                 }
             )
     }
