@@ -5681,7 +5681,7 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
 
     vm.showUser = function (userId) {
         console.log(userId);
-        $state.go('show_user', { userId: userId });
+        $state.go('show_user/:userId', { userId: userId });
     };
 
     function resetForm() {
@@ -9399,8 +9399,9 @@ function uiRouterSetup($stateProvider, $urlRouterProvider) {
     }).state('users', {
         url: '/users',
         template: '<users></users>'
-    }).state('show_user', {
-        url: 'show_user/:userId',
+    }).state('show_user/:userId', {
+        url: '/show_user/:userId',
+        params: ['userId'],
         template: '<show-user></show-user>'
     }).state('createUsers', {
         url: '/register',

@@ -22,7 +22,7 @@ router.get('/:userId', function (request, response) {
 
     const userIdToShow = request.params.userId;
 
-    User.findById(userdToShow, function (error, foundUser) {
+    User.findById(userIdToShow, function (error, foundUser) {
         if (error) {
             console.log('Error finding User with ID of ' + userIdToShow);
             return;
