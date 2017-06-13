@@ -41,6 +41,7 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
             .then(
                 function success(response) {
                     const newUserFromDatabase = response.data;
+                    console.log(newUserFromDatabase);
                     vm.userEntries.push(newUserFromDatabase);
                     resetForm();
                 },

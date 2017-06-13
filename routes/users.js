@@ -36,7 +36,7 @@ router.get('/:userId', function (request, response) {
 router.post('/', (request, response) => {
 
     let userFromRequest = request.body;
-
+        console.log(userFromRequest);
     let newUser = new User({
 
             first_name: userFromRequest.first_name,
@@ -46,13 +46,13 @@ router.post('/', (request, response) => {
     });
     console.log(newUser)
 
-    newUser.save(function (error, newUser) {
+    newUser.save(function (error, savedUser) {
         if (error) {
             console.log(error);
             return;
         }
 
-        response.send(newUser);
+        response.send(savedUser);
     });
 });
 

@@ -67,6 +67,6 @@ var UserModel = mongoose.model("User", UserSchema);
 module.exports = {
   Event: EventModel,
   Post: PostModel,
-  User: PostModel
+  User: UserModel
 
 };
