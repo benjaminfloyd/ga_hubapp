@@ -3,6 +3,12 @@ EventsController.$inject = ['$http', '$state', '$stateParams', 'EventsService', 
 function EventsController($http, $state, $stateParams, EventsService, $scope) {
 
     let vm = this;
+    vm.eventName = '';
+    vm.eventLocation = '';
+    vm.eventDescription = '';
+    vm.eventDate = '';
+    vm.eventCost = '';
+    vm.eventEntries = [];
 
     function initialize() {
         getAllEventsFromDatabase();
@@ -22,10 +28,14 @@ function EventsController($http, $state, $stateParams, EventsService, $scope) {
     }
 
     vm.addEvent = function () {
-
+    
         const newEvent = {
-            amount: vm.newEventAmount,
-            note: vm.newEventNote
+            event_name: vm.eventName,
+            event_location: vm.eventLocation,
+            event_description: vm.eventDescription,
+            event_date: vm.eventDate,
+            event_cost: vm.eventCost
+            
         };
 
         EventsService.addNewEventToDatabase(newEvent)
@@ -62,8 +72,11 @@ function EventsController($http, $state, $stateParams, EventsService, $scope) {
     }
 
     function resetForm() {
-        vm.newEventAmount = '';
-        vm.newEventNote = '';
+        vm.eventName = '';
+        vm.eventLocation = '';
+        vm.eventDescription = '';
+        vm.eventDate = '';
+        vm.eventCost = '';
     }
 
     vm.totalEvents = function () {

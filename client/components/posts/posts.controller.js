@@ -20,7 +20,7 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
         PostsService.getAllPostsFromDatabase()
             .then(
             function success(response) {
-                debugger;
+                
                 vm.postEntries = response.data;
             },
             function failure(response) {

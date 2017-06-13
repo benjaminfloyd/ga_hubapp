@@ -5157,6 +5157,12 @@ EventsController.$inject = ['$http', '$state', '$stateParams', 'EventsService', 
 function EventsController($http, $state, $stateParams, EventsService, $scope) {
 
     var vm = this;
+    vm.eventName = '';
+    vm.eventLocation = '';
+    vm.eventDescription = '';
+    vm.eventDate = '';
+    vm.eventCost = '';
+    vm.eventEntries = [];
 
     function initialize() {
         getAllEventsFromDatabase();
@@ -5174,8 +5180,12 @@ function EventsController($http, $state, $stateParams, EventsService, $scope) {
     vm.addEvent = function () {
 
         var newEvent = {
-            amount: vm.newEventAmount,
-            note: vm.newEventNote
+            event_name: vm.eventName,
+            event_location: vm.eventLocation,
+            event_description: vm.eventDescription,
+            event_date: vm.eventDate,
+            event_cost: vm.eventCost
+
         };
 
         EventsService.addNewEventToDatabase(newEvent).then(function success(response) {
@@ -5204,8 +5214,11 @@ function EventsController($http, $state, $stateParams, EventsService, $scope) {
     };
 
     function resetForm() {
-        vm.newEventAmount = '';
-        vm.newEventNote = '';
+        vm.eventName = '';
+        vm.eventLocation = '';
+        vm.eventDescription = '';
+        vm.eventDate = '';
+        vm.eventCost = '';
     }
 
     vm.totalEvents = function () {
@@ -5331,7 +5344,7 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
 
     function getAllPostsFromDatabase() {
         PostsService.getAllPostsFromDatabase().then(function success(response) {
-            debugger;
+
             vm.postEntries = response.data;
         }, function failure(response) {
             console.log('Error retrieving Post Entries from database!');
@@ -9532,6 +9545,7 @@ function EventsService($http) {
     };
 
     self.addNewEventToDatabase = function (newEvent) {
+        console.log(newEvent);
         return $http.post('events/', newEvent);
     };
 
@@ -46028,7 +46042,7 @@ module.exports = "";
 /* 117 */
 /***/ (function(module, exports) {
 
-module.exports = "events";
+module.exports = "<div class=\"container\">\n  <h1>Events</h1>\n  <form ng-submit=\"$ctrl.addEvent()\">\n    <div>Event Name:<input type=\"text\" ng-model=\"$ctrl.eventName\" required></div>\n    <div>Event Location:<input type=\"text\" ng-model=\"$ctrl.eventLocation\" required></div>\n    <div>Event Description: <input type=\"text\" ng-model=\"$ctrl.eventDescription\" required></div>\n    <div>Event Date: <input type=\"text\" ng-model=\"$ctrl.eventDate\" required></div>\n    <div>Event Cost: <input type=\"text\" ng-model=\"$ctrl.eventCost\" required></div>\n    <div><input class=\"btn\" type=\"submit\" value=\"Add Event\"></div>\n  </form>\n  <div class=\"show-events\" ng-repeat=\"event in $ctrl.eventEntries\">\n      <p>{{event.event_name}}</p>\n      <p>{{event.event_location}}</p>\n      <p>{{event.event_description}}</p>\n      <p>{{event.event_date}}</p>\n      <p>{{event.event_cost}}</p>\n      <p>{{event._id}}</p>\n      <button class=\"btn\" ng-click=\"$ctrl.showEvent(event._id)\">View</button>\n  </div>\n</div>\n";
 
 /***/ }),
 /* 118 */
@@ -46052,7 +46066,7 @@ module.exports = "<div class=\"container\">\n  <form>\n    <div class=\"form-gro
 /* 121 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <h1>Posts</h1>\n  <form ng-submit=\"$ctrl.addPost()\">\n    <div>Company Name:<input type=\"text\" ng-model=\"$ctrl.companyName\" required></div>\n    <div>Position Title: <input type=\"text\" ng-model=\"$ctrl.positionTitle\" required></div>\n    <div>Job Description: <input type=\"text\" ng-model=\"$ctrl.jobDescription\" required></div>\n    <div>Date Available: <input type=\"text\" ng-model=\"$ctrl.dateAvailable\" required></div>\n    <div><input class=\"btn\" type=\"submit\" value=\"Add to Posts\"></div>\n  </form>\n  <div class=\"show-posts\" ng-repeat=\"post in $ctrl.postEntries\">\n      <p>{{post.company_name}}</p>\n      <p>{{post.position_title}}</p>\n      <p>{{post.job_description}}</p>\n      <p>{{post.date_available}}</p>\n      <button class=\"btn\" ng-click=\"$ctrl.showPost(post._id)\">View</button>\n  </div>\n</div>";
+module.exports = "<div class=\"container\">\n  <h1>Posts</h1>\n  <form ng-submit=\"$ctrl.addPost()\">\n    <div>Company Name:<input type=\"text\" ng-model=\"$ctrl.companyName\" required></div>\n    <div>Position Title:<input type=\"text\" ng-model=\"$ctrl.positionTitle\" required></div>\n    <div>Job Description: <input type=\"text\" ng-model=\"$ctrl.jobDescription\" required></div>\n    <div>Date Available: <input type=\"text\" ng-model=\"$ctrl.dateAvailable\" required></div>\n    <div><input class=\"btn\" type=\"submit\" value=\"Add to Posts\"></div>\n  </form>\n  <div class=\"show-posts\" ng-repeat=\"post in $ctrl.postEntries\">\n      <p>{{post.company_name}}</p>\n      <p>{{post.position_title}}</p>\n      <p>{{post.job_description}}</p>\n      <p>{{post.date_available}}</p>\n      <button class=\"btn\" ng-click=\"$ctrl.showPost(post._id)\">View</button>\n  </div>\n</div>";
 
 /***/ }),
 /* 122 */
