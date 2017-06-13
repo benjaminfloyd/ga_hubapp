@@ -4,7 +4,7 @@ Project 3 GA Opps Hub
 Make friends Git Hired!
 
 GA Board App:
-Classifieds and networking portal
+Classifieds and networking portal for GA Alumi
 
 Models:
 Users - Full CRUD Reach Messaaging.

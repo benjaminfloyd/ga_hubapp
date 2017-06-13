@@ -5312,10 +5312,34 @@ module.exports = ShowEventController;
 
 console.log("Home controller working");
 
-HomeController.$inject = ['$http', '$state'];
+HomeController.$inject = ['$http', '$state', 'EventsService', 'PostsService'];
 
-function HomeController($http, $state) {
-	var vm = this;
+function HomeController($http, $state, EventsService, PostsService) {
+    var vm = this;
+
+    function initialize() {
+
+        console.log('Events Controller Working');
+        getAllEventsFromDatabase();
+        getAllPostsFromDatabase();
+    }
+    initialize();
+
+    function getAllEventsFromDatabase() {
+        EventsService.getAllEventsFromDatabase().then(function success(response) {
+            vm.eventEntries = response.data;
+        }, function failure(response) {
+            console.log('Error retrieving Event Entries from database!');
+        });
+    }
+
+    function getAllPostsFromDatabase() {
+        PostsService.getAllPostsFromDatabase().then(function success(response) {
+            vm.postEntries = response.data;
+        }, function failure(response) {
+            console.log('Error retrieving Post Entries from database!');
+        });
+    }
 }
 
 module.exports = HomeController;
@@ -46188,7 +46212,7 @@ module.exports = "<div class=\"container\">\n      <div class=\"card\">\n       
 /* 124 */
 /***/ (function(module, exports) {
 
-module.exports = "    <div class=\"container\">\n        <!-- Example row of columns -->\n        <div class=\"row\">\n            <div class=\"col-md-4\">\n                <h2>Postings</h2>\n                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris\n                    condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.\n                    Donec sed odio dui. </p>\n                <p><a class=\"btn btn-default\" href=\"/#!/posts\" role=\"button\">View Postings &raquo;</a></p>\n            </div>\n            <div class=\"col-md-4\">\n                <h2>Events</h2>\n                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris\n                    condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod.\n                    Donec sed odio dui. </p>\n                <p><a class=\"btn btn-default\" href=\"/#!/events\" role=\"button\">View Events &raquo;</a></p>\n            </div>\n            <div class=\"col-md-4\">\n                <h2>Profiles</h2>\n                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta\n                    felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum\n                    massa justo sit amet risus.</p>\n                <p><a class=\"btn btn-default\" href=\"/#!/users\" role=\"button\">View Profiles &raquo;</a></p>\n            </div>\n        </div>";
+module.exports = "    <div class=\"container\">\n        <!-- Example row of columns -->\n        <div class=\"row\">\n            <h2>Events</h2>\n            <div class=\"col-md-4\" ng-repeat=\"event in $ctrl.eventEntries\">\n                <p><span class=\"bold\">Event Name: </span>{{event.event_name}}</p>\n                <p><span class=\"bold\">Location: </span>{{event.event_location}}</p>\n                <p><span class=\"bold\">Date: </span>{{event.event_date | date: shortDate}}</p>\n                <p><span class=\"bold\">Cost: </span>{{event.event_cost | currency}}</p>\n                \n                <p><a class=\"btn btn-default\" href=\"/#!/events\" role=\"button\">View Events &raquo;</a></p>\n            </div>\n            <h2>Postings</h2>\n            <div class=\"col-md-4\" ng-repeat=\"post in $ctrl.postEntries\">\n                <p><span class=\"bold\">Company Name:</span> {{post.company_name}}</p>\n                <p><span class=\"bold\">Position Title:</span> {{post.position_title}}</p>\n                <p><span class=\"bold\">Date Available:</span> {{post.date_available | date: shortDate}}</p>\n                <p><a class=\"btn btn-default\" href=\"/#!/posts\" role=\"button\">View Post &raquo;</a></p>\n            </div>\n            <!--<div class=\"col-md-4\">\n                <h2>Profiles</h2>\n                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta\n                    felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum\n                    massa justo sit amet risus.</p>\n                <p><a class=\"btn btn-default\" href=\"/#!/users\" role=\"button\">View Profiles &raquo;</a></p>-->\n            </div>\n        </div>";
 
 /***/ }),
 /* 125 */
