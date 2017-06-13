@@ -9,11 +9,7 @@
                         <h3>Tickets: </h3>{{$ctrl.eventEntry.event_cost | currency}}
                         <h3>Event ID: </h3>{{$ctrl.eventEntry._id}}
                   </p>
-                  <p><button class="btn" ng-click="$ctrl.editEvent(event._id)">Edit</button></p>
+                  <p><button class="btn" ng-click="$ctrl.editEventEntry($ctrl.eventEntry._id)">Edit</button></p>
             </div>
-<<<<<<< HEAD
-            <p><button class="btn" ng-click="$ctrl.editEventEntry($ctrl.eventEntry._id)">Edit</button></p>
-=======
->>>>>>> 2bd4873e5d05a270eb728f235bc21627090aa2f4
       </div>
 </div>
