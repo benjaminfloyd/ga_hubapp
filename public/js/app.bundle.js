@@ -46170,7 +46170,7 @@ module.exports = "<div class=\"container\">\n  <div class=\"content\">\n  <h1>Ev
 /* 123 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"show-events\" ng-repeat=\"event in $ctrl.eventEntries\">\n      <p>{{event.event_name}}</p>\n      <p>{{event.event_location}}</p>\n      <p>{{event.event_description}}</p>\n      <p>{{event.event_date}}</p>\n      <p>{{event.event_cost}}</p>\n      <p>{{event._id}}</p>\n      <button class=\"btn\" ng-click=\"$ctrl.showEvent(event._id)\">View</button>";
+module.exports = "<div class=\"container\">\n      <div class=\"card\">\n            <div class=\"card-content\">\n                  <p>{{$ctrl.eventEntry.event_name}}</p>\n                  <p>{{$ctrl.eventEntry.event_location}}</p>\n                  <p>{{$ctrl.eventEntry.event_description}}</p>\n                  <p>{{$ctrl.eventEntry.event_date}}</p>\n                  <p>{{$ctrl.eventEntry.event_cost}}</p>\n                  <p>{{$ctrl.eventEntry._id}}</p>\n            </div>\n            <button class=\"btn\" ng-click=\"$ctrl.showEvent(event._id)\">View</button>\n      </div>\n</div>";
 
 /***/ }),
 /* 124 */
