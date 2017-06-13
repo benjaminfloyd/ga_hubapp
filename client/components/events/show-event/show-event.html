@@ -1,0 +1,8 @@
+<div class="show-events" ng-repeat="event in $ctrl.eventEntries">
+      <p>{{event.event_name}}</p>
+      <p>{{event.event_location}}</p>
+      <p>{{event.event_description}}</p>
+      <p>{{event.event_date}}</p>
+      <p>{{event.event_cost}}</p>
+      <p>{{event._id}}</p>
+      <button class="btn" ng-click="$ctrl.showEvent(event._id)">View</button>
