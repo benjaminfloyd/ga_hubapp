@@ -3,6 +3,10 @@ PostsController.$inject = ['$http', '$state', '$stateParams', 'PostsService', '$
 function PostsController($http, $state, $stateParams, PostsService, $scope) {
 
     let vm = this;
+    vm.companyName = '';
+    vm.positionTitle = '';
+    vm.jobDescription = '';
+    vm.dateAvailable = '';
 
     function initialize() {
         console.log('Post Controller Working');
@@ -27,7 +31,7 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
 
         const newPost = {
             company_name: vm.companyName,
-            position_title: vm.postionTitle,
+            position_title: vm.positionTitle,
             job_description: vm.jobDescription,
             date_available: vm.dateAvailable
         };
@@ -66,8 +70,10 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
     }
 
     function resetForm() {
-        vm.newPostAmount = '';
-        vm.newPostNote = '';
+        vm.companyName = '';
+        vm.positionTitle = '';
+        vm.jobDescription = '';
+        vm.dateAvailable = '';
     }
 
     vm.totalPosts = function () {

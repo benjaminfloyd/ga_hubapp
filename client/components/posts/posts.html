@@ -1,9 +1,10 @@
 <div class="container">
   <h1>Posts</h1>
-  <form ng-submit="$ctrl.addExpense()">
-    <div>Amount (USD)<input type="number" ng-model="$ctrl.newExpenseAmount" required></div>
-    <div>Note: <input type="text" ng-model="$ctrl.newExpenseNote" required></div>
-    <div><input class="btn" type="submit" value="Add to Expenses"></div>
+  <form ng-submit="$ctrl.addPost()">
+    <div>Company Name:<input type="text" ng-model="$ctrl.companyName" required></div>
+    <div>Position Title: <input type="text" ng-model="$ctrl.positionTitle" required></div>
+    <div>Job Description: <input type="text" ng-model="$ctrl.jobDescription" required></div>
+    <div>Date Available: <input type="text" ng-model="$ctrl.dateAvailable" required></div>
+    <div><input class="btn" type="submit" value="Add to Posts"></div>
   </form>
-  <button class="btn" ng-click="$ctrl.createPost">Create Post</button>
 </div>

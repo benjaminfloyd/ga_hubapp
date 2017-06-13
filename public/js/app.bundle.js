@@ -5316,6 +5316,10 @@ PostsController.$inject = ['$http', '$state', '$stateParams', 'PostsService', '$
 function PostsController($http, $state, $stateParams, PostsService, $scope) {
 
     var vm = this;
+    vm.companyName = '';
+    vm.positionTitle = '';
+    vm.jobDescription = '';
+    vm.dateAvailable = '';
 
     function initialize() {
         console.log('Post Controller Working');
@@ -5336,7 +5340,7 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
 
         var newPost = {
             company_name: vm.companyName,
-            position_title: vm.postionTitle,
+            position_title: vm.positionTitle,
             job_description: vm.jobDescription,
             date_available: vm.dateAvailable
         };
@@ -5367,8 +5371,10 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
     };
 
     function resetForm() {
-        vm.newPostAmount = '';
-        vm.newPostNote = '';
+        vm.companyName = '';
+        vm.positionTitle = '';
+        vm.jobDescription = '';
+        vm.dateAvailable = '';
     }
 
     vm.totalPosts = function () {
@@ -46043,7 +46049,7 @@ module.exports = "<div class=\"container\">\n  <form>\n    <div class=\"form-gro
 /* 121 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <h1>Posts</h1>\n  <form ng-submit=\"$ctrl.addExpense()\">\n    <div>Amount (USD)<input type=\"number\" ng-model=\"$ctrl.newExpenseAmount\" required></div>\n    <div>Note: <input type=\"text\" ng-model=\"$ctrl.newExpenseNote\" required></div>\n    <div><input class=\"btn\" type=\"submit\" value=\"Add to Expenses\"></div>\n  </form>\n  <button class=\"btn\" ng-click=\"$ctrl.createPost\">Create Post</button>\n</div>";
+module.exports = "<div class=\"container\">\n  <h1>Posts</h1>\n  <form ng-submit=\"$ctrl.addPost()\">\n    <div>Company Name:<input type=\"text\" ng-model=\"$ctrl.companyName\" required></div>\n    <div>Position Title: <input type=\"text\" ng-model=\"$ctrl.positionTitle\" required></div>\n    <div>Job Description: <input type=\"text\" ng-model=\"$ctrl.jobDescription\" required></div>\n    <div>Date Available: <input type=\"text\" ng-model=\"$ctrl.dateAvailable\" required></div>\n    <div><input class=\"btn\" type=\"submit\" value=\"Add to Posts\"></div>\n  </form>\n</div>";
 
 /***/ }),
 /* 122 */

@@ -36,6 +36,7 @@ router.get('/:postId', function (request, response) {
 });
 
 router.post('/', (request, response) => {
+    console.log('+++++++++++++++++++++++++++router post test');
 
     // grab the new Post info from the request
     let postFromRequest = request.body;
