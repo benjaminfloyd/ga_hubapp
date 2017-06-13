@@ -5320,6 +5320,7 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
     vm.positionTitle = '';
     vm.jobDescription = '';
     vm.dateAvailable = '';
+    vm.postEntries = [];
 
     function initialize() {
         console.log('Post Controller Working');
@@ -5330,6 +5331,7 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
 
     function getAllPostsFromDatabase() {
         PostsService.getAllPostsFromDatabase().then(function success(response) {
+            debugger;
             vm.postEntries = response.data;
         }, function failure(response) {
             console.log('Error retrieving Post Entries from database!');
@@ -5366,7 +5368,7 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
         });
     };
 
-    vm.showExpense = function (postId) {
+    vm.showPost = function (postId) {
         $state.go('show_post/:postId', { postId: postId });
     };
 
@@ -46049,7 +46051,7 @@ module.exports = "<div class=\"container\">\n  <form>\n    <div class=\"form-gro
 /* 121 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <h1>Posts</h1>\n  <form ng-submit=\"$ctrl.addPost()\">\n    <div>Company Name:<input type=\"text\" ng-model=\"$ctrl.companyName\" required></div>\n    <div>Position Title: <input type=\"text\" ng-model=\"$ctrl.positionTitle\" required></div>\n    <div>Job Description: <input type=\"text\" ng-model=\"$ctrl.jobDescription\" required></div>\n    <div>Date Available: <input type=\"text\" ng-model=\"$ctrl.dateAvailable\" required></div>\n    <div><input class=\"btn\" type=\"submit\" value=\"Add to Posts\"></div>\n  </form>\n</div>";
+module.exports = "<div class=\"container\">\n  <h1>Posts</h1>\n  <form ng-submit=\"$ctrl.addPost()\">\n    <div>Company Name:<input type=\"text\" ng-model=\"$ctrl.companyName\" required></div>\n    <div>Position Title: <input type=\"text\" ng-model=\"$ctrl.positionTitle\" required></div>\n    <div>Job Description: <input type=\"text\" ng-model=\"$ctrl.jobDescription\" required></div>\n    <div>Date Available: <input type=\"text\" ng-model=\"$ctrl.dateAvailable\" required></div>\n    <div><input class=\"btn\" type=\"submit\" value=\"Add to Posts\"></div>\n  </form>\n  <div class=\"show-posts\" ng-repeat=\"post in $ctrl.postEntries\">\n      <p>{{post.company_name}}</p>\n      <p>{{post.position_title}}</p>\n      <p>{{post.job_description}}</p>\n      <p>{{post.date_available}}</p>\n  </div>\n</div>";
 
 /***/ }),
 /* 122 */

@@ -7,4 +7,10 @@
     <div>Date Available: <input type="text" ng-model="$ctrl.dateAvailable" required></div>
     <div><input class="btn" type="submit" value="Add to Posts"></div>
   </form>
+  <div class="show-posts" ng-repeat="post in $ctrl.postEntries">
+      <p>{{post.company_name}}</p>
+      <p>{{post.position_title}}</p>
+      <p>{{post.job_description}}</p>
+      <p>{{post.date_available}}</p>
+  </div>
 </div>
