@@ -1,4 +1,4 @@
-
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 // Use native promises
@@ -8,8 +8,8 @@ var EventSchema = new Schema({
     event_name: String,
     event_location: String,
     event_description: String,
-    event_date: String,
-    event_cost: Number
+    event_date: Date,
+    event_cost: String
     
 
 })
