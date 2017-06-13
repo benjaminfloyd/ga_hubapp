@@ -1,10 +1,9 @@
 # ga_hubapp
 
-Project 3 GA Opps Hub
+Project 3 GA Hub
 Make friends Git Hired!
 
-GA Board App:
-Classifieds and networking portal for GA Alumi
+GA Hub App is a Classifieds and networking portal for GA Alumi
 
 Models:
 Users - Full CRUD Reach Messaaging.
@@ -12,7 +11,7 @@ Jobs - CRU Reach User Save to Fav Delete by id.
 Events - CRU Reach User Save to Fav Delete by id.
 
 ERD:
--
+[Imgur](http://i.imgur.com/jEpWjGc.png)
 
 User:
 
@@ -26,9 +25,7 @@ Post:
 
 - id
 - user (reach)
-- fieldOfWork
 - Descprtion
-- Phone number
 - email
 - Date posted
 
