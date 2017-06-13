@@ -5410,6 +5410,7 @@ function ShowPostController($state, $stateParams, PostsService) {
 
         PostsService.getSinglePostById(postIdToShow).then(function success(response) {
             vm.postEntry = response.data;
+            console.log(response.data);
         }, function failure(response) {
             console.log('Failed to retrieve information for Post with ID of ' + expenseIdToShow);
         });
@@ -46051,13 +46052,13 @@ module.exports = "<div class=\"container\">\n  <form>\n    <div class=\"form-gro
 /* 121 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <h1>Posts</h1>\n  <form ng-submit=\"$ctrl.addPost()\">\n    <div>Company Name:<input type=\"text\" ng-model=\"$ctrl.companyName\" required></div>\n    <div>Position Title: <input type=\"text\" ng-model=\"$ctrl.positionTitle\" required></div>\n    <div>Job Description: <input type=\"text\" ng-model=\"$ctrl.jobDescription\" required></div>\n    <div>Date Available: <input type=\"text\" ng-model=\"$ctrl.dateAvailable\" required></div>\n    <div><input class=\"btn\" type=\"submit\" value=\"Add to Posts\"></div>\n  </form>\n  <div class=\"show-posts\" ng-repeat=\"post in $ctrl.postEntries\">\n      <p>{{post.company_name}}</p>\n      <p>{{post.position_title}}</p>\n      <p>{{post.job_description}}</p>\n      <p>{{post.date_available}}</p>\n  </div>\n</div>";
+module.exports = "<div class=\"container\">\n  <h1>Posts</h1>\n  <form ng-submit=\"$ctrl.addPost()\">\n    <div>Company Name:<input type=\"text\" ng-model=\"$ctrl.companyName\" required></div>\n    <div>Position Title: <input type=\"text\" ng-model=\"$ctrl.positionTitle\" required></div>\n    <div>Job Description: <input type=\"text\" ng-model=\"$ctrl.jobDescription\" required></div>\n    <div>Date Available: <input type=\"text\" ng-model=\"$ctrl.dateAvailable\" required></div>\n    <div><input class=\"btn\" type=\"submit\" value=\"Add to Posts\"></div>\n  </form>\n  <div class=\"show-posts\" ng-repeat=\"post in $ctrl.postEntries\">\n      <p>{{post.company_name}}</p>\n      <p>{{post.position_title}}</p>\n      <p>{{post.job_description}}</p>\n      <p>{{post.date_available}}</p>\n      <button class=\"btn\" ng-click=\"$ctrl.showPost(post._id)\">View</button>\n  </div>\n</div>";
 
 /***/ }),
 /* 122 */
 /***/ (function(module, exports) {
 
-module.exports = "this is a post";
+module.exports = "<div class=\"container\">\n    <h1>Post</h1>\n    <div class=\"card\">\n        <div class=\"card-content\">\n            <h3>Company Name: {{$ctrl.postEntry.company_name}}</h3>\n            <h3>Position: {{$ctrl.postEntry.position_title}}</h3>\n            <h3>Job Description: {{$ctrl.postEntry.job_description}}</h3>\n            <h3>Date Available: {{$ctrl.postEntry.date_available}}</h3>\n            \n            <button class=\"btn\" ng-click=\"$ctrl.editExpenseEntry($ctrl.expenseEntry._id)\">Edit</button>\n        </div>\n    </div>\n</div>\n\n<!--<form ng-submit=\"$ctrl.addPost()\">\n    <div>Company Name:<input type=\"text\" ng-model=\"$ctrl.companyName\" required></div>\n    <div>Position Title: <input type=\"text\" ng-model=\"$ctrl.positionTitle\" required></div>\n    <div>Job Description: <input type=\"text\" ng-model=\"$ctrl.jobDescription\" required></div>\n    <div>Date Available: <input type=\"text\" ng-model=\"$ctrl.dateAvailable\" required></div>\n    <div><input class=\"btn\" type=\"submit\" value=\"Add to Posts\"></div>\n  </form>\n  <div class=\"show-posts\" ng-repeat=\"post in $ctrl.postEntries\">\n      <p>{{post.company_name}}</p>\n      <p>{{post.position_title}}</p>\n      <p>{{post.job_description}}</p>\n      <p>{{post.date_available}}</p>\n      <button class=\"btn\" ng-click=\"$ctrl.showPost(post._id)-->";
 
 /***/ }),
 /* 123 */
