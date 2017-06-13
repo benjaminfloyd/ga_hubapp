@@ -46172,7 +46172,7 @@ module.exports = "<div class=\"container\">\n  <div class=\"content\">\n    <h1>
 /* 123 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n      <div class=\"card\">\n            <div class=\"content\">\n                  <p>\n                        <h3>Event Name: </h3>{{$ctrl.eventEntry.event_name}}\n                        <h3>Location: </h3>{{$ctrl.eventEntry.event_location}}\n                        <h3>Description </h3>{{$ctrl.eventEntry.event_description}}\n                        <h3>Date: </h3>{{$ctrl.eventEntry.event_date | date: shortDate}}\n                        <h3>Tickets: </h3>{{$ctrl.eventEntry.event_cost | currency}}\n                        <h3>Event ID: </h3>{{$ctrl.eventEntry._id}}\n                  </p>\n                  <p><button class=\"btn center\" ng-click=\"$ctrl.editEvent(event._id)\">Edit</button></p>\n            </div>\n      </div>\n</div>";
+module.exports = "<div class=\"container\">\n      <div class=\"card\">\n            <div class=\"content\">\n                  <p>\n                        <h3>Event Name: </h3>{{$ctrl.eventEntry.event_name}}\n                        <h3>Location: </h3>{{$ctrl.eventEntry.event_location}}\n                        <h3>Description </h3>{{$ctrl.eventEntry.event_description}}\n                        <h3>Date: </h3>{{$ctrl.eventEntry.event_date | date: shortDate}}\n                        <h3>Tickets: </h3>{{$ctrl.eventEntry.event_cost | currency}}\n                        <h3>Event ID: </h3>{{$ctrl.eventEntry._id}}\n                  </p>\n                  <p><button class=\"btn\" ng-click=\"$ctrl.editEvent(event._id)\">Edit</button></p>\n            </div>\n      </div>\n</div>";
 
 /***/ }),
 /* 124 */
