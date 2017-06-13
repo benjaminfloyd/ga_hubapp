@@ -24,7 +24,7 @@ router.get('/:eventId', function (request, response) {
 
     const eventIdToShow = request.params.eventId;
 
-    Event.findById(eventdToShow, function (error, foundEvent) {
+    Event.findById(eventIdToShow, function (error, foundEvent) {
         if (error) {
             console.log('Error finding Event with ID of ' + eventIdToShow);
             return;
@@ -36,6 +36,7 @@ router.get('/:eventId', function (request, response) {
 });
 
 router.post('/', (request, response) => {
+    console.log('+++++++++++++++++++++++++++router event test');
 
     // grab the new Event info from the request
     let eventFromRequest = request.body;
