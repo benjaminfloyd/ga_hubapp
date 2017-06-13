@@ -10,26 +10,11 @@
       </p>
       <div><input class="btn" type="submit" value="Add to Posts"></div>
     </form>
-  </div>
-  <div class="content float-left" ng-repeat="post in $ctrl.postEntries">
-    <p><span class="bold">Company Name:</span> {{post.company_name}}</p>
-    <p><span class="bold">Position Title:</span> {{post.position_title}}</p>
-    <p><span class="bold">Date Available:</span> {{post.date_available | date: shortDate}}</p>
-    <button class="btn" ng-click="$ctrl.showPost(post._id)">View</button>
-    <button class="btn" ng-click="$ctrl.deletePost($index, post._id)">Delete</button>
-  <h1>Posts</h1>
-  <form ng-submit="$ctrl.addPost()">
-    <div>Company Name:<input type="text" ng-model="$ctrl.companyName" required></div>
-    <div>Position Title:<input type="text" ng-model="$ctrl.positionTitle" required></div>
-    <div>Job Description: <input type="text" ng-model="$ctrl.jobDescription" required></div>
-    <div>Date Available: <input type="text" ng-model="$ctrl.dateAvailable" required></div>
-    <div><input class="btn" type="submit" value="Add to Posts"></div>
-  </form>
-  <div class="show-posts" ng-repeat="post in $ctrl.postEntries">
-      <p>{{post.company_name}}</p>
-      <p>{{post.position_title}}</p>
-      <p>{{post.job_description}}</p>
-      <p>{{post.date_available}}</p>
+    <div class="content float-left" ng-repeat="post in $ctrl.postEntries">
+      <p><span class="bold">Company Name:</span> {{post.company_name}}</p>
+      <p><span class="bold">Position Title:</span> {{post.position_title}}</p>
+      <p><span class="bold">Date Available:</span> {{post.date_available | date: shortDate}}</p>
       <button class="btn" ng-click="$ctrl.showPost(post._id)">View</button>
+      <button class="btn" ng-click="$ctrl.deletePost($index, post._id)">Delete</button>
+    </div>
   </div>
-</div>

@@ -30,4 +30,5 @@ node_modules
 npm-debug.log
 
 .env
+
 public/js/app.bundle.js
