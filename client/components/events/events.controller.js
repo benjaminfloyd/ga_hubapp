@@ -11,6 +11,8 @@ function EventsController($http, $state, $stateParams, EventsService, $scope) {
     vm.eventEntries = [];
 
     function initialize() {
+
+        console.log('Events Controller Working');
         getAllEventsFromDatabase();
     }
     initialize();
@@ -19,7 +21,7 @@ function EventsController($http, $state, $stateParams, EventsService, $scope) {
         EventsService.getAllEventsFromDatabase()
             .then(
             function success(response) {
-                vm.EventEntries = response.data;
+                vm.eventEntries = response.data;
             },
             function failure(response) {
                 console.log('Error retrieving Event Entries from database!');

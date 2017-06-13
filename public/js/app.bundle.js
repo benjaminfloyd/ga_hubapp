@@ -5165,13 +5165,15 @@ function EventsController($http, $state, $stateParams, EventsService, $scope) {
     vm.eventEntries = [];
 
     function initialize() {
+
+        console.log('Events Controller Working');
         getAllEventsFromDatabase();
     }
     initialize();
 
     function getAllEventsFromDatabase() {
         EventsService.getAllEventsFromDatabase().then(function success(response) {
-            vm.EventEntries = response.data;
+            vm.eventEntries = response.data;
         }, function failure(response) {
             console.log('Error retrieving Event Entries from database!');
         });
@@ -46060,7 +46062,7 @@ module.exports = "<div class=\"container\">\n  <h1>Events</h1>\n  <form ng-submi
 /* 118 */
 /***/ (function(module, exports) {
 
-module.exports = "";
+module.exports = "<div class=\"show-events\" ng-repeat=\"event in $ctrl.eventEntries\">\n      <p>{{event.event_name}}</p>\n      <p>{{event.event_location}}</p>\n      <p>{{event.event_description}}</p>\n      <p>{{event.event_date}}</p>\n      <p>{{event.event_cost}}</p>\n      <p>{{event._id}}</p>\n      <button class=\"btn\" ng-click=\"$ctrl.showEvent(event._id)\">View</button>";
 
 /***/ }),
 /* 119 */
