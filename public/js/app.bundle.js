@@ -5643,7 +5643,7 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
     }
 
     vm.addUser = function () {
-        console.log('World Hello');
+
         var newUser = {
             first_name: vm.firstName,
             last_name: vm.lastName,
@@ -46224,7 +46224,7 @@ module.exports = "<div class=\"container\">\n    <h1>User</h1>\n    <div class=\
 /* 132 */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Users</h1>\n  <form ng-submit=\"$ctrl.addUser()\">\n    <div>First Name: <input type=\"text\" ng-model=\"$ctrl.firstName\" required></div>\n    <div>Last Name: <input type=\"text\" ng-model=\"$ctrl.lastName\" required></div>\n    <div>Email: <input type=\"text\" ng-model=\"$ctrl.email\" required></div>\n    <div>Title: <input type=\"text\" ng-model=\"$ctrl.title\" required></div>\n    <div><input class=\"btn\" type=\"submit\" value=\"Add to Users\"></div>\n  </form>\n  <div class=\"show-users\" ng-repeat=\"post in $ctrl.postEntries\">\n      <p>{{post.first_name}}</p>\n      <p>{{post.last_name}}</p>\n      <p>{{post.email}}</p>\n      <p>{{post.title}}</p>\n      <button class=\"btn\" ng-click=\"$ctrl.showUser(user._id)\">View</button>\n  </div>\n</div>\n";
+module.exports = "<h1>Users</h1>\n  <form ng-submit=\"$ctrl.addUser()\">\n    <div>First Name: <input type=\"text\" ng-model=\"$ctrl.firstName\" required></div>\n    <div>Last Name: <input type=\"text\" ng-model=\"$ctrl.lastName\" required></div>\n    <div>Email: <input type=\"text\" ng-model=\"$ctrl.email\" required></div>\n    <div>Title: <input type=\"text\" ng-model=\"$ctrl.title\" required></div>\n    <div><input class=\"btn\" type=\"submit\" value=\"Add to Users\"></div>\n  </form>\n\n\n  <div class=\"show-users\" ng-repeat=\"user in $ctrl.userEntries\">\n          <div class=\"content float-left\" ng-repeat=\"user in $ctrl.userEntries\">\n      <p><span class=\"bold\">First Name:</span> {{user.first_name}}</p>\n      <p><span class=\"bold\">Last Name:</span> {{user.last_name}}</p>\n      <p><span class=\"bold\">Email:</span> {{user.email}}</p>\n      <p><span class=\"bold\">Title:</span> {{user.title}}</p>\n      <button class=\"btn\" ng-click=\"$ctrl.showUser(user._id)\">View</button>\n      <button class=\"btn\" ng-click=\"$ctrl.deleteUser($index, user._id)\">Delete</button>\n  </div>\n</div>\n";
 
 /***/ }),
 /* 133 */

@@ -5,7 +5,6 @@ var User = require('../models/user');
 
 router.get('/', (request, response) => {
 
-    // Find all of the Users from the database
     User.find({}).exec(function (error, users) {
         if (error) {
             console.log('Error retrieving users!');
@@ -13,7 +12,6 @@ router.get('/', (request, response) => {
             return;
         }
 
-        // if there are no errors, send the users back as JSON
         console.log(users);
         response.send(users);
     })
@@ -37,29 +35,23 @@ router.get('/:userId', function (request, response) {
 
 router.post('/', (request, response) => {
 
-    // grab the new User info from the request
     let userFromRequest = request.body;
 
-    // then build a new User model with the info
-    // REMEMBER: the new Date will be created by the database
     let newUser = new User({
 
-            user_name: userFromRequest.user_name,
-            user_location: userFromRequest.user_location,
-            user_description: userFromRequest.user_description,
-            user_date: userFromRequest.user_date,
-            user_cost: userFromRequest.user_cost,
+            first_name: userFromRequest.first_name,
+            last_name: userFromRequest.last_name,
+            email: userFromRequest.email,
+            title: userFromRequest.title,
     });
     console.log(newUser)
 
-    // save the new User model to the database
     newUser.save(function (error, newUser) {
         if (error) {
             console.log(error);
             return;
         }
 
-        // once the new user has been saved, return it to the client
         response.send(newUser);
     });
 });
@@ -93,7 +85,6 @@ router.delete('/:userId', function (request, response) {
             return;
         }
 
-        // once the user has been deleted, tell the server everything was successful
         response.sendStatus(200);
     })
 
