@@ -6,7 +6,7 @@
         <div>Location:<input type="text" ng-model="$ctrl.eventLocation" required></div>
         <div>Description: <input type="text" ng-model="$ctrl.eventDescription" required></div>
         <div>Date: <input type="text" ng-model="$ctrl.eventDate" required></div>
-        <div>Tickets: <input type="text" ng-model="$ctrl.eventCost" required></div>
+        <div>Cost: <input type="text" ng-model="$ctrl.eventCost" required></div>
       </p>
       <div><input class="btn" type="submit" value="Add Event"></div>
     </form>
@@ -14,7 +14,7 @@
       <p><span class="bold">Event Name: </span>{{event.event_name}}</p>
       <p><span class="bold">Location: </span>{{event.event_location}}</p>
       <p><span class="bold">Date: </span>{{event.event_date | date: shortDate}}</p>
-      <p><span class="bold">Tickets: </span>{{event.event_cost | currency}}</p>
+      <p><span class="bold">Cost: </span>{{event.event_cost | currency}}</p>
       <button class="btn" ng-click="$ctrl.showEvent(event._id)">View</button>
       <button class="btn" ng-click="$ctrl.deleteEvent($index, event._id)">Delete</button>
     </div>

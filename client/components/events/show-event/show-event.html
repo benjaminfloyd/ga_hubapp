@@ -6,7 +6,7 @@
                         <h3>Location: </h3>{{$ctrl.eventEntry.event_location}}
                         <h3>Description </h3>{{$ctrl.eventEntry.event_description}}
                         <h3>Date: </h3>{{$ctrl.eventEntry.event_date | date: shortDate}}
-                        <h3>Tickets: </h3>{{$ctrl.eventEntry.event_cost | currency}}
+                        <h3>Cost: </h3>{{$ctrl.eventEntry.event_cost | currency}}
                         <h3>Event ID: </h3>{{$ctrl.eventEntry._id}}
                   </p>
                   <p><button class="btn" ng-click="$ctrl.editEventEntry($ctrl.eventEntry._id)">Edit</button></p>
