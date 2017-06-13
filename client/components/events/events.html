@@ -14,10 +14,8 @@
     <div class="content float-left" ng-repeat="event in $ctrl.eventEntries">
       <p><span class="bold">Event Name: </span>{{event.event_name}}</p>
       <p><span class="bold">Event Location: </span>{{event.event_location}}</p>
-      <p><span class="bold">Event Description: </span>{{event.event_description}}</p>
-      <p><span class="bold">Event Date: </span>{{event.event_date}}</p>
-      <p><span class="bold">Event Cost: </span>{{event.event_cost}}</p>
-      <p><span class="bold">Event ID: </span>{{event._id}}</p>
+      <p><span class="bold">Event Date: </span>{{event.event_date | date: shortDate}}</p>
+      <p><span class="bold">Event Cost: </span>{{event.event_cost | currency}}</p>
       <button class="btn" ng-click="$ctrl.showEvent(event._id)">View</button>
       <button class="btn" ng-click="$ctrl.deleteEvent($index, event._id)">Delete</button>
     </div>

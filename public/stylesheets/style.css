@@ -15,7 +15,8 @@ h1 {
 .navbar {
   background-color: black !important;
   border-radius: 0px !important;
-  margin: 0 !important;
+  height: 50px;
+  margin: 0px !important;
 }
 
 .navbar-right {
@@ -29,19 +30,21 @@ img {
 
 .navbar-brand {
   padding: 15px !important;
-  height: 55px !important;
+  height: inherit;
 }
 
-.nav-link {
-  color: white !important;
-  font-size: 16px;
+.navbar-text {
+  color: white;
+  text-decoration: none;
 }
 
-.nav-link:hover {
+.navbar-text:hover {
+  color: white;
+  text-decoration: none;
+}
+
+li:hover {
   background-color: red;
-  height: 100%;
-  color: white !important;
-  font-size: 16px;
 }
 
 li {
@@ -76,4 +79,14 @@ li {
 
 input {
   width: 100%;
+}
+
+.navbar-right {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  height: inherit;
+}
+
+.container-fluid {
+  height: inherit;
 }
