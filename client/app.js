@@ -15,6 +15,10 @@ function uiRouterSetup($stateProvider, $urlRouterProvider) {
             url: '/users',
             template: '<users></users>'
         })
+        .state('show_user', {
+            url: 'show_user/:userId',
+            template: '<show-user></show-user>'
+        })
         .state('createUsers', {
             url: '/register',
             template: '<create-user></create-user>'

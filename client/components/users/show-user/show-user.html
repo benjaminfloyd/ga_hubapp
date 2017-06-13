@@ -1,17 +1,14 @@
 <div class="container">
     <h1>User</h1>
     <div class="card">
-        <div class="card-content">
-            <h3>First Name: {{$ctrl.userEntry.first_name}}</h3>
-            <h3>Last Name: {{$ctrl.userEntry.last_name}}</h3>
-            <h3>Email: {{$ctrl.userEntry.email}}</h3>
-            <h3>Title: {{$ctrl.userEntry.title}}</h3>
-
+        <div class="content">
+            <p>
+                <h3>First Name: {{$ctrl.userEntry.first_name}}</h3>
+                <h3>Last Name: {{$ctrl.userEntry.last_name}}</h3>
+                <h3>Email: {{$ctrl.userEntry.email}}</h3>
+                <h3>Title: {{$ctrl.userEntry.title}}</h3>
+            </p>
             <button class="btn" ng-click="$ctrl.editUserEntry($ctrl.userEntry._id)">Edit</button>
         </div>
     </div>
 </div>
-
-
-
-

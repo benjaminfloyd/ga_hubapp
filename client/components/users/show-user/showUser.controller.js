@@ -11,6 +11,8 @@ function ShowUserController($state, $stateParams, UsersService) {
             .then(
                 function success(response) {
                     vm.userEntry = response.data;
+                    console.log(response.data);
+
                 },
                 function failure(response) {
                     console.log('Failed to retrieve information for User with ID of ' + userIdToShow)

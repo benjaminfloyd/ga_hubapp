@@ -43,6 +43,11 @@ img {
   text-decoration: none;
 }
 
+.navbar-text:visited {
+  color: white;
+  text-decoration: none;
+}
+
 li:hover {
   background-color: red;
 }
@@ -53,7 +58,7 @@ li {
 
 .jumbotron {
   margin: 0 !important;
-  background-image: url('../images/jumbotron.jpg');
+  background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) ),url('../images/jumbotron.jpg');
   height: 400px;
   background-size: cover;
   color: white !important;

@@ -1,13 +1,19 @@
 <div class="container">
       <div class="card">
-            <div class="card-content">
-                  <h3>Event Name: </h3>{{$ctrl.eventEntry.event_name}}
-                  <h3>Location: </h3>{{$ctrl.eventEntry.event_location}}
-                  <h3>Description </h3>{{$ctrl.eventEntry.event_description}}
-                  <h3>Date: </h3>{{$ctrl.eventEntry.event_date | date: shortDate}}
-                  <h3>Tickets: </h3>{{$ctrl.eventEntry.event_cost | currency}}
-                  <h3>Event ID: </h3>{{$ctrl.eventEntry._id}}
+            <div class="content">
+                  <p>
+                        <h3>Event Name: </h3>{{$ctrl.eventEntry.event_name}}
+                        <h3>Location: </h3>{{$ctrl.eventEntry.event_location}}
+                        <h3>Description </h3>{{$ctrl.eventEntry.event_description}}
+                        <h3>Date: </h3>{{$ctrl.eventEntry.event_date | date: shortDate}}
+                        <h3>Tickets: </h3>{{$ctrl.eventEntry.event_cost | currency}}
+                        <h3>Event ID: </h3>{{$ctrl.eventEntry._id}}
+                  </p>
+                  <p><button class="btn" ng-click="$ctrl.editEvent(event._id)">Edit</button></p>
             </div>
+<<<<<<< HEAD
             <p><button class="btn" ng-click="$ctrl.editEventEntry($ctrl.eventEntry._id)">Edit</button></p>
+=======
+>>>>>>> 2bd4873e5d05a270eb728f235bc21627090aa2f4
       </div>
 </div>
