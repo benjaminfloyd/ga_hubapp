@@ -5406,10 +5406,35 @@ module.exports = PostsController;
 
 /***/ }),
 /* 37 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-throw new Error("Module build failed: SyntaxError: Unexpected token (12:0)\n\n\u001b[0m \u001b[90m 10 | \u001b[39m        \u001b[33mPostsService\u001b[39m\u001b[33m.\u001b[39mgetSinglePostById(postIdToShow)\n \u001b[90m 11 | \u001b[39m            \u001b[33m.\u001b[39mthen(\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 12 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\n \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 13 | \u001b[39m            \u001b[36mfunction\u001b[39m success(response) {\n \u001b[90m 14 | \u001b[39m                vm\u001b[33m.\u001b[39mpostEntry \u001b[33m=\u001b[39m response\u001b[33m.\u001b[39mdata\u001b[33m;\u001b[39m\n \u001b[90m 15 | \u001b[39m                console\u001b[33m.\u001b[39mlog(response\u001b[33m.\u001b[39mdata)\u001b[33m;\u001b[39m\u001b[0m\n");
+
+
+ShowPostController.$inject = ['$state', '$stateParams', 'PostsService'];
+
+function ShowPostController($state, $stateParams, PostsService) {
+
+    var vm = this;
+
+    function initialize() {
+        var postIdToShow = $stateParams.postId;
+
+        PostsService.getSinglePostById(postIdToShow).then(function success(response) {
+            vm.postEntry = response.data;
+            console.log(response.data);
+        }, function failure(response) {
+            console.log('Failed to retrieve information for Post with ID of ' + expenseIdToShow);
+        });
+    }
+    initialize();
+
+    vm.editPostEntry = function (postEntryId) {
+        $state.go('edit_post/:postId', { postId: postEntryId });
+    };
+}
+
+module.exports = ShowPostController;
 
 /***/ }),
 /* 38 */
