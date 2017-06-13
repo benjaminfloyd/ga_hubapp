@@ -3,8 +3,15 @@ UsersController.$inject = ['$http', '$state', '$stateParams', 'UsersService', '$
 function UsersController($http, $state, $stateParams, UsersService, $scope) {
 
     let vm = this;
+    vm.firstName = '';
+    vm.lastName = '';
+    vm.email = '';
+    vm.title = '';
+    vm.userEntries = [];
 
     function initialize() {
+        console.log('User Controller Working');
+
         getAllUsersFromDatabase();
     }
     initialize();
@@ -13,6 +20,7 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
         UsersService.getAllUsersFromDatabase()
             .then(
             function success(response) {
+                debugger;
                 vm.userEntries = response.data;
             },
             function failure(response) {
@@ -24,8 +32,10 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
     vm.addUser = function () {
 
         const newUser = {
-            amount: vm.newUserAmount,
-            note: vm.newUserNote
+            first_name: vm.firstName,
+            last_name: vm.lastName,
+            email: vm.email,
+            title: vm.title
         };
 
         UsersService.addNewUserToDatabase(newUser)
@@ -61,8 +71,10 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
     }
 
     function resetForm() {
-        vm.newUserAmount = '';
-        vm.newUserNote = '';
+        vm.firstName = '';
+        vm.lastName = '';
+        vm.email = '';
+        vm.title = '';
     }
 
     vm.totalUsers = function () {

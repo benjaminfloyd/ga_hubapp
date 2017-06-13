@@ -8,10 +8,9 @@ var EventSchema = new Schema({
     event_name: String,
     event_location: String,
     event_description: String,
-    event_date: Number,
-    event_cost: Number,
-    updatedAt: Date,
-    createdAt: Date
+    event_date: Date,
+    event_cost: String
+    
 
 })
 
@@ -70,5 +69,5 @@ module.exports = {
   Event: EventModel,
   Post: PostModel,
   User: PostModel
- 
+
 };

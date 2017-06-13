@@ -9,6 +9,7 @@ function ShowPostController($state, $stateParams, PostsService) {
 
         PostsService.getSinglePostById(postIdToShow)
             .then(
+<<<<<<< HEAD
             function success(response) {
                 vm.postEntry = response.data;
                 console.log(response.data);
@@ -16,6 +17,15 @@ function ShowPostController($state, $stateParams, PostsService) {
             function failure(response) {
                 console.log('Failed to retrieve information for Post with ID of ' + expenseIdToShow)
             }
+=======
+                function success(response) {
+                    vm.postEntry = response.data;
+                    console.log(response.data);
+                },
+                function failure(response) {
+                    console.log('Failed to retrieve information for Post with ID of ' + postIdToShow)
+                }
+>>>>>>> b016b6a29c11ee74d3c45aa556bcc8a6de6856e8
             )
     }
     initialize();

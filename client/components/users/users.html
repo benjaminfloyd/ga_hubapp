@@ -1,0 +1,16 @@
+<h1>Users</h1>
+  <form ng-submit="$ctrl.addUser()">
+    <div>First Name: <input type="text" ng-model="$ctrl.firstName" required></div>
+    <div>Last Name: <input type="text" ng-model="$ctrl.lastName" required></div>
+    <div>Email: <input type="text" ng-model="$ctrl.email" required></div>
+    <div>Title: <input type="text" ng-model="$ctrl.title" required></div>
+    <div><input class="btn" type="submit" value="Add to Users"></div>
+  </form>
+  <div class="show-users" ng-repeat="post in $ctrl.postEntries">
+      <p>{{post.first_name}}</p>
+      <p>{{post.last_name}}</p>
+      <p>{{post.email}}</p>
+      <p>{{post.title}}</p>
+      <button class="btn" ng-click="$ctrl.showUser(user._id)">View</button>
+  </div>
+</div>

@@ -5157,6 +5157,12 @@ EventsController.$inject = ['$http', '$state', '$stateParams', 'EventsService', 
 function EventsController($http, $state, $stateParams, EventsService, $scope) {
 
     var vm = this;
+    vm.eventName = '';
+    vm.eventLocation = '';
+    vm.eventDescription = '';
+    vm.eventDate = '';
+    vm.eventCost = '';
+    vm.eventEntries = [];
 
     function initialize() {
         getAllEventsFromDatabase();
@@ -5174,8 +5180,12 @@ function EventsController($http, $state, $stateParams, EventsService, $scope) {
     vm.addEvent = function () {
 
         var newEvent = {
-            amount: vm.newEventAmount,
-            note: vm.newEventNote
+            event_name: vm.eventName,
+            event_location: vm.eventLocation,
+            event_description: vm.eventDescription,
+            event_date: vm.eventDate,
+            event_cost: vm.eventCost
+
         };
 
         EventsService.addNewEventToDatabase(newEvent).then(function success(response) {
@@ -5204,8 +5214,11 @@ function EventsController($http, $state, $stateParams, EventsService, $scope) {
     };
 
     function resetForm() {
-        vm.newEventAmount = '';
-        vm.newEventNote = '';
+        vm.eventName = '';
+        vm.eventLocation = '';
+        vm.eventDescription = '';
+        vm.eventDate = '';
+        vm.eventCost = '';
     }
 
     vm.totalEvents = function () {
@@ -5393,45 +5406,10 @@ module.exports = PostsController;
 
 /***/ }),
 /* 37 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 "use strict";
-
-
-ShowPostController.$inject = ['$state', '$stateParams', 'PostsService'];
-
-function ShowPostController($state, $stateParams, PostsService) {
-
-    var vm = this;
-
-    function initialize() {
-        var postIdToShow = $stateParams.postId;
-
-        PostsService.getSinglePostById(postIdToShow).then(function success(response) {
-            vm.postEntry = response.data;
-            console.log(response.data);
-        }, function failure(response) {
-            console.log('Failed to retrieve information for Post with ID of ' + expenseIdToShow);
-        });
-    }
-    initialize();
-
-    vm.editPostEntry = function (postEntryId) {
-        $state.go('edit_post/:postId', { postId: postEntryId });
-    };
-
-    vm.deletePostEntry = function (postIndexToDelete, postIdToDeleteFromDatabase) {
-        PostsService.deleteIdFromDatabase(postIdToDeleteFromDatabase).then(function success(response) {
-
-            vm.postEntries.splice(postIndexToDelete, 1);
-        }, function failure(response) {
-
-            console.log('Error deleting Post with ID of ' + postIdToDeleteFromDatabase);
-        });
-    };
-}
-
-module.exports = ShowPostController;
+throw new Error("Module build failed: SyntaxError: Unexpected token (12:0)\n\n\u001b[0m \u001b[90m 10 | \u001b[39m        \u001b[33mPostsService\u001b[39m\u001b[33m.\u001b[39mgetSinglePostById(postIdToShow)\n \u001b[90m 11 | \u001b[39m            \u001b[33m.\u001b[39mthen(\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 12 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\n \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 13 | \u001b[39m            \u001b[36mfunction\u001b[39m success(response) {\n \u001b[90m 14 | \u001b[39m                vm\u001b[33m.\u001b[39mpostEntry \u001b[33m=\u001b[39m response\u001b[33m.\u001b[39mdata\u001b[33m;\u001b[39m\n \u001b[90m 15 | \u001b[39m                console\u001b[33m.\u001b[39mlog(response\u001b[33m.\u001b[39mdata)\u001b[33m;\u001b[39m\u001b[0m\n");
 
 /***/ }),
 /* 38 */
@@ -5546,14 +5524,22 @@ UsersController.$inject = ['$http', '$state', '$stateParams', 'UsersService', '$
 function UsersController($http, $state, $stateParams, UsersService, $scope) {
 
     var vm = this;
+    vm.firstName = '';
+    vm.lastName = '';
+    vm.email = '';
+    vm.title = '';
+    vm.userEntries = [];
 
     function initialize() {
+        console.log('User Controller Working');
+
         getAllUsersFromDatabase();
     }
     initialize();
 
     function getAllUsersFromDatabase() {
         UsersService.getAllUsersFromDatabase().then(function success(response) {
+            debugger;
             vm.userEntries = response.data;
         }, function failure(response) {
             console.log('Error retrieving User Entries from database!');
@@ -5563,8 +5549,10 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
     vm.addUser = function () {
 
         var newUser = {
-            amount: vm.newUserAmount,
-            note: vm.newUserNote
+            first_name: vm.firstName,
+            last_name: vm.lastName,
+            email: vm.email,
+            title: vm.title
         };
 
         UsersService.addNewUserToDatabase(newUser).then(function success(response) {
@@ -5592,8 +5580,10 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
     };
 
     function resetForm() {
-        vm.newUserAmount = '';
-        vm.newUserNote = '';
+        vm.firstName = '';
+        vm.lastName = '';
+        vm.email = '';
+        vm.title = '';
     }
 
     vm.totalUsers = function () {
@@ -9541,6 +9531,7 @@ function EventsService($http) {
     };
 
     self.addNewEventToDatabase = function (newEvent) {
+        console.log(newEvent);
         return $http.post('events/', newEvent);
     };
 
@@ -46037,7 +46028,7 @@ module.exports = "";
 /* 117 */
 /***/ (function(module, exports) {
 
-module.exports = "events";
+module.exports = "<div class=\"container\">\n  <h1>Events</h1>\n  <form ng-submit=\"$ctrl.addEvent()\">\n    <div>Event Name:<input type=\"text\" ng-model=\"$ctrl.eventName\" required></div>\n    <div>Event Location:<input type=\"text\" ng-model=\"$ctrl.eventLocation\" required></div>\n    <div>Event Description: <input type=\"text\" ng-model=\"$ctrl.eventDescription\" required></div>\n    <div>Event Date: <input type=\"text\" ng-model=\"$ctrl.eventDate\" required></div>\n    <div>Event Cost: <input type=\"text\" ng-model=\"$ctrl.eventCost\" required></div>\n    <div><input class=\"btn\" type=\"submit\" value=\"Add Event\"></div>\n  </form>\n  <div class=\"show-events\" ng-repeat=\"event in $ctrl.eventEntries\">\n      <p>{{event.event_name}}</p>\n      <p>{{event.event_location}}</p>\n      <p>{{event.event_description}}</p>\n      <p>{{event.event_date}}</p>\n      <p>{{event.event_cost}}</p>\n      <p>{{event._id}}</p>\n      <button class=\"btn\" ng-click=\"$ctrl.showEvent(event._id)\">View</button>\n  </div>\n</div>\n";
 
 /***/ }),
 /* 118 */
@@ -46061,7 +46052,7 @@ module.exports = "  <h1>Posts</h1>\n  <form ng-submit=\"$ctrl.addPost()\">\n    
 /* 121 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"content\">\n    <h1>Posts</h1>\n    <form ng-submit=\"$ctrl.addPost()\">\n      <p>\n        <div>Company Name:<input type=\"text\" ng-model=\"$ctrl.companyName\" required></div>\n        <div>Position Title: <input type=\"text\" ng-model=\"$ctrl.positionTitle\" required></div>\n        <div>Job Description: <input type=\"text\" ng-model=\"$ctrl.jobDescription\" required></div>\n        <div>Date Available: <input type=\"text\" ng-model=\"$ctrl.dateAvailable\" required></div>\n      </p>\n      <div><input class=\"btn\" type=\"submit\" value=\"Add to Posts\"></div>\n    </form>\n  </div>\n  <div class=\"content float-left\" ng-repeat=\"post in $ctrl.postEntries\">\n    <p><span class=\"bold\">Company Name:</span> {{post.company_name}}</p>\n    <p><span class=\"bold\">Position Title:</span> {{post.position_title}}</p>\n    <p><span class=\"bold\">Date Available:</span> {{post.date_available | date: shortDate}}</p>\n    <button class=\"btn\" ng-click=\"$ctrl.showPost(post._id)\">View</button>\n    <button class=\"btn\" ng-click=\"$ctrl.deletePost($index, post._id)\">Delete</button>\n  </div>\n</div>";
+module.exports = "<div class=\"container\">\n  <div class=\"content\">\n    <h1>Posts</h1>\n    <form ng-submit=\"$ctrl.addPost()\">\n      <p>\n        <div>Company Name:<input type=\"text\" ng-model=\"$ctrl.companyName\" required></div>\n        <div>Position Title: <input type=\"text\" ng-model=\"$ctrl.positionTitle\" required></div>\n        <div>Job Description: <input type=\"text\" ng-model=\"$ctrl.jobDescription\" required></div>\n        <div>Date Available: <input type=\"text\" ng-model=\"$ctrl.dateAvailable\" required></div>\n      </p>\n      <div><input class=\"btn\" type=\"submit\" value=\"Add to Posts\"></div>\n    </form>\n  </div>\n  <div class=\"content float-left\" ng-repeat=\"post in $ctrl.postEntries\">\n    <p><span class=\"bold\">Company Name:</span> {{post.company_name}}</p>\n    <p><span class=\"bold\">Position Title:</span> {{post.position_title}}</p>\n    <p><span class=\"bold\">Date Available:</span> {{post.date_available | date: shortDate}}</p>\n    <button class=\"btn\" ng-click=\"$ctrl.showPost(post._id)\">View</button>\n    <button class=\"btn\" ng-click=\"$ctrl.deletePost($index, post._id)\">Delete</button>\n  <h1>Posts</h1>\n  <form ng-submit=\"$ctrl.addPost()\">\n    <div>Company Name:<input type=\"text\" ng-model=\"$ctrl.companyName\" required></div>\n    <div>Position Title:<input type=\"text\" ng-model=\"$ctrl.positionTitle\" required></div>\n    <div>Job Description: <input type=\"text\" ng-model=\"$ctrl.jobDescription\" required></div>\n    <div>Date Available: <input type=\"text\" ng-model=\"$ctrl.dateAvailable\" required></div>\n    <div><input class=\"btn\" type=\"submit\" value=\"Add to Posts\"></div>\n  </form>\n  <div class=\"show-posts\" ng-repeat=\"post in $ctrl.postEntries\">\n      <p>{{post.company_name}}</p>\n      <p>{{post.position_title}}</p>\n      <p>{{post.job_description}}</p>\n      <p>{{post.date_available}}</p>\n      <button class=\"btn\" ng-click=\"$ctrl.showPost(post._id)\">View</button>\n  </div>\n</div>";
 
 /***/ }),
 /* 122 */
@@ -46091,7 +46082,7 @@ module.exports = "";
 /* 126 */
 /***/ (function(module, exports) {
 
-module.exports = "";
+module.exports = "<h1>Users</h1>\n  <form ng-submit=\"$ctrl.addUser()\">\n    <div>First Name: <input type=\"text\" ng-model=\"$ctrl.firstName\" required></div>\n    <div>Last Name: <input type=\"text\" ng-model=\"$ctrl.lastName\" required></div>\n    <div>Email: <input type=\"text\" ng-model=\"$ctrl.email\" required></div>\n    <div>Title: <input type=\"text\" ng-model=\"$ctrl.title\" required></div>\n    <div><input class=\"btn\" type=\"submit\" value=\"Add to Users\"></div>\n  </form>\n  <div class=\"show-users\" ng-repeat=\"post in $ctrl.postEntries\">\n      <p>{{post.first_name}}</p>\n      <p>{{post.last_name}}</p>\n      <p>{{post.email}}</p>\n      <p>{{post.title}}</p>\n      <button class=\"btn\" ng-click=\"$ctrl.showUser(user._id)\">View</button>\n  </div>\n</div>\n";
 
 /***/ }),
 /* 127 */

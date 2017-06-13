@@ -8,6 +8,7 @@ function EventsService($http) {
     }
 
     self.addNewEventToDatabase = function (newEvent) {
+        console.log(newEvent)
         return $http.post('events/', newEvent);
     }
 

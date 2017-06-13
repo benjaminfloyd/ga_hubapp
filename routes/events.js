@@ -13,7 +13,7 @@ router.get('/', (request, response) => {
             return;
         }
 
-        // if there are no errors, send the events back as JSON    
+        // if there are no errors, send the events back as JSON
         console.log(events);
         response.send(events);
     })
@@ -24,7 +24,7 @@ router.get('/:eventId', function (request, response) {
 
     const eventIdToShow = request.params.eventId;
 
-    Event.findById(eventdToShow, function (error, foundCredit) {
+    Event.findById(eventdToShow, function (error, foundEvent) {
         if (error) {
             console.log('Error finding Event with ID of ' + eventIdToShow);
             return;
@@ -43,14 +43,15 @@ router.post('/', (request, response) => {
     // then build a new Event model with the info
     // REMEMBER: the new Date will be created by the database
     let newEvent = new Event({
-            eventName: eventFromRequest.event_name,
-            eventLocation: eventFromRequest.event_location,
-            eventDescription: eventFromRequest.event_description,
-            eventDate: eventFromRequest.event_date,
-            updatedAt: eventFromRequest.updatedAt,
-            createdAt: eventFromRequest.createdAt
+        
+            event_name: eventFromRequest.event_name,
+            event_location: eventFromRequest.event_location,
+            event_description: eventFromRequest.event_description,
+            event_date: eventFromRequest.event_date,
+            event_cost: eventFromRequest.event_cost,
     });
-
+    console.log(newEvent)
+        
     // save the new Event model to the database
     newEvent.save(function (error, newEvent) {
         if (error) {
@@ -59,7 +60,7 @@ router.post('/', (request, response) => {
         }
 
         // once the new event has been saved, return it to the client
-        response.send(newevent);
+        response.send(newEvent);
     });
 });
 
