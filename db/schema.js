@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+
 var Schema = mongoose.Schema;
 
 // Use native promises
@@ -69,5 +69,5 @@ module.exports = {
   Event: EventModel,
   Post: PostModel,
   User: PostModel
- 
+
 };

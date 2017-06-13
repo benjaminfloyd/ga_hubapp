@@ -49,7 +49,7 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
 
                 console.log('Error saving new Post to database!');
             }
-            )
+         )
     }
 
     vm.deletePost = function (postIndexToDelete, postIdToDeleteFromDatabase) {
@@ -64,7 +64,7 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
 
                 console.log('Error deleting Post with ID of ' + postIdToDeleteFromDatabase);
             }
-            )
+         )
     }
 
     vm.showPost = function (postId) {

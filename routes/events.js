@@ -13,7 +13,7 @@ router.get('/', (request, response) => {
             return;
         }
 
-        // if there are no errors, send the events back as JSON    
+        // if there are no errors, send the events back as JSON
         console.log(events);
         response.send(events);
     })
@@ -24,7 +24,7 @@ router.get('/:eventId', function (request, response) {
 
     const eventIdToShow = request.params.eventId;
 
-    Event.findById(eventdToShow, function (error, foundCredit) {
+    Event.findById(eventdToShow, function (error, foundEvent) {
         if (error) {
             console.log('Error finding Event with ID of ' + eventIdToShow);
             return;
