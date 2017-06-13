@@ -38,7 +38,6 @@ db.once('open', function() {
   console.log("database has been connected!");
 });
 
-
 var index = require('./routes/index');
 var users = require('./routes/users');
 var posts = require('./routes/posts');
