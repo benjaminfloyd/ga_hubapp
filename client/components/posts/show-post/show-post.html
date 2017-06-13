@@ -1,17 +1,11 @@
 <div class="container">
-    <h1>Post</h1>
     <div class="card">
         <div class="card-content">
-            <h3>Company Name: {{$ctrl.postEntry.company_name}}</h3>
-            <h3>Position: {{$ctrl.postEntry.position_title}}</h3>
-            <h3>Job Description: {{$ctrl.postEntry.job_description}}</h3>
-            <h3>Date Available: {{$ctrl.postEntry.date_available}}</h3>
-
-            <button class="btn" ng-click="$ctrl.editPostEntry($ctrl.postEntry._id)">Edit</button>
+            <h3>Company Name: </h3>{{$ctrl.postEntry.company_name}}
+            <h3>Position: </h3>{{$ctrl.postEntry.position_title}}
+            <h3>Job Description: </h3>{{$ctrl.postEntry.job_description}}
+            <h3>Date Available: </h3>{{$ctrl.postEntry.date_available | date: shortDate}}
         </div>
+           <p><button class="btn" ng-click="$ctrl.editPostEntry($ctrl.postEntry._id)">Edit</button></p>
     </div>
 </div>
-
-
-
-

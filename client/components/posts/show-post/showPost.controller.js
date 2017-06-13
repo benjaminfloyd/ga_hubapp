@@ -9,13 +9,13 @@ function ShowPostController($state, $stateParams, PostsService) {
 
         PostsService.getSinglePostById(postIdToShow)
             .then(
-                function success(response) {
-                    vm.postEntry = response.data;
-                    console.log(response.data);
-                },
-                function failure(response) {
-                    console.log('Failed to retrieve information for Post with ID of ' + postIdToShow)
-                }
+            function success(response) {
+                vm.postEntry = response.data;
+                console.log(response.data);
+            },
+            function failure(response) {
+                console.log('Failed to retrieve information for Post with ID of ' + expenseIdToShow)
+            }
             )
     }
     initialize();
