@@ -1,21 +1,20 @@
 <div class="container">
   <div class="content">
-    <h1>Events</h1>
     <form ng-submit="$ctrl.addEvent()">
       <p>
         <div>Event Name:<input type="text" ng-model="$ctrl.eventName" required></div>
-        <div>Event Location:<input type="text" ng-model="$ctrl.eventLocation" required></div>
-        <div>Event Description: <input type="text" ng-model="$ctrl.eventDescription" required></div>
-        <div>Event Date: <input type="text" ng-model="$ctrl.eventDate" required></div>
-        <div>Event Cost: <input type="text" ng-model="$ctrl.eventCost" required></div>
+        <div>Location:<input type="text" ng-model="$ctrl.eventLocation" required></div>
+        <div>Description: <input type="text" ng-model="$ctrl.eventDescription" required></div>
+        <div>Date: <input type="text" ng-model="$ctrl.eventDate" required></div>
+        <div>Tickets: <input type="text" ng-model="$ctrl.eventCost" required></div>
       </p>
       <div><input class="btn" type="submit" value="Add Event"></div>
     </form>
     <div class="content float-left" ng-repeat="event in $ctrl.eventEntries">
       <p><span class="bold">Event Name: </span>{{event.event_name}}</p>
-      <p><span class="bold">Event Location: </span>{{event.event_location}}</p>
-      <p><span class="bold">Event Date: </span>{{event.event_date | date: shortDate}}</p>
-      <p><span class="bold">Event Cost: </span>{{event.event_cost | currency}}</p>
+      <p><span class="bold">Location: </span>{{event.event_location}}</p>
+      <p><span class="bold">Date: </span>{{event.event_date | date: shortDate}}</p>
+      <p><span class="bold">Tickets: </span>{{event.event_cost | currency}}</p>
       <button class="btn" ng-click="$ctrl.showEvent(event._id)">View</button>
       <button class="btn" ng-click="$ctrl.deleteEvent($index, event._id)">Delete</button>
     </div>
