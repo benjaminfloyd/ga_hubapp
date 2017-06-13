@@ -18,6 +18,11 @@ function CreateUserController($state, $stateParams, UsersService) {
     }
     initialize();
 
+    vm.showUser = function (userId) {
+        console.log('showUser');
+        $state.go('show_user/:userId', { userId: userId });
+    }
+
     vm.updateUserInformation = function () {
         UsersService.updateSingleUser(
             vm.userToUpdate
@@ -32,4 +37,8 @@ function CreateUserController($state, $stateParams, UsersService) {
     }
 }
 
+
+
 module.exports = CreateUserController;
+
+
