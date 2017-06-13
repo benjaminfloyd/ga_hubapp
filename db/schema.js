@@ -1,7 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// Use native promises
 mongoose.Promise = global.Promise;
 
 var EventSchema = new Schema({
@@ -10,7 +9,7 @@ var EventSchema = new Schema({
     event_description: String,
     event_date: Date,
     event_cost: String
-    
+
 
 })
 
@@ -68,6 +67,6 @@ var UserModel = mongoose.model("User", UserSchema);
 module.exports = {
   Event: EventModel,
   Post: PostModel,
-  User: PostModel
+  User: UserModel
 
 };

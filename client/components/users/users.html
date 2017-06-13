@@ -1,16 +1,23 @@
-<h1>Users</h1>
-  <form ng-submit="$ctrl.addUser()">
-    <div>First Name: <input type="text" ng-model="$ctrl.firstName" required></div>
-    <div>Last Name: <input type="text" ng-model="$ctrl.lastName" required></div>
-    <div>Email: <input type="text" ng-model="$ctrl.email" required></div>
-    <div>Title: <input type="text" ng-model="$ctrl.title" required></div>
-    <div><input class="btn" type="submit" value="Add to Users"></div>
-  </form>
-  <div class="show-users" ng-repeat="post in $ctrl.postEntries">
-      <p>{{post.first_name}}</p>
-      <p>{{post.last_name}}</p>
-      <p>{{post.email}}</p>
-      <p>{{post.title}}</p>
+<div class="container">
+  <div class="content">
+    <h1>Users</h1>
+    <form ng-submit="$ctrl.addUser()">
+      <p>
+        <div>First Name: <input type="text" ng-model="$ctrl.firstName" required></div>
+        <div>Last Name: <input type="text" ng-model="$ctrl.lastName" required></div>
+        <div>Email: <input type="text" ng-model="$ctrl.email" required></div>
+        <div>Title: <input type="text" ng-model="$ctrl.title" required></div>
+      </p>
+      <div><input class="btn" type="submit" value="Add to Users"></div>
+    </form>
+
+
+  <div class="content float-left" ng-repeat="user in $ctrl.userEntries">
+      <p><span class="bold">First Name:</span> {{user.first_name}}</p>
+      <p><span class="bold">Last Name:</span> {{user.last_name}}</p>
+      <p><span class="bold">Email:</span> {{user.email}}</p>
+      <p><span class="bold">Title:</span> {{user.title}}</p>
       <button class="btn" ng-click="$ctrl.showUser(user._id)">View</button>
+      <button class="btn" ng-click="$ctrl.deleteUser($index, user._id)">Delete</button>
   </div>
 </div>

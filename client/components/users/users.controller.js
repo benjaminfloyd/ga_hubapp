@@ -29,7 +29,7 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
     }
 
     vm.addUser = function () {
-                    console.log('World Hello');
+
         const newUser = {
             first_name: vm.firstName,
             last_name: vm.lastName,
@@ -41,6 +41,7 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
             .then(
                 function success(response) {
                     const newUserFromDatabase = response.data;
+                    console.log(newUserFromDatabase);
                     vm.userEntries.push(newUserFromDatabase);
                     resetForm();
                 },

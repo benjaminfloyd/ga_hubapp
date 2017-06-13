@@ -5644,7 +5644,7 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
     }
 
     vm.addUser = function () {
-        console.log('World Hello');
+
         var newUser = {
             first_name: vm.firstName,
             last_name: vm.lastName,
@@ -5654,6 +5654,7 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
 
         UsersService.addNewUserToDatabase(newUser).then(function success(response) {
             var newUserFromDatabase = response.data;
+            console.log(newUserFromDatabase);
             vm.userEntries.push(newUserFromDatabase);
             resetForm();
         }, function failure(response) {
@@ -46195,7 +46196,7 @@ module.exports = "";
 /* 127 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"content\">\n    <h1>Posts</h1>\n    <form ng-submit=\"$ctrl.addPost()\">\n      <p>\n        <div>Company Name:<input type=\"text\" ng-model=\"$ctrl.companyName\" required></div>\n        <div>Position Title: <input type=\"text\" ng-model=\"$ctrl.positionTitle\" required></div>\n        <div>Job Description: <input type=\"text\" ng-model=\"$ctrl.jobDescription\" required></div>\n        <div>Date Available: <input type=\"text\" ng-model=\"$ctrl.dateAvailable\" required></div>\n      </p>\n      <div><input class=\"btn\" type=\"submit\" value=\"Add to Posts\"></div>\n    </form>\n    <div class=\"content float-left\" ng-repeat=\"post in $ctrl.postEntries\">\n      <p><span class=\"bold\">Company Name:</span> {{post.company_name}}</p>\n      <p><span class=\"bold\">Position Title:</span> {{post.position_title}}</p>\n      <p><span class=\"bold\">Date Available:</span> {{post.date_available | date: shortDate}}</p>\n      <button class=\"btn\" ng-click=\"$ctrl.showPost(post._id)\">View</button>\n      <button class=\"btn\" ng-click=\"$ctrl.deletePost($index, post._id)\">Delete</button>\n    </div>\n  </div>";
+module.exports = "<div class=\"container\">\n  <div class=\"content\">\n    <h1>Posts</h1>\n    <form ng-submit=\"$ctrl.addPost()\">\n      <p>\n        <div>Company Name:<input type=\"text\" ng-model=\"$ctrl.companyName\" required></div>\n        <div>Position Title: <input type=\"text\" ng-model=\"$ctrl.positionTitle\" required></div>\n        <div>Job Description: <input type=\"text\" ng-model=\"$ctrl.jobDescription\" required></div>\n        <div>Date Available: <input type=\"text\" ng-model=\"$ctrl.dateAvailable\" required></div>\n      </p>\n      <div><input class=\"btn\" type=\"submit\" value=\"Add to Posts\"></div>\n    </form>\n    <div class=\"content float-left\" ng-repeat=\"post in $ctrl.postEntries\">\n      <p><span class=\"bold\">Company Name:</span> {{post.company_name}}</p>\n      <p><span class=\"bold\">Position Title:</span> {{post.position_title}}</p>\n      <p><span class=\"bold\">Date Available:</span> {{post.date_available | date: shortDate}}</p>\n      <button class=\"btn\" ng-click=\"$ctrl.showPost(post._id)\">View</button>\n      <button class=\"btn\" ng-click=\"$ctrl.deletePost($index, post._id)\">Delete</button>\n    </div>\n  </div>\n";
 
 /***/ }),
 /* 128 */
@@ -46225,7 +46226,7 @@ module.exports = "<div class=\"container\">\n    <h1>User</h1>\n    <div class=\
 /* 132 */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Users</h1>\n  <form ng-submit=\"$ctrl.addUser()\">\n    <div>First Name: <input type=\"text\" ng-model=\"$ctrl.firstName\" required></div>\n    <div>Last Name: <input type=\"text\" ng-model=\"$ctrl.lastName\" required></div>\n    <div>Email: <input type=\"text\" ng-model=\"$ctrl.email\" required></div>\n    <div>Title: <input type=\"text\" ng-model=\"$ctrl.title\" required></div>\n    <div><input class=\"btn\" type=\"submit\" value=\"Add to Users\"></div>\n  </form>\n  <div class=\"show-users\" ng-repeat=\"post in $ctrl.postEntries\">\n      <p>{{post.first_name}}</p>\n      <p>{{post.last_name}}</p>\n      <p>{{post.email}}</p>\n      <p>{{post.title}}</p>\n      <button class=\"btn\" ng-click=\"$ctrl.showUser(user._id)\">View</button>\n  </div>\n</div>\n";
+module.exports = "<div class=\"container\">\n  <div class=\"content\">\n    <h1>Users</h1>\n    <form ng-submit=\"$ctrl.addUser()\">\n      <p>\n        <div>First Name: <input type=\"text\" ng-model=\"$ctrl.firstName\" required></div>\n        <div>Last Name: <input type=\"text\" ng-model=\"$ctrl.lastName\" required></div>\n        <div>Email: <input type=\"text\" ng-model=\"$ctrl.email\" required></div>\n        <div>Title: <input type=\"text\" ng-model=\"$ctrl.title\" required></div>\n      </p>\n      <div><input class=\"btn\" type=\"submit\" value=\"Add to Users\"></div>\n    </form>\n\n\n  <div class=\"content float-left\" ng-repeat=\"user in $ctrl.userEntries\">\n      <p><span class=\"bold\">First Name:</span> {{user.first_name}}</p>\n      <p><span class=\"bold\">Last Name:</span> {{user.last_name}}</p>\n      <p><span class=\"bold\">Email:</span> {{user.email}}</p>\n      <p><span class=\"bold\">Title:</span> {{user.title}}</p>\n      <button class=\"btn\" ng-click=\"$ctrl.showUser(user._id)\">View</button>\n      <button class=\"btn\" ng-click=\"$ctrl.deleteUser($index, user._id)\">Delete</button>\n  </div>\n</div>\n";
 
 /***/ }),
 /* 133 */
