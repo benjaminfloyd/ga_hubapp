@@ -5289,6 +5289,7 @@ function ShowEventController($state, $stateParams, EventsService) {
 
         EventsService.getSingleEventById(eventIdToShow).then(function success(response) {
             vm.eventEntry = response.data;
+            console.log(response.data);
         }, function failure(response) {
             console.log('Failed to retrieve information for Event with ID of ' + eventIdToShow);
         });
