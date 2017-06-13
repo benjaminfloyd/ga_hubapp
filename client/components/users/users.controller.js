@@ -68,7 +68,7 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
 
     vm.showUser = function (userId) {
         console.log(userId)
-        $state.go('show_user', { userId: userId });
+        $state.go('show_user/:userId', { userId: userId });
     }
 
     function resetForm() {
