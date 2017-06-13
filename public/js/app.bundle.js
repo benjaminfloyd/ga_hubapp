@@ -46172,7 +46172,7 @@ module.exports = "<div class=\"container\">\n  <div class=\"content\">\n    <h1>
 /* 123 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n      <div class=\"card\">\n            <div class=\"content\">\n                  <p>\n                        <h3>Event Name: </h3>{{$ctrl.eventEntry.event_name}}\n                        <h3>Location: </h3>{{$ctrl.eventEntry.event_location}}\n                        <h3>Description </h3>{{$ctrl.eventEntry.event_description}}\n                        <h3>Date: </h3>{{$ctrl.eventEntry.event_date | date: shortDate}}\n                        <h3>Tickets: </h3>{{$ctrl.eventEntry.event_cost | currency}}\n                        <h3>Event ID: </h3>{{$ctrl.eventEntry._id}}\n                  </p>\n            </div>\n            <p><button class=\"btn\" ng-click=\"$ctrl.editEvent(event._id)\">Edit</button></p>\n      </div>\n</div>";
+module.exports = "<div class=\"container\">\n      <div class=\"card\">\n            <div class=\"content\">\n                  <p>\n                        <h3>Event Name: </h3>{{$ctrl.eventEntry.event_name}}\n                        <h3>Location: </h3>{{$ctrl.eventEntry.event_location}}\n                        <h3>Description </h3>{{$ctrl.eventEntry.event_description}}\n                        <h3>Date: </h3>{{$ctrl.eventEntry.event_date | date: shortDate}}\n                        <h3>Tickets: </h3>{{$ctrl.eventEntry.event_cost | currency}}\n                        <h3>Event ID: </h3>{{$ctrl.eventEntry._id}}\n                  </p>\n                  <p><button class=\"btn center\" ng-click=\"$ctrl.editEvent(event._id)\">Edit</button></p>\n            </div>\n      </div>\n</div>";
 
 /***/ }),
 /* 124 */
@@ -46202,7 +46202,7 @@ module.exports = "<div class=\"container\">\n  <div class=\"content\">\n    <h1>
 /* 128 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n    <div class=\"card\">\n        <div class=\"content\">\n            <p>\n                <h3>Company Name: </h3>{{$ctrl.postEntry.company_name}}\n                <h3>Position: </h3>{{$ctrl.postEntry.position_title}}\n                <h3>Job Description: </h3>{{$ctrl.postEntry.job_description}}\n                <h3>Date Available: </h3>{{$ctrl.postEntry.date_available | date: shortDate}}\n            </p>\n        </div>\n        <p><button class=\"btn\" ng-click=\"$ctrl.editPostEntry($ctrl.postEntry._id)\">Edit</button></p>\n    </div>\n</div>";
+module.exports = "<div class=\"container\">\n    <div class=\"card\">\n        <div class=\"content\">\n            <p>\n                <h3>Company Name: </h3>{{$ctrl.postEntry.company_name}}\n                <h3>Position: </h3>{{$ctrl.postEntry.position_title}}\n                <h3>Job Description: </h3>{{$ctrl.postEntry.job_description}}\n                <h3>Date Available: </h3>{{$ctrl.postEntry.date_available | date: shortDate}}\n            </p>\n            <p><button class=\"btn\" ng-click=\"$ctrl.editPostEntry($ctrl.postEntry._id)\">Edit</button></p>\n        </div>\n    </div>\n</div>";
 
 /***/ }),
 /* 129 */
@@ -46220,7 +46220,7 @@ module.exports = "";
 /* 131 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n    <h1>User</h1>\n    <div class=\"card\">\n        <div class=\"content\">\n            <h3>First Name: {{$ctrl.userEntry.first_name}}</h3>\n            <h3>Last Name: {{$ctrl.userEntry.last_name}}</h3>\n            <h3>Email: {{$ctrl.userEntry.email}}</h3>\n            <h3>Title: {{$ctrl.userEntry.title}}</h3>\n\n            <button class=\"btn\" ng-click=\"$ctrl.editUserEntry($ctrl.userEntry._id)\">Edit</button>\n        </div>\n    </div>\n</div>\n\n\n\n\n";
+module.exports = "<div class=\"container\">\n    <h1>User</h1>\n    <div class=\"card\">\n        <div class=\"content\">\n            <p>\n                <h3>First Name: {{$ctrl.userEntry.first_name}}</h3>\n                <h3>Last Name: {{$ctrl.userEntry.last_name}}</h3>\n                <h3>Email: {{$ctrl.userEntry.email}}</h3>\n                <h3>Title: {{$ctrl.userEntry.title}}</h3>\n            </p>\n            <button class=\"btn center\" ng-click=\"$ctrl.editUserEntry($ctrl.userEntry._id)\">Edit</button>\n        </div>\n    </div>\n</div>";
 
 /***/ }),
 /* 132 */
