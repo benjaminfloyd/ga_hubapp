@@ -1,4 +1,5 @@
 <div class="container">
+  <div class="content">
   <h1>Events</h1>
   <form ng-submit="$ctrl.addEvent()">
     <div>Event Name:<input type="text" ng-model="$ctrl.eventName" required></div>
@@ -8,13 +9,14 @@
     <div>Event Cost: <input type="text" ng-model="$ctrl.eventCost" required></div>
     <div><input class="btn" type="submit" value="Add Event"></div>
   </form>
-  <div class="show-events" ng-repeat="event in $ctrl.eventEntries">
-      <p>{{event.event_name}}</p>
-      <p>{{event.event_location}}</p>
-      <p>{{event.event_description}}</p>
-      <p>{{event.event_date}}</p>
-      <p>{{event.event_cost}}</p>
-      <p>{{event._id}}</p>
+  <div class="content float-left" ng-repeat="event in $ctrl.eventEntries">
+      <p>Event Name: {{event.event_name}}</p>
+      <p>Event Location: {{event.event_location}}</p>
+      <p>Event Description: {{event.event_description}}</p>
+      <p>Event Date: {{event.event_date}}</p>
+      <p>Event Cost: {{event.event_cost}}</p>
+      <p>Event ID: {{event._id}}</p>
       <button class="btn" ng-click="$ctrl.showEvent(event._id)">View</button>
+      <button class="btn" ng-click="$ctrl.deleteEvent($index, event._id)">Delete</button>
   </div>
 </div>

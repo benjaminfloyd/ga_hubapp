@@ -10,11 +10,11 @@
       </p>
       <div><input class="btn" type="submit" value="Add to Posts"></div>
     </form>
-  </div>
-  <div class="content float-left" ng-repeat="post in $ctrl.postEntries">
-    <p><span class="bold">Company Name:</span> {{post.company_name}}</p>
-    <p><span class="bold">Position Title:</span> {{post.position_title}}</p>
-    <p><span class="bold">Date Available:</span> {{post.date_available | date: shortDate}}</p>
-    <button class="btn" ng-click="$ctrl.showPost(post._id)">View</button>
-    <button class="btn" ng-click="$ctrl.deletePost($index, post._id)">Delete</button>
+    <div class="content float-left" ng-repeat="post in $ctrl.postEntries">
+      <p><span class="bold">Company Name:</span> {{post.company_name}}</p>
+      <p><span class="bold">Position Title:</span> {{post.position_title}}</p>
+      <p><span class="bold">Date Available:</span> {{post.date_available | date: shortDate}}</p>
+      <button class="btn" ng-click="$ctrl.showPost(post._id)">View</button>
+      <button class="btn" ng-click="$ctrl.deletePost($index, post._id)">Delete</button>
+    </div>
   </div>
