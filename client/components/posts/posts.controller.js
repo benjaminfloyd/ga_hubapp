@@ -7,6 +7,7 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
     vm.positionTitle = '';
     vm.jobDescription = '';
     vm.dateAvailable = '';
+    vm.postEntries = [];
 
     function initialize() {
         console.log('Post Controller Working');
@@ -19,6 +20,7 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
         PostsService.getAllPostsFromDatabase()
             .then(
             function success(response) {
+                debugger;
                 vm.postEntries = response.data;
             },
             function failure(response) {
@@ -65,7 +67,7 @@ function PostsController($http, $state, $stateParams, PostsService, $scope) {
             )
     }
 
-    vm.showExpense = function (postId) {
+    vm.showPost = function (postId) {
         $state.go('show_post/:postId', { postId: postId });
     }
 
