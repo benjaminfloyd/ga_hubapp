@@ -5564,7 +5564,6 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
 
     function getAllUsersFromDatabase() {
         UsersService.getAllUsersFromDatabase().then(function success(response) {
-            debugger;
             vm.userEntries = response.data;
         }, function failure(response) {
             console.log('Error retrieving User Entries from database!');
@@ -5572,7 +5571,7 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
     }
 
     vm.addUser = function () {
-
+        console.log('World Hello');
         var newUser = {
             first_name: vm.firstName,
             last_name: vm.lastName,
@@ -46101,7 +46100,7 @@ module.exports = "";
 /* 125 */
 /***/ (function(module, exports) {
 
-module.exports = "";
+module.exports = "<div class=\"container\">\n    <h1>User</h1>\n    <div class=\"card\">\n        <div class=\"card-content\">\n            <h3>First Name: {{$ctrl.userEntry.first_name}}</h3>\n            <h3>Last Name: {{$ctrl.userEntry.last_name}}</h3>\n            <h3>Email: {{$ctrl.userEntry.email}}</h3>\n            <h3>Title: {{$ctrl.userEntry.title}}</h3>\n\n            <button class=\"btn\" ng-click=\"$ctrl.editUserEntry($ctrl.userEntry._id)\">Edit</button>\n        </div>\n    </div>\n</div>\n\n\n\n\n";
 
 /***/ }),
 /* 126 */
