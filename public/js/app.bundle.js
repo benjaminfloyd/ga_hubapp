@@ -46190,7 +46190,7 @@ module.exports = "  <h1>Posts</h1>\n  <form ng-submit=\"$ctrl.addPost()\">\n    
 /* 126 */
 /***/ (function(module, exports) {
 
-module.exports = "";
+module.exports = "<div class=\"container\">\n    <div class=\"card\">\n        <div class=\"card-content\">\n            <form ng-submit=\"$ctrl.updatePostInformation($ctrl.postToUpdate._id)\">\n                <div>Company Name: <input type=\"text\" ng-model=\"$ctrl.postToUpdate.company_name\"></div>\n                <div>Position: <input type=\"text\" ng-model=\"$ctrl.postToUpdate.position_title\"></div>\n                <div>Job Description: <input type=\"text\" ng-model=\"$ctrl.postToUpdate.job_description\"></div>\n                <div>Date Available: <input type=\"text\" ng-model=\"$ctrl.postToUpdate.date_available\"></div>\n                <br>\n                <div><input class=\"btn\" type=\"submit\" value=\"Update post Entry\"></div>\n            </form>\n        </div>\n    </div>\n</div>\n";
 
 /***/ }),
 /* 127 */
