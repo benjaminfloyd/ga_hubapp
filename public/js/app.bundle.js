@@ -5607,14 +5607,22 @@ UsersController.$inject = ['$http', '$state', '$stateParams', 'UsersService', '$
 function UsersController($http, $state, $stateParams, UsersService, $scope) {
 
     var vm = this;
+    vm.firstName = '';
+    vm.lastName = '';
+    vm.email = '';
+    vm.title = '';
+    vm.userEntries = [];
 
     function initialize() {
+        console.log('User Controller Working');
+
         getAllUsersFromDatabase();
     }
     initialize();
 
     function getAllUsersFromDatabase() {
         UsersService.getAllUsersFromDatabase().then(function success(response) {
+            debugger;
             vm.userEntries = response.data;
         }, function failure(response) {
             console.log('Error retrieving User Entries from database!');
@@ -5624,8 +5632,10 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
     vm.addUser = function () {
 
         var newUser = {
-            amount: vm.newUserAmount,
-            note: vm.newUserNote
+            first_name: vm.firstName,
+            last_name: vm.lastName,
+            email: vm.email,
+            title: vm.title
         };
 
         UsersService.addNewUserToDatabase(newUser).then(function success(response) {
@@ -5653,8 +5663,10 @@ function UsersController($http, $state, $stateParams, UsersService, $scope) {
     };
 
     function resetForm() {
-        vm.newUserAmount = '';
-        vm.newUserNote = '';
+        vm.firstName = '';
+        vm.lastName = '';
+        vm.email = '';
+        vm.title = '';
     }
 
     vm.totalUsers = function () {
@@ -46198,7 +46210,7 @@ module.exports = "";
 /* 132 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"jumbotron\">\n    <div class=\"absolute-center\">\n        <h1 class=\"jumbotron-header\">Welcome to GA Hub</h1>\n        <p>Make friends, Git Hired</p>\n        <p><a class=\"btn btn-primary btn-lg\" href=\"#\" role=\"button\">Learn more</a></p>\n\n    </div>\n</div>\n";
+module.exports = "\"container\">\n  <h1>Users</h1>\n  <form ng-submit=\"$ctrl.addUser()\">\n    <div>First Name: <input type=\"text\" ng-model=\"$ctrl.firstName\" required></div>\n    <div>Last Name: <input type=\"text\" ng-model=\"$ctrl.lastName\" required></div>\n    <div>Email: <input type=\"text\" ng-model=\"$ctrl.email\" required></div>\n    <div>Title: <input type=\"text\" ng-model=\"$ctrl.title\" required></div>\n    <div><input class=\"btn\" type=\"submit\" value=\"Add to Users\"></div>\n  </form>\n  <div class=\"show-users\" ng-repeat=\"post in $ctrl.postEntries\">\n      <p>{{post.first_name}}</p>\n      <p>{{post.last_name}}</p>\n      <p>{{post.email}}</p>\n      <p>{{post.title}}</p>\n      <button class=\"btn\" ng-click=\"$ctrl.showUser(user._id)\">View</button>\n  </div>\n</div>\n";
 
 /***/ }),
 /* 133 */
