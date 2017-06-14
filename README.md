@@ -1,9 +1,25 @@
-# ga_hubapp
+# GA Hub App:
+##Make friends Git Hired! 
+
+###Launch [link](https://hidden-cove-97059.herokuapp.com/#!/)
 
 Project 3 GA Hub
 Make friends Git Hired!
 
+Contributions:
+Kate
+Ben 
+Jeff 
+
 GA Hub App is a Classifieds and networking portal for GA Alumi
+
+Technologies utilized in this project:
+
+Node/Express
+Mongo/Mongoose
+AngularJS/JavaScript
+HTML
+CSS
 
 Models:
 Users - Full CRUD Reach Messaaging.
